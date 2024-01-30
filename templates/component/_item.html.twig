@@ -1,6 +1,8 @@
 <div class="twig-doc-component">
     <h3>{{ component.title }} ({{ component.name ~ '.html.twig' }})</h3>
     <p>Description: {{ component.description }}</p>
+    <p>Category: {{ component.mainCategory.name }}</p>
+    <p>Sub-Category: {{ component.category.parent ? component.category.name : 'NONE' }}</p>
     <div class="twig-doc-component-configuration">
         <h5>Parameters</h5>
         <ul>
