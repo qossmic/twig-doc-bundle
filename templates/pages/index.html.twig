@@ -2,7 +2,7 @@
 
 {% block body %}
     {% include '@TwigDoc/component/_search.html.twig' %}
-    <a href="{{ path('_documentation_invalid_components') }}">Invalid components</a>
+    <a href="{{ path('_documentation_invalid_components') }}">Invalid components</a> <span title="Number of invalid components">({{ getInvalidComponents()|length }})</span>
     {# <div class="navigation">
         <a href="{{ path('_documentation_home')}}">All</a>
         <a href="{{ path('_documentation_home', {tag: 'button'}) }}">Buttons</a>

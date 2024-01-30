@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Component;
 
@@ -25,7 +26,7 @@ class ComponentItemFactory
                     "invalid %s \"%s\". Valid categories are: %s. Valid sub-categories are: %s",
                     isset($data['sub_category']) ? 'sub_category' : 'category',
                     $data['sub_category'] ?? $data['category'],
-                    implode(', ', array_filter(array_keys($this->categoryService->getCategories()), fn (string $category) => $category !== CategoryService::INVALID_CATEGORY)),
+                    implode(', ', array_keys($this->categoryService->getCategories())),
                     implode(', ', array_keys($this->categoryService->getSubCategories()))
                 )
             );

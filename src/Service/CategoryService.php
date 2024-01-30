@@ -8,8 +8,6 @@ use Qossmic\TwigDocBundle\Exception\InvalidConfigException;
 
 class CategoryService
 {
-    public const INVALID_CATEGORY = '__INVALID_ITEMS__';
-
     /**
      * @var ComponentCategory[]
      */
@@ -22,8 +20,6 @@ class CategoryService
 
     public function __construct(private readonly array $categoriesConfig)
     {
-        $this->categories[self::INVALID_CATEGORY] = (new ComponentCategory())->setName(self::INVALID_CATEGORY);
-
         $this->parseCategories();
     }
 

@@ -1,8 +1,16 @@
 <div class="twig-doc-component">
     <h3>{{ component.title }} ({{ component.name ~ '.html.twig' }})</h3>
     <p>Description: {{ component.description }}</p>
-    <p>Category: {{ component.mainCategory.name }}</p>
-    <p>Sub-Category: {{ component.category.parent ? component.category.name : 'NONE' }}</p>
+    <p>Category: <a href="{{ path('_documentation_home', {'filterQuery': component.mainCategory.name, 'filterType': 'category'}) }}">{{ component.mainCategory.name }}</a></p>
+    <p>Sub-Category:
+        {% if component.category.parent %}
+        <a href="{{ path('_documentation_home', {'filterQuery': component.category.name, 'filterType': 'sub_category' }) }}">
+            {{ component.category.name }}
+        </a>
+        {% else %}
+        NONE
+        {% endif %}
+    </p>
     <div class="twig-doc-component-configuration">
         <h5>Parameters</h5>
         <ul>
@@ -13,7 +21,7 @@
         <h5>Tags</h5>
         <ul>
             {% for tag in component.tags %}
-                <li>{{ tag }}</li>
+                <li><a href="{{ path('_documentation_home', {'filterQuery': tag, 'filterType': 'tag'}) }}">{{ tag }}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -30,5 +38,4 @@
             </div>
         {% endfor %}
     </div>
-
 </div>

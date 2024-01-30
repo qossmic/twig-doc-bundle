@@ -39,9 +39,7 @@ class TwigDocController
     public function invalidComponents(): Response
     {
         return new Response(
-            $this->twig->render('@TwigDoc/pages/invalid_components.html.twig', [
-                'components' => $this->componentService->getInvalidComponents(),
-            ])
+            $this->twig->render('@TwigDoc/pages/invalid_components.html.twig')
         );
     }
 }
