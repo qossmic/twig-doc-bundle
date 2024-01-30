@@ -1,0 +1,14 @@
+{% extends'@TwigDoc/base.html.twig' %}
+
+{% block body %}
+    <h1>Invalid Components</h1>
+    <p>Here you will find all components from configuration that are invalid and cannot be rendered.</p>
+    {% if not components %}
+        <h2>
+            Configuration is OK, no invalid components found!
+        </h2>
+    {% endif %}
+    {% for component in components %}
+        {% include '@TwigDoc/component/_invalid_component.html.twig' %}
+    {% endfor %}
+{% endblock %}

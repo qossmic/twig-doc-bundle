@@ -1,0 +1,32 @@
+<div class="twig-doc-component">
+    <h3>{{ component.title }} ({{ component.name ~ '.html.twig' }})</h3>
+    <p>Description: {{ component.description }}</p>
+    <div class="twig-doc-component-configuration">
+        <h5>Parameters</h5>
+        <ul>
+            {% for key, type in component.parameters %}
+                <li>{{ key }}: {{ type }}</li>
+            {% endfor %}
+        </ul>
+        <h5>Tags</h5>
+        <ul>
+            {% for tag in component.tags %}
+                <li>{{ tag }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="twig-doc-component-examples">
+        <h5>Examples</h5>
+        {% for variation in component.variations %}
+            <div class="twig-doc-component-variation">
+                {{ renderComponent(component, variation)|raw }}
+                <ul>
+                    {% for key, value in variation %}
+                        <li>{{ key }}: {{ value }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>

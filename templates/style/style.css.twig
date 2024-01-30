@@ -1,0 +1,106 @@
+* body {
+    padding: 0;
+    padding-top: 0 !important;
+    margin: 0;
+}
+
+body header,
+body footer { display: none; }
+
+.body-container.container {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 999999px !important;
+    margin: 0;
+    padding: 40px;
+}
+
+.error {
+    background-color: #ff747e;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+/* TABS */
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px auto 20px;
+    border-radius: 10px 10px 0 0;
+}
+
+.radiotab {
+    position: absolute;
+    opacity: 0;
+}
+
+.label {
+    width: 100%;
+    padding: 22px 20px;
+    background: #e5e5e5;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 23px;
+    color: #7f7f7f;
+    transition: background .3s, color .3s;
+    border: none;
+    border-radius: 0;
+    text-align: center;
+}
+
+.label:hover {
+    background: #d8d8d8;
+}
+
+.label:active {
+    background: #ccc;
+}
+
+.radiotab:checked + .label {
+    background: #fff;
+    color: #000;
+    border-top: solid 2px #000;
+    border-left: solid 2px #000;
+    border-right: solid 2px #000;
+    border-bottom: none;
+}
+
+.panel {
+    display: none;
+    padding: 20px 30px 30px;
+    background: #fff;
+    width: 100%;
+    border-left: solid 2px #000;
+    border-bottom: solid 2px #000;
+    border-right: solid 2px #000;
+}
+
+.radiotab:checked + .label + .panel {
+    display: block;
+}
+
+@media (min-width: 600px) {
+    .panel {
+        order: 99;
+    }
+
+    .label {
+        width: 33.33%;
+        border-radius: 10px 10px 0 0;
+        border-bottom: solid 2px #000;
+    }
+
+}
+
+.twig-doc-component {
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+.twig-doc-component-variation {
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #000000;
+}

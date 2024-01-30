@@ -1,0 +1,35 @@
+<div class="error">
+    <h3>{{ component.originalConfig.name }}</h3>
+    <h4> Error-Details:</h4>
+    <p>
+        {{ component.violationList }}
+    </p>
+    <h4>Component Configuration</h4>
+    <p>Name: {{ component.originalConfig.name ?? '' }}</p>
+    <p>Title: {{ component.originalConfig.title ?? '' }}</p>
+    <p>Description: {{ component.originalConfig.description ?? '' }}</p>
+    <p>Parameters: </p>
+    {% if component.originalConfig.parameters %}
+        <ul>
+            {% for key, type in component.originalConfig.parameters %}
+                <li>{{ key }}: {{ type }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <p>Tags:</p>
+    {% if component.originalConfig.tags %}
+    <ul>
+        {% for tag in component.originalConfig.tags %}
+            <li>{{ tag }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <p>Variations:</p>
+    {% for variation in component.originalConfig.variations ?? [] %}
+        <ul>
+            {% for key, value in variation %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>
