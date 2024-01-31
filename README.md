@@ -33,7 +33,7 @@ Create a config file: configs/routes/twig_doc.yaml
 
 ```yaml
 twig_doc:
-  resource: '@TwigDocBundle/Resources/config/routing/documentation.xml'
+  resource: '@TwigDocBundle/config/routing/documentation.xml'
   prefix: /twig/doc
   # or for localized: prefix: /{_locale}/twig/doc/
 ```
