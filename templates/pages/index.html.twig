@@ -1,31 +1,34 @@
 {% extends '@TwigDoc/base.html.twig' %}
 
 {% block body %}
-    {% include '@TwigDoc/component/_search.html.twig' %}
-    <a href="{{ path('_documentation_invalid_components') }}">Invalid components</a> <span title="Number of invalid components">({{ getInvalidComponents()|length }})</span>
-    {# <div class="navigation">
-        <a href="{{ path('_documentation_home')}}">All</a>
-        <a href="{{ path('_documentation_home', {tag: 'button'}) }}">Buttons</a>
-        <a href="{{ path('_documentation_home', {tag: 'heading'}) }}">Heading</a>
-        <a href="{{ path('_documentation_home', {tag: 'highlight'}) }}">Highlights</a>
-    </div> #}
-    {% if not components %}
-        <div class="twig-doc-error">
-            No components found
-        </div>
-    {% endif %}
-    <div class="twig-doc-body">
-        <div class="tabs">
-            {% for categoryName, items in components %}
+    <div id="twig-doc-container">
+        {% include '@TwigDoc/component/_search.html.twig' %}
 
-            <input class="radiotab" name="tabs" tabindex="{{ loop.index }}" type="radio" id="tab_{{ loop.index }}" checked="checked">
-            <label class="label" for="tab_{{ loop.index }}">{{ categoryName}}</label>
-            <div class="panel" tabindex="{{ loop.index }}">
-                {% for item in items %}
-                    {% include '@TwigDoc/component/_item.html.twig' with { component: item }%}
+        {% set currentTab = 2 %}
+
+        {% if not components %}
+            <div class="twig-doc-error">
+                No components found
+            </div>
+        {% endif %}
+        <div class="twig-doc-body">
+
+            <button onClick="setScreenwidth('small');">S</button>
+            <button onClick="setScreenwidth('medium');">M</button>
+            <button onClick="setScreenwidth('large');">L</button>
+            <button onClick="setScreenwidth('default');">Default</button>
+            <div class="tabs">
+                {% for categoryName, items in components %}
+
+                    <input class="radiotab" name="tabs" tabindex="{{ loop.index }}" type="radio" id="tab_{{ loop.index }}" {{ loop.index == currentTab ? "checked='checked'" : ""}}>
+                    <label class="label" for="tab_{{ loop.index }}">{{ categoryName}}</label>
+                    <div class="panel" tabindex="{{ loop.index }}">
+                        {% for item in items %}
+                            {% include '@TwigDoc/component/_item.html.twig' with { component: item }%}
+                        {% endfor %}
+                    </div>
                 {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
 {% endblock %}
