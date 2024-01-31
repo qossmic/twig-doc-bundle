@@ -9,6 +9,12 @@
          beStrictAboutOutputDuringTests="true"
          failOnRisky="true"
          failOnWarning="true">
+
+    <php>
+        <env name="APP_ENV" value="test" />
+        <server name="KERNEL_CLASS" value="Qossmic\TwigDocBundle\Tests\TestApp\Kernel" />
+    </php>
+
     <testsuites>
         <testsuite name="default">
             <directory>tests</directory>
