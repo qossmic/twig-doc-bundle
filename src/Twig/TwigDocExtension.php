@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace Qossmic\TwigDocBundle\Twig;
 
 use InvalidArgumentException;
+use Qossmic\TwigDocBundle\Component\ComponentCategory;
 use Qossmic\TwigDocBundle\Component\ComponentInvalid;
 use Qossmic\TwigDocBundle\Component\ComponentItem;
+use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\UX\TwigComponent\ComponentRendererInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -20,6 +22,7 @@ class TwigDocExtension extends AbstractExtension
     public function __construct(
         private readonly ?ComponentRendererInterface $componentRenderer,
         private readonly ComponentService $componentService,
+        private readonly CategoryService $categoryService,
         private readonly Environment $twig
     )
     {
@@ -30,7 +33,8 @@ class TwigDocExtension extends AbstractExtension
         return [
             new TwigFunction('renderComponent', [$this, 'renderComponent']),
             new TwigFunction('filterComponents', [$this, 'filterComponents']),
-            new TwigFunction('getInvalidComponents', [$this, 'getInvalidComponents'])
+            new TwigFunction('getInvalidComponents', [$this, 'getInvalidComponents']),
+            new TwigFunction('getSubCategories', [$this, 'getSubCategories'])
         ];
     }
 
@@ -59,6 +63,14 @@ class TwigDocExtension extends AbstractExtension
     public function getInvalidComponents(): array
     {
         return $this->componentService->getInvalidComponents();
+    }
+
+    /**
+     * @return ComponentCategory[]
+     */
+    public function getSubCategories(string $mainCategoryName = null): array
+    {
+        return $this->categoryService->getSubCategories($this->categoryService->getCategory($mainCategoryName));
     }
 
     /**

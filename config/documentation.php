@@ -31,6 +31,7 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 service('ux.twig_component.component_renderer')->nullOnInvalid(),
                 service('twig_doc.service.component'),
+                service('twig_doc.service.category'),
                 service('twig')]
             )
             ->tag('twig.extension');
