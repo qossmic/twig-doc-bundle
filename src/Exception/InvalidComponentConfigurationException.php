@@ -5,6 +5,9 @@ namespace Qossmic\TwigDocBundle\Exception;
 
 use Symfony\Component\Validator\ConstraintViolationList;
 
+/**
+ * @codeCoverageIgnore
+ */
 class InvalidComponentConfigurationException extends \Exception
 {
     public function __construct(private readonly ConstraintViolationList $violationList)

@@ -5,6 +5,9 @@ namespace Qossmic\TwigDocBundle\Component;
 
 use Symfony\Component\Validator\ConstraintViolationList;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ComponentInvalid
 {
     public function __construct(

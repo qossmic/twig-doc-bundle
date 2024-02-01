@@ -5,6 +5,9 @@ namespace Qossmic\TwigDocBundle\Component;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ComponentCategory
 {
     private ?ComponentCategory $parent = null;

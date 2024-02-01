@@ -43,6 +43,16 @@ class Kernel extends SymfonyKernel
         $loader->load(__DIR__.'/config/packages/*.yaml', 'glob');
     }
 
+    public function getCacheDir(): string
+    {
+        return sys_get_temp_dir().'/qossmic-twig-doc-bundle/cache';
+    }
+
+    public function getLogDir(): string
+    {
+        return sys_get_temp_dir().'/qossmic-twig-doc-bundle/log';
+    }
+
     public function getProjectDir(): string
     {
         return __DIR__.'/../..';

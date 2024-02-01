@@ -47,9 +47,9 @@ class ComponentItemFactory
     private function createItem(array $data): ComponentItem
     {
         $item = new ComponentItem();
-        $item->setName($data['name'])
-            ->setTitle($data['title'])
-            ->setDescription($data['description'])
+        $item->setName($data['name'] ?? '')
+            ->setTitle($data['title'] ?? '')
+            ->setDescription($data['description'] ?? '')
             ->setTags($data['tags'] ?? [])
             ->setParameters($data['parameters'] ?? [])
             ->setVariations($data['variations'] ?? []);
