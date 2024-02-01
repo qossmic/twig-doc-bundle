@@ -1,0 +1,9 @@
+{% if parameter is iterable %}
+    <ul>
+        {% for key, value in parameter %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    {{ parameter }}
+{% endif %}

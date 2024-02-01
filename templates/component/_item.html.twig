@@ -15,7 +15,9 @@
         <h5>Parameters</h5>
         <ul>
             {% for key, type in component.parameters %}
-                <li>{{ key }}: {{ type }}</li>
+                <li>
+                    {{ key }}: {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: type} %}
+                </li>
             {% endfor %}
         </ul>
         <h5>Tags</h5>
@@ -32,7 +34,9 @@
                 {{ renderComponent(component, variation)|raw }}
                 <ul>
                     {% for key, value in variation %}
-                        <li>{{ key }}: {{ value }}</li>
+                        <li>
+                            {{ key }}: {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
