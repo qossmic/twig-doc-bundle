@@ -1,91 +1,116 @@
+#twig-doc-container {
+    margin-top: 50px;
+}
+#twig-doc-container .breakpoints {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    gap: 5px;
+    background-color: white;
+    padding-top: 5px;
+}
+
+#twig-doc-container #screenwidth {
+    text-align: center;
+    background: lightgray;
+    padding: 7px 20px;
+}
+
+#twig-doc-container .breakpoints div {
+    padding: 7px 20px;
+    flex-grow: 1;
+}
+
+#twig-doc-container .navigation {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white;
+    text-align: center;
+    border-bottom: 1px darkgray solid;
+}
+
+#twig-doc-container .navigation ul {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+{# margin-bottom: 25px; #}
+}
+
+#twig-doc-container .navigation ul ul {
+    display: none;
+    position: absolute;
+}
+
+#twig-doc-container .navigation li {
+    list-style: none;
+}
+
+#twig-doc-container .navigation li a {
+    padding: 5px 15px;
+}
+
+
+#twig-doc-container .navigation li:hover ul {
+    display: flex;
+}
+
+
 #twig-doc-container .twig-doc-component {
     background-color: #efefef;
     margin-bottom: 10px;
+    padding: 20px 0;
+    border-radius: 20px;
 }
 #twig-doc-container .twig-doc-component-description {
-    padding: 10px;
+    padding: 20px;
+}
+
+#twig-doc-container .twig-doc-component-description h3 {
+    text-transform: none;
+}
+#twig-doc-container .twig-doc-component-description p,
+#twig-doc-container .twig-doc-variation-description p {
+    line-height: 1.2em;
+    margin: 5px 0 0 0;
+}
+#twig-doc-container .twig-doc-component-description h4 {
+    margin-top: 15px;
+}
+
+#twig-doc-container .twig-doc-component-description h4:first-child {
+    margin-top: 0;
+}
+
+#twig-doc-container .twig-doc-component-configuration {
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    gap: 50px;
+}
+#twig-doc-container .twig-doc-component-configuration div {
+{# padding: 20px; #}
 }
 
 #twig-doc-container .twig-doc-component-variation {
     background-color: white;
-    margin-bottom: 10px;
+    margin-top: 10px;
     border: 1px solid #000000;
 }
 
-#twig-doc-container .twig-doc-component-examples h5 {
-    padding: 10px;
+#twig-doc-container .twig-doc-component-examples h4 {
+    padding-left: 20px;
 }
 
 #twig-doc-container .twig-doc-variation {
     margin-bottom: 20px;
 }
 
-
-h2 a {
-    color: pink;
-    @media (min-width: 768px) {
-        color: aqua;
-    }
-
-}
-
-
-/* TABS */
-
-#twig-doc-container .tabs {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20px auto 20px;
-}
-
-#twig-doc-container .radiotab {
-    position: absolute;
-    opacity: 0;
-}
-
-#twig-doc-container .label {
-    padding: 10px 10px;
-    margin: 0;
-}
-
-#twig-doc-container .label:hover {
-    background: #d8d8d8;
-}
-
-#twig-doc-container .label:active {
-    background: #ccc;
-}
-
-#twig-doc-container .radiotab:checked+.label {
-    background-color: #efefef;
-    border-bottom: 1px solid darkgray;
-    /* background: #fff;
-    color: #000;
-    border-top: solid 2px #000;
-    border-left: solid 2px #000;
-    border-right: solid 2px #000;
-    border-bottom: none; */
-}
-
-#twig-doc-container .panel {
-    display: none;
-    padding: 0;
-    width: 100%;
-}
-
-#twig-doc-container .radiotab:checked+.label+.panel {
-    display: block;
-}
-
-@media (min-width: 600px) {
-    #twig-doc-container .panel {
-        order: 99;
-    }
-
-    #twig-doc-container .label {
-        width: auto;
-        /* border-radius: 10px 10px 0 0; */
-        /* border-bottom: solid 2px #000; */
-    }
-
+#twig-doc-container .twig-doc-variation .twig-doc-variation-description {
+    padding-left: 20px;
 }

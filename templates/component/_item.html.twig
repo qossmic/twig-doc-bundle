@@ -1,45 +1,68 @@
 <div class="twig-doc-component">
-    <h3>{{ component.title }} ({{ component.name ~ '.html.twig' }})</h3>
-    <p>Description: {{ component.description }}</p>
-    <p>Category: <a href="{{ path('_documentation_home', {'filterQuery': component.mainCategory.name, 'filterType': 'category'}) }}">{{ component.mainCategory.name }}</a></p>
-    <p>Sub-Category:
-        {% if component.category.parent %}
-        <a href="{{ path('_documentation_home', {'filterQuery': component.category.name, 'filterType': 'sub_category' }) }}">
-            {{ component.category.name }}
-        </a>
-        {% else %}
-        NONE
-        {% endif %}
-    </p>
-    <div class="twig-doc-component-configuration">
-        <h5>Parameters</h5>
-        <ul>
-            {% for key, type in component.parameters %}
-                <li>
-                    {{ key }}: {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: type} %}
-                </li>
-            {% endfor %}
-        </ul>
-        <h5>Tags</h5>
-        <ul>
-            {% for tag in component.tags %}
-                <li><a href="{{ path('_documentation_home', {'filterQuery': tag, 'filterType': 'tag'}) }}">{{ tag }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="twig-doc-component-examples">
-        <h5>Examples</h5>
-        {% for variation in component.variations %}
-            <div class="twig-doc-component-variation">
-                {{ renderComponent(component, variation)|raw }}
+    <div class="twig-doc-component-description">
+        <h3>{{ component.title }} ({{ component.name ~ '.html.twig' }})</h3>
+        <div class="twig-doc-component-configuration">
+            <div>
+                <h4>Description</h4>
+                <p>{{ component.description }}</p>
+            </div>
+            <div>
+                <h4>Parameters</h4>
                 <ul>
-                    {% for key, value in variation %}
+                    {% for key, type in component.parameters %}
                         <li>
-                            {{ key }}: {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}
+                            <b>{{ key }}:</b>
+                            {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: type} %}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
-        {% endfor %}
+            <div>
+                <h4>Category</h4>
+                <p>
+                    <a href="{{ path('_documentation_home', {'filterQuery': component.mainCategory.name, 'filterType': 'category'}) }}">{{ component.mainCategory.name }}</a>
+                </p>
+            </div>
+            <div>
+                <h4>Sub-Category</h4>
+                {% if component.category.parent %}
+                    <p>
+                        <a href="{{ path('_documentation_home', {'filterQuery': component.category.name, 'filterType': 'sub_category' }) }}">
+                            {{ component.category.name }}
+                        </a>
+                    </p>
+                {% else %}
+                    <p>NONE</p>
+                {% endif %}
+            </div>
+            <div>
+                <h4>Tags</h4>
+                {% for tag in component.tags %}
+                    <p>
+                        <a href="{{ path('_documentation_home', {'filterQuery': tag, 'filterType': 'tag'}) }}">{{ tag }}</a>
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="twig-doc-component-examples">
+            <h4>Variations</h4>
+            {% for variation in component.variations %}
+                <div class="twig-doc-variation">
+                    <div class="twig-doc-component-variation">
+                        {{ renderComponent(component, variation)|raw }}
+                    </div>
+                    <div class="twig-doc-variation-description">
+                        <ul>
+                            {% for key, value in variation %}
+                                <li>
+                                    <b>{{ key }}:</b>
+                                    {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
