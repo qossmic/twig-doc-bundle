@@ -1,0 +1,23 @@
+{
+  "name": "@qossmic/twig-doc-bundle",
+  "description": "TBD",
+  "main": "dist/controller.js",
+  "version": "1.0.0",
+  "license": "MIT",
+  "symfony": {
+    "controllers": {
+      "component": {
+        "main": "dist/controller.js",
+        "webpackMode": "eager",
+        "fetch": "eager",
+        "enabled": true
+      }
+    },
+    "importmap": {
+      "@hotwired/stimulus": "^3.0.0"
+    }
+  },
+  "devDependencies": {
+    "@hotwired/stimulus": "^3.0.0"
+  }
+}

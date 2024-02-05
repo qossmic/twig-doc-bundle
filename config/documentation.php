@@ -7,6 +7,7 @@ use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Controller\TwigDocController;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Service\ComponentService;
+use Qossmic\TwigDocBundle\Twig\Component\LiveComponent;
 use Qossmic\TwigDocBundle\Twig\TwigDocExtension;
 
 return static function (ContainerConfigurator $container) {
@@ -34,5 +35,8 @@ return static function (ContainerConfigurator $container) {
                 service('twig_doc.service.category'),
                 service('twig')]
             )
-            ->tag('twig.extension');
+            ->tag('twig.extension')
+        ->set('twig_doc.twig.ux.live.component', LiveComponent::class)
+            ->args([service('serializer')])
+            ->tag('twig.component');
 };
