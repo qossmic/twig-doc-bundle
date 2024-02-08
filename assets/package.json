@@ -1,6 +1,6 @@
 {
   "name": "@qossmic/twig-doc-bundle",
-  "description": "TBD",
+  "description": "Stimulus controller integration for twig-doc bundle",
   "main": "dist/controller.js",
   "version": "1.0.0",
   "license": "MIT",
@@ -14,7 +14,8 @@
       }
     },
     "importmap": {
-      "@hotwired/stimulus": "^3.0.0"
+      "@hotwired/stimulus": "^3.0.0",
+      "@qossmic/twig-doc-bundle": "path:%PACKAGE%/dist/controller.js"
     }
   },
   "devDependencies": {

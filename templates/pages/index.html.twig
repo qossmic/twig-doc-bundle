@@ -64,7 +64,7 @@
             {% for items in components %}
                 <div>
                     {% for item in items %}
-                        {% include '@TwigDoc/component/_item.html.twig' with { component: item }%}
+{#                        {% include '@TwigDoc/component/_item.html.twig' with { component: item }%}#}
                         {{ component('LiveComponent', {component: item}) }}
                     {% endfor %}
                 </div>

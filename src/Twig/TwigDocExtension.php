@@ -20,7 +20,7 @@ use Qossmic\TwigDocBundle\Service\ComponentService;
 class TwigDocExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly ?ComponentRendererInterface $componentRenderer,
+        private readonly ComponentRendererInterface $componentRenderer,
         private readonly ComponentService $componentService,
         private readonly CategoryService $categoryService,
         private readonly Environment $twig
@@ -45,11 +45,12 @@ class TwigDocExtension extends AbstractExtension
 
     public function renderComponent(ComponentItem $item, array $params): string
     {
-        if ($this->componentRenderer === null) {
-            return $this->renderFallback($item, $params);
-        }
-
         try {
+            # add key-prop to re-calculate a new id to force re-rendering of component
+            # see Symfony\UX\LiveComponent\Util\LiveControllerAttributesCreator::KEY_PROP_NAME
+            if (!isset($params['key'])) {
+                $params['key'] = mt_rand(0, 100000);
+            }
             return $this->componentRenderer->createAndRender($item->getName(), $params);
         } catch (InvalidArgumentException $e) {
             # no ux-component found, so try to render as normal template

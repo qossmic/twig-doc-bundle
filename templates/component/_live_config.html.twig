@@ -1,0 +1,12 @@
+{% for name, type in component.parameters %}
+    {% if type is iterable %}
+        {% include "@TwigDoc/component/_live_config.html.twig" %}
+    {% else %}
+        <label for="{{ component.name ~ name }}">{{ name }}</label>
+        <input
+                type="{{ type == 'Bool' ? 'checkbox' : 'text' }}"
+                data-model="debounce(500)|componentData[{{ name }}]"
+                data-loading="addAttribute(disabled)"
+                id="{{ component.name ~ name }}">
+    {% endif %}
+{% endfor %}

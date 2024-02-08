@@ -3,6 +3,9 @@
   "type": "symfony-bundle",
   "name": "qossmic/twig-doc-bundle",
   "description": "Storybook with twig components",
+  "keywords": [
+    "symfony-ux"
+  ],
   "autoload": {
     "psr-4": {
       "Qossmic\\TwigDocBundle\\": "src/"

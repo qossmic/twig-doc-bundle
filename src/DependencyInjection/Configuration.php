@@ -2,6 +2,7 @@
 
 namespace Qossmic\TwigDocBundle\DependencyInjection;
 
+use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -17,9 +18,18 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
-                ->arrayNode('categories')
-                    ->arrayPrototype()
-                        ->children()
+                ->arrayNode('breakpoints')
+                    ->ignoreExtraKeys(false)
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->integerNode(ComponentService::BREAKPOINT_S)->defaultValue(240)->end()
+                        ->integerNode(ComponentService::BREAKPOINT_M)->defaultValue(500)->end()
+                        ->integerNode(ComponentService::BREAKPOINT_L)->defaultValue(800)->end()
+                    ->end()
+                ->end()
+            ->arrayNode('categories')
+                ->arrayPrototype()
+                    ->children()
                         ->scalarNode('name')->end()
                         ->arrayNode('sub_categories')
                             ->scalarPrototype()->end()

@@ -10,6 +10,9 @@ use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 
 class ComponentService
 {
+    public const BREAKPOINT_S = 's';
+    public const BREAKPOINT_M = 'm';
+    public const BREAKPOINT_L = 'l';
     /**
      * @var ComponentItem[]
      */
@@ -28,6 +31,7 @@ class ComponentService
     public function __construct(
         private readonly ComponentItemFactory $itemFactory,
         private readonly array $componentsConfig,
+        private readonly array $breakpointConfig
     )
     {
         $this->parse();
@@ -47,6 +51,14 @@ class ComponentService
     public function getCategories(): array
     {
         return $this->categories;
+    }
+
+    /**
+     * @return array<string, int>
+     */
+    public function getBreakpoints(): array
+    {
+        return $this->breakpointConfig;
     }
 
     private function parse(): void

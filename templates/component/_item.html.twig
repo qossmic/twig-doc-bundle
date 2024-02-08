@@ -47,21 +47,7 @@
         <div class="twig-doc-component-examples">
             <h4>Variations</h4>
             {% for variation in component.variations %}
-                <div class="twig-doc-variation">
-                    <div class="twig-doc-component-variation">
-                        {{ renderComponent(component, variation)|raw }}
-                    </div>
-                    <div class="twig-doc-variation-description">
-                        <ul>
-                            {% for key, value in variation %}
-                                <li>
-                                    <b>{{ key }}:</b>
-                                    {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
+                {% include '@TwigDoc/component/_variation.html.twig' with {component: component, variation: variation} %}
             {% endfor %}
         </div>
     </div>
