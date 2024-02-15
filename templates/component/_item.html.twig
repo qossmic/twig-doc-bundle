@@ -49,7 +49,7 @@
             {% for variation in component.variations %}
                 <div class="twig-doc-variation">
                     <div class="twig-doc-component-variation">
-                        {{ renderComponent(component, variation)|raw }}
+                        {{ renderComponent(component, variation ?? [])|raw }}
                     </div>
                     <div class="twig-doc-variation-description">
                         <ul>
