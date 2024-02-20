@@ -10,5 +10,7 @@
     <route id="_documentation_invalid_components" path="/invalid">
         <default key="_controller">twig_doc.controller.documentation::invalidComponents</default>
     </route>
-
+    <route id="_documentation_component_view" path="/component-view">
+        <default key="_controller">twig_doc.controller.documentation::componentView</default>
+    </route>
 </routes>

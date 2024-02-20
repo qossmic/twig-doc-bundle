@@ -143,4 +143,9 @@ class ComponentService
     {
         return $this->invalidComponents;
     }
+
+    public function getComponent(string $name): ?ComponentItem
+    {
+        return array_values($this->filterComponents($name, 'name'))[0] ?? null;
+    }
 }

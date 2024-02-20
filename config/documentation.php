@@ -16,6 +16,7 @@ return static function (ContainerConfigurator $container) {
             ->public()
             ->autoconfigure()
             ->autowire()
+            ->arg('$profiler', service('profiler')->nullOnInvalid())
         ->set('twig_doc.service.category', CategoryService::class)
             ->alias(CategoryService::class, 'twig_doc.service.category')
 

@@ -64,11 +64,12 @@
                 <h4>Preview (screen-width: {{ breakpoints[breakpoint]}}px) <span data-loading>refreshing...</span></h4>
             </div>
             <div class="twig-doc-viewport-container">
-                <div class="twig-doc-viewport" style="width: {{ breakpoints[breakpoint] }}px">
+                <div class="twig-doc-viewport">
                     <div class="twig-doc-preview-item">
-                        {% for i in 1..quantity %}
+                        <iframe src="{{ path('_documentation_component_view', {name: component.name, data: componentData, quantity: quantity, breakpoint: breakpoint}) }}"></iframe>
+                        {#{% for i in 1..quantity %}
                             {{ renderComponent(component, componentData)|raw }}
-                        {% endfor %}
+                        {% endfor %}#}
                     </div>
                 </div>
             </div>

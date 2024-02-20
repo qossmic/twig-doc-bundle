@@ -1,0 +1,7 @@
+{% extends '@TwigDoc/base.html.twig' %}
+
+{% block body %}
+    {% for i in 1..quantity %}
+        {{ renderComponent(component, componentData ?? [])|raw }}
+    {% endfor %}
+{% endblock %}
