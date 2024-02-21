@@ -49,14 +49,14 @@
             {% for variation in component.variations %}
                 <div class="twig-doc-variation">
                     <div class="twig-doc-component-variation">
-                        {{ renderComponent(component, variation ?? [])|raw }}
+                        {{ renderComponent(component, variation)|raw }}
                     </div>
                     <div class="twig-doc-variation-description">
                         <ul>
-                            {% for key, value in variation %}
+                            {% for name, parameters in variation %}
                                 <li>
                                     <b>{{ key }}:</b>
-                                    {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}
+                                    {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: parameters} %}
                                 </li>
                             {% endfor %}
                         </ul>

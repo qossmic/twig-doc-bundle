@@ -52,8 +52,44 @@ class ComponentItemFactory
             ->setDescription($data['description'] ?? '')
             ->setTags($data['tags'] ?? [])
             ->setParameters($data['parameters'] ?? [])
-            ->setVariations($data['variations'] ?? []);
+            ->setVariations($data['variations'] ?? [
+                'default' => $this->createVariationParameters($data['parameters'] ?? [])
+            ]);
 
         return $item;
+    }
+
+    public function createVariationParameters(array $parameters): array
+    {
+        $params = [];
+        foreach ($parameters as $name => $type) {
+            if (is_array($type)) {
+                $paramValue = $this->createVariationParameters($type);
+            } else {
+                $paramValue = $this->createParamValue($type);
+            }
+            $params[$name] = $paramValue;
+        }
+
+        return $params;
+    }
+
+    private function createParamValue(string $type): bool|int|float|string|null
+    {
+        switch (strtolower($type)) {
+            default:
+                return null;
+            case 'string':
+                return 'Hello World';
+            case 'int':
+            case 'integer':
+                return random_int(0, 100000);
+            case 'bool':
+            case 'boolean':
+                return [true, false][rand(0,1)];
+            case 'float':
+            case 'double':
+                return (float) rand(1, 1000) / 100;
+        }
     }
 }
