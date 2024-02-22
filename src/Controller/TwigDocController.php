@@ -31,7 +31,7 @@ class TwigDocController
         }
 
         return new Response(
-            $this->twig->render('@TwigDoc/pages/index.html.twig', [
+            $this->twig->render('@TwigDoc/documentation.html.twig', [
                 'components' => $components,
                 'filterQuery' => $filterQuery,
                 'filterType' => $filterType ?? null,

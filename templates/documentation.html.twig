@@ -1,0 +1,86 @@
+<html lang="en">
+{% block head %}
+    {% block stylesheets %}
+        <style>
+            {{ include('@TwigDoc/style/style.css.twig') }}
+        </style>
+    {% endblock %}
+    <title>{% block title %}Twig Component Documentation{% endblock %}</title>
+    {% block javascripts %}
+    {% endblock %}
+{% endblock %}
+</html>
+
+<body>
+{% block body %}
+<div id="twig-doc-container">
+
+    <div class="breakpoints">
+        <div id="screenwidth"></div>
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <div class="four"></div>
+        <div class="five"></div>
+        <div class="six"></div>
+        <div class="seven"></div>
+        <div class="eight"></div>
+    </div>
+    <!-- find better solution -->
+    <script>
+        function widthResizer(){
+            var width = window.innerWidth
+            if(document.getElementById("screenwidth")) {
+                document.getElementById("screenwidth").innerHTML = "Width: " + width + "px"
+            }
+            console.log(width)
+        }
+
+        // Getting the width of the browser on load
+        widthResizer()
+
+        // Getting the width of the browser whenever the screen resolution changes.
+        window.addEventListener('resize', widthResizer)
+    </script>
+
+    {% include '@TwigDoc/component/_search.html.twig' %}
+
+    {% if not components %}
+        <div class="twig-doc-error">
+            No components found
+        </div>
+    {% endif %}
+    <div class="twig-doc-body">
+
+        {# <button onClick="setScreenwidth('small');">S</button>
+            <button onClick="setScreenwidth('medium');">M</button>
+            <button onClick="setScreenwidth('large');">L</button>
+            <button onClick="setScreenwidth('default');">Default</button> #}
+
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="?filterQuery=Atoms&filterType=category">Atoms</a>
+                    <ul>
+                        <li><a href="?filterQuery=Buttons&filterType=sub_category">Buttons</a></li>
+                        <li><a href="?filterQuery=Typography&filterType=sub_category">Typography</a></li>
+                    </ul>
+                </li>
+                <li><a href="?filterQuery=Commons&filterType=category">Commons</a></li>
+                <li><a href="?filterQuery=Snippets&filterType=category">Snippets</a></li>
+                <li><a href="?filterQuery=Blocks&filterType=category">Blocks</a></li>
+                <li><a href="?filterQuery=Templates&filterType=category">Templates</a></li>
+            </ul>
+        </div>
+
+        {% for items in components %}
+            <div>
+                {% for item in items %}
+                    {% include '@TwigDoc/component/_item.html.twig' with { component: item }%}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+</body>
