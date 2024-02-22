@@ -55,7 +55,7 @@
                         <ul>
                             {% for name, parameters in variation %}
                                 <li>
-                                    <b>{{ key }}:</b>
+                                    <b>{{ name }}:</b>
                                     {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: parameters} %}
                                 </li>
                             {% endfor %}
