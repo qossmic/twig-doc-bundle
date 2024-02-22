@@ -12,6 +12,7 @@
     gap: 5px;
     background-color: white;
     padding-top: 5px;
+    z-index:100;
 }
 
 #twig-doc-container #screenwidth {
@@ -33,6 +34,7 @@
     background: white;
     text-align: center;
     border-bottom: 1px darkgray solid;
+    z-index: 100;
 }
 
 #twig-doc-container .navigation ul {
@@ -117,6 +119,26 @@
 
 .twig-doc-body {
     padding: 15px;
+}
+
+.twig-doc-variation h5 {
+    margin: 0;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+.twig-doc-variation h5:hover, .twig-doc-variation h5.active {
+    background-color: #000000;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.twig-doc-variation-body {
+    display: none;
+}
+
+.twig-doc-variation-body.active {
+    display: block;
 }
 
 .twig-doc-viewport-container {
