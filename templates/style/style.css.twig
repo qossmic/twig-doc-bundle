@@ -114,3 +114,37 @@
 #twig-doc-container .twig-doc-variation .twig-doc-variation-description {
     padding-left: 20px;
 }
+
+.twig-doc-body {
+    padding: 15px;
+}
+
+.twig-doc-viewport-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    position: relative;
+    overflow-x: scroll;
+}
+.twig-doc-viewport {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 240px;
+    margin: 0 auto;
+    white-space: nowrap;
+    text-align: center;
+    position: relative;
+    resize: horizontal;
+    overflow-x: auto;
+    outline: 1px solid #000000;
+}
+
+.twig-doc-iframe {
+    width: 100%;
+    flex-grow: 1;
+    border: 0;
+}
