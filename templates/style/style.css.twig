@@ -119,20 +119,32 @@
     padding: 15px;
 }
 
-.twig-doc-viewport {
-    width: 100%;
-    background-color: darksalmon;
-    margin: auto;
-
-}
-
-.twig-doc-breakpoint button {
-
-}
-
 .twig-doc-viewport-container {
-    overflow-x: auto;
-
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     border: 1px solid #000000;
     padding: 10px;
+    position: relative;
+    overflow-x: scroll;
+}
+.twig-doc-viewport {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 240px;
+    margin: 0 auto;
+    white-space: nowrap;
+    text-align: center;
+    position: relative;
+    resize: horizontal;
+    overflow-x: auto;
+    outline: 1px solid #000000;
+}
+
+.twig-doc-iframe {
+    width: 100%;
+    flex-grow: 1;
+    border: 0;
 }

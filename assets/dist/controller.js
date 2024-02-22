@@ -3,20 +3,36 @@ import { getComponent } from '@symfony/ux-live-component';
 
 export default class extends Controller {
     async initialize() {
-        this.component = getComponent(this.element);
+        this.component = await getComponent(this.element);
 
-        // TODO replace this simple click capturing by something useful
-        this.element.querySelector('.twig-doc-viewport').querySelectorAll('a, button').forEach((node) => {
+        this.initBreakpoints();
+        this.initResize()
+    }
+    initResize() {
+        const observer = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                if (entry.borderBoxSize) {
+                    const size = entry.borderBoxSize[0].inlineSize;
 
-                node.addEventListener('click', (e) => {
-                    let msg = 'Clicks on links and buttons are disabled for security.';
-                    e.preventDefault()
-                    if (node.hasAttribute('href')) {
-                        msg += '\nLink: ' + e.target.getAttribute('href')
-                    }
-
-                    alert(msg);
-                })
+                    this.updateBreakpointSize(size);
+                } else {
+                    this.updateBreakpointSize(entry.contentRect.width);
+                }
+            }
         })
+
+        observer.observe(this.element.querySelector('.twig-doc-viewport'));
+    }
+    initBreakpoints() {
+        this.element.querySelectorAll('.twig-doc-breakpoint-btn').forEach((node) => {
+            node.addEventListener('click', (e) => {
+                const size = +e.target.dataset.width ;
+                this.element.querySelector('.twig-doc-viewport').style.width = size + 'px';
+                this.updateBreakpointSize(size);
+            })
+        });
+    }
+    updateBreakpointSize(size) {
+        this.element.querySelector('.twig-doc-preview-breakpoint-size').innerText = size + 'px';
     }
 }

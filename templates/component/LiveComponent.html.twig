@@ -48,7 +48,7 @@
         </div>
         <div>
             {% for name, breakpoint in breakpoints|sort %}
-                <button data-action="live#action" data-action-name="apply(breakpoint={{ name }})">
+                <button class="twig-doc-breakpoint-btn" data-width="{{ breakpoint }}">
                     {{ name|upper }} ({{ breakpoint }}px)
                 </button>
             {% endfor %}
@@ -61,20 +61,11 @@
         </div>
         <div class="twig-doc-preview">
             <div>
-                <h4>Preview (screen-width: {{ breakpoints[breakpoint]}}px) <span data-loading>refreshing...</span></h4>
+                <h4>Preview (screen-width: <span class="twig-doc-preview-breakpoint-size">{{ breakpoints[breakpoint] }}px</span>) <span data-loading>refreshing...</span></h4>
             </div>
             <div class="twig-doc-viewport-container">
-                <div class="twig-doc-viewport">
-                    <div class="twig-doc-preview-item">
-                        <iframe src="{{ path('_documentation_component_view', {name: component.name, data: componentData, quantity: quantity, breakpoint: breakpoint}) }}"></iframe>
-                        {#{% for i in 1..quantity %}
-                            {{ renderComponent(component, componentData)|raw }}
-                        {% endfor %}#}
-                    </div>
-                </div>
+                {% include '@TwigDoc/component/_viewport.html.twig' with {component: component, componentData: componentData, width: breakpoints[breakpoint]} %}
             </div>
         </div>
     </div>
-
-
 </div>
