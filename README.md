@@ -38,6 +38,34 @@ twig_doc:
   # or for localized: prefix: /{_locale}/twig/doc/
 ```
 
+### Template
+
+To use your design in the documentation, you have to override the component template.
+
+Create a template in your project: templates/bundles/TwigDocBundle/component.html.twig
+
+```twig
+{% extends '@!TwigDoc/component.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/your-styles.css') }}">
+{% endblock %}
+```
+
+#### Customizing the documentation
+
+If you want to customize the documentation, you can override the template.
+
+Create a template in your project: templates/bundles/TwigDocBundle/documentation.html.twig
+
+```twig
+{% extends '@!TwigDoc/documentation.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/your-styles.css') }}">
+{% endblock %}
+```
+
 ### Configuration
 
 Create a config file: configs/packages/twig_doc.yaml

@@ -12,6 +12,7 @@
     gap: 5px;
     background-color: white;
     padding-top: 5px;
+    z-index:100;
 }
 
 #twig-doc-container #screenwidth {
@@ -33,6 +34,7 @@
     background: white;
     text-align: center;
     border-bottom: 1px darkgray solid;
+    z-index: 100;
 }
 
 #twig-doc-container .navigation ul {
@@ -113,4 +115,58 @@
 
 #twig-doc-container .twig-doc-variation .twig-doc-variation-description {
     padding-left: 20px;
+}
+
+.twig-doc-body {
+    padding: 15px;
+}
+
+.twig-doc-variation h5 {
+    margin: 0;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+.twig-doc-variation h5:hover, .twig-doc-variation h5.active {
+    background-color: #000000;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.twig-doc-variation-body {
+    display: none;
+}
+
+.twig-doc-variation-body.active {
+    display: block;
+}
+
+.twig-doc-viewport-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    position: relative;
+    overflow-x: scroll;
+}
+.twig-doc-viewport {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 240px;
+    margin: 0 auto;
+    white-space: nowrap;
+    text-align: center;
+    position: relative;
+    resize: horizontal;
+    overflow-x: auto;
+    outline: 1px solid #000000;
+}
+
+.twig-doc-iframe {
+    width: 100%;
+    flex-grow: 1;
+    border: 0;
 }
