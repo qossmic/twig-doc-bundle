@@ -27,7 +27,7 @@ class ComponentService
 
     public function __construct(
         private readonly ComponentItemFactory $itemFactory,
-        private readonly array $componentsConfig,
+        private readonly array $componentsConfig
     )
     {
         $this->parse();

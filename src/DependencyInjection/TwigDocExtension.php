@@ -18,6 +18,8 @@ class TwigDocExtension extends Extension
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('twig_doc.config', $config);
+
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('documentation.php');
 

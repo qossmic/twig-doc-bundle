@@ -24,6 +24,8 @@ class ComponentItem
     private array $variations;
     #[Assert\Valid]
     private ComponentCategory $category;
+    #[Assert\Length(max: 4096)]
+    private ?string $projectPath = null;
 
     public function getName(): string
     {
@@ -133,5 +135,17 @@ class ComponentItem
     public function getMainCategory(): ComponentCategory
     {
         return $this->category->getParent() ?? $this->category;
+    }
+
+    public function getProjectPath(): ?string
+    {
+        return $this->projectPath;
+    }
+
+    public function setProjectPath(?string $projectPath): ComponentItem
+    {
+        $this->projectPath = $projectPath;
+
+        return $this;
     }
 }

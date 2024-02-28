@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Twig\Environment;
-use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Service\ComponentService;
 
 class TwigDocController

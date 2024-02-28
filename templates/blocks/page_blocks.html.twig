@@ -1,0 +1,75 @@
+{% block head %}
+{% block stylesheets %}
+    <style>
+        {{ include('@TwigDoc/style/style.css.twig') }}
+    </style>
+{% endblock %}
+    <title>{% block title %}Twig Component Documentation{% endblock %}</title>
+{% block javascripts %}
+    <script type="application/javascript">
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.twig-doc-variation h5').forEach(
+                function (element) {
+                    element.addEventListener('click', function () {
+                        console.log(element);
+                        let variation = element.getAttribute('data-variation');
+                        element.parentNode.querySelectorAll('.twig-doc-variation-body, h5').forEach(
+                            function (e) {
+                                e.classList.remove('active');
+                            });
+                        element.classList.add('active');
+                        element.parentNode.querySelector(`.twig-doc-variation-body[data-variation="${variation}"]`).classList.add('active');
+                    })
+                }
+            )
+            const observer = new ResizeObserver((entries) => {
+                for (const entry of entries) {
+                    entry.target.closest('.twig-doc-variation-body').querySelector('.twig-doc-viewport-width-value').innerText = entry.contentRect.width;
+                }
+            })
+            document.querySelectorAll('.twig-doc-viewport').forEach((e) => {
+                observer.observe(e);
+            })
+        });
+    </script>
+{% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div id="twig-doc-container">
+
+        {% include '@TwigDoc/component/_search.html.twig' %}
+
+        {% if not components %}
+            <div class="twig-doc-error">
+                No components found
+            </div>
+        {% endif %}
+        <div class="twig-doc-body">
+
+            <div class="navigation">
+                <ul>
+                    <li>
+                        <a href="?filterQuery=Atoms&filterType=category">Atoms</a>
+                        <ul>
+                            <li><a href="?filterQuery=Buttons&filterType=sub_category">Buttons</a></li>
+                            <li><a href="?filterQuery=Typography&filterType=sub_category">Typography</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="?filterQuery=Commons&filterType=category">Commons</a></li>
+                    <li><a href="?filterQuery=Snippets&filterType=category">Snippets</a></li>
+                    <li><a href="?filterQuery=Blocks&filterType=category">Blocks</a></li>
+                    <li><a href="?filterQuery=Templates&filterType=category">Templates</a></li>
+                </ul>
+            </div>
+
+            {% for items in components %}
+                <div>
+                    {% for item in items %}
+                        {% include '@TwigDoc/component/_item.html.twig' with { component: item } %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

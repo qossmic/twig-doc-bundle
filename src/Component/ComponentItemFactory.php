@@ -52,7 +52,8 @@ class ComponentItemFactory
             ->setDescription($data['description'] ?? '')
             ->setTags($data['tags'] ?? [])
             ->setParameters($data['parameters'] ?? [])
-            ->setVariations($data['variations'] ?? []);
+            ->setVariations($data['variations'] ?? [])
+            ->setProjectPath($data['path'] ?? null);
 
         return $item;
     }

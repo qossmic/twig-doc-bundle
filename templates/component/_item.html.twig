@@ -1,6 +1,6 @@
 <div class="twig-doc-component">
     <div class="twig-doc-component-description">
-        <h3>{{ component.title }} ({{ component.name ~ '.html.twig' }})</h3>
+        <h3>{{ component.title }} ({{ component.projectPath ?? component.name ~ '.html.twig' }})</h3>
         <div class="twig-doc-component-configuration">
             <div>
                 <h4>Description</h4>
@@ -52,9 +52,9 @@
                 {% endfor %}
                 {% for name, variation in component.variations %}
                     <div class="twig-doc-variation-body{% if loop.first %} active{% endif %}" data-variation="{{ name }}">
-
+                        <div class="twig-doc-viewport-width-display">Viewport size: <span class="twig-doc-viewport-width-value"></span>px</div>
                         <div class="twig-doc-viewport-container">
-                            {% include '@TwigDoc/component/_viewport.html.twig' with {component: component, componentData: variation ?? [], width: '1280px'} %}
+                            {% include '@TwigDoc/component/_viewport.html.twig' with {component: component, componentData: variation ?? []} %}
                         </div>
                         <div class="twig-doc-variation-description">
                             <ul>

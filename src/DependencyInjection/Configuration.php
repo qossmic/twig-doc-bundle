@@ -7,7 +7,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-
     /**
      * @inheritDoc
      */
@@ -17,6 +16,12 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
+                ->scalarNode('doc_identifier')->defaultValue('TWIG_DOC')
+                    ->validate()
+                        ->ifTrue(fn($v) => !preg_match('#^\w+$#', $v))
+                        ->thenInvalid('The documentation identifier must match \w (regex)')
+                    ->end()
+                ->end()
                 ->arrayNode('categories')
                     ->arrayPrototype()
                         ->children()
@@ -27,7 +32,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end()
-            ->arrayNode('components')
+            ->arrayNode('components')->defaultValue([])
                 ->arrayPrototype()
                     ->children()
                         ->scalarNode('name')->isRequired()->cannotBeEmpty()->end()

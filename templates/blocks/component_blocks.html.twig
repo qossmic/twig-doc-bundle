@@ -1,0 +1,14 @@
+{% block head %}
+    {% block stylesheets %}
+    {% endblock %}
+    <title>{% block title %}Twig Component Documentation{% endblock %}</title>
+    {% block javascripts %}
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+
+{% block component %}
+    {% for i in 1..quantity %}
+        {{ renderComponent(component, componentData ?? [])|raw }}
+    {% endfor %}
+{% endblock%}
