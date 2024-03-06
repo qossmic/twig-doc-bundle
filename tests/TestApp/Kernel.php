@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Tests\TestApp;
 
+use Psr\Log\NullLogger;
 use Qossmic\TwigDocBundle\TwigDocBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;

@@ -26,6 +26,8 @@ class ComponentItem
     private ComponentCategory $category;
     #[Assert\Length(max: 4096)]
     private ?string $projectPath = null;
+    #[Assert\Length(max: 4096)]
+    private ?string $renderPath = null;
 
     public function getName(): string
     {
@@ -145,6 +147,18 @@ class ComponentItem
     public function setProjectPath(?string $projectPath): ComponentItem
     {
         $this->projectPath = $projectPath;
+
+        return $this;
+    }
+
+    public function getRenderPath(): ?string
+    {
+        return $this->renderPath;
+    }
+
+    public function setRenderPath(?string $renderPath): ComponentItem
+    {
+        $this->renderPath = $renderPath;
 
         return $this;
     }

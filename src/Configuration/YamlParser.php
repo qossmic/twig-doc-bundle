@@ -35,7 +35,7 @@ class YamlParser implements ParserInterface
                 # check for whitespaces at the beginning
                 if (!preg_match('#^(\s+)#', $line, $matches)) {
                     # no leading whitespaces, indentation seems to be fine
-                    return $fileObject;
+                    return $content;
                 }
                 $indentationWhitespace = $matches[1];
             }

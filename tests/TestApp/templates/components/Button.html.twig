@@ -1,0 +1,13 @@
+{#TWIG_DOC
+    title: Button
+    description: Button description
+    category: MainCategory
+    parameters:
+        type: String
+        text: String
+    variations:
+        default:
+            type: primary
+            text: Default button
+TWIG_DOC#}
+<button class="btn btn-{{ type }}">{{ text }}</button>

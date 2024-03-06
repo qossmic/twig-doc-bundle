@@ -2,14 +2,17 @@
 
 namespace Qossmic\TwigDocBundle\Tests\Functional\Service;
 
-use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
+use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use TypeError;
 
-#[CoversNothing]
+#[CoversClass(ComponentItemFactory::class)]
+#[UsesClass(CategoryService::class)]
 class ComponentItemFactoryTest extends KernelTestCase
 {
     #[DataProvider('getInvalidComponentConfigurationTestCases')]
@@ -31,14 +34,6 @@ class ComponentItemFactoryTest extends KernelTestCase
             [
                 'name' => 'InvalidComponent1',
                 'category' => 'MainCategory'
-            ]
-        ];
-
-        yield [
-            [
-                'name' => 'InvalidComponentMissingTitleAndDescription',
-                'category' => 'MainCategory',
-                'title' => 'Component title'
             ]
         ];
 

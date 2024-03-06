@@ -53,8 +53,28 @@ class ComponentItemFactory
             ->setTags($data['tags'] ?? [])
             ->setParameters($data['parameters'] ?? [])
             ->setVariations($data['variations'] ?? [])
-            ->setProjectPath($data['path'] ?? null);
+            ->setProjectPath($data['path'] ?? null)
+            ->setRenderPath($data['renderPath'] ?? null);
 
         return $item;
+    }
+
+    public function getParamsFromVariables(array $variables): array
+    {
+        $r = [];
+        foreach ($variables as $dotted) {
+            $keys = explode('.', $dotted);
+            $c = &$r[array_shift($keys)];
+            foreach ($keys as $key) {
+                if (isset($c[$key]) && $c[$key] === true) {
+                    $c[$key] = [];
+                }
+                $c = &$c[$key];
+            }
+            if ($c === null) {
+                $c = 'Scalar';
+            }
+        }
+        return $r;
     }
 }

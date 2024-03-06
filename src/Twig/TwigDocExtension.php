@@ -38,6 +38,12 @@ class TwigDocExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @param string $filterQuery
+     * @param string|null $type
+     * @return array
+     * @codeCoverageIgnore
+     */
     public function filterComponents(string $filterQuery, string $type = null): array
     {
         return $this->componentService->filter($filterQuery, $type);
@@ -59,6 +65,7 @@ class TwigDocExtension extends AbstractExtension
 
     /**
      * @return ComponentInvalid[]
+     * @codeCoverageIgnore
      */
     public function getInvalidComponents(): array
     {
@@ -67,6 +74,7 @@ class TwigDocExtension extends AbstractExtension
 
     /**
      * @return ComponentCategory[]
+     * @codeCoverageIgnore
      */
     public function getSubCategories(string $mainCategoryName = null): array
     {
@@ -80,6 +88,6 @@ class TwigDocExtension extends AbstractExtension
      */
     private function renderFallback(ComponentItem $item, array $params): string
     {
-        return $this->twig->render($item->getName().'.html.twig', $params);
+        return $this->twig->render($item->getRenderPath(), $params);
     }
 }

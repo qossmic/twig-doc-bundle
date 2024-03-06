@@ -52,11 +52,8 @@ class TwigDocController
         if (!$component) {
             throw new NotFoundHttpException(sprintf('Component %s is unknown', $name));
         }
-        $breakpoint = $request->query->get('breakpoint');
         // disable profiler to get rid of toolbar in dev
-        if($this->profiler) {
-        $this->profiler->disable();
-        }
+        $this->profiler?->disable();
         return new Response(
             $this->twig->render('@TwigDoc/component.html.twig', [
                 'component' => $component,
