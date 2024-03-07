@@ -44,7 +44,7 @@ class TwigDocControllerTest extends WebTestCase
         $node = $crawler->filter('div.twig-doc-component');
         static::assertResponseIsSuccessful();
         static::assertCount(1, $node);
-        static::assertEquals('Submit Button (ButtonSubmit.html.twig)', $node->filter('h3')->getNode(0)->nodeValue);
+        static::assertEquals('Submit Button (tests/TestApp/templates/components/ButtonSubmit.html.twig)', $node->filter('h3')->getNode(0)->nodeValue);
     }
 
     public function testInvalidComponentsRoute(): void

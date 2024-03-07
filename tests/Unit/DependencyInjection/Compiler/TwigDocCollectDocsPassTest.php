@@ -40,9 +40,53 @@ class TwigDocCollectDocsPassTest extends TestCase
         static::assertCount(2, $service->getArgument('$componentsConfig'));
     }
 
+    public function testProcessNotEnrichingPathsForMissingTemplate()
+    {
+        $container = $this->getContainer(componentsConfig: [
+            [
+                'name' => 'invalidComponent',
+            ]
+        ]);
+
+        $pass = new TwigDocCollectDocsPass(new YamlParser());
+
+        $pass->process($container);
+
+        $definition = $container->getDefinition('twig_doc.service.component');
+
+        static::assertEmpty($definition->getArgument('$componentsConfig')[0]['path']);
+        static::assertEmpty($definition->getArgument('$componentsConfig')[0]['renderPath']);
+    }
+
+    public function testProcessNotEnrichingPathsForAmbiguousTemplate()
+    {
+        $container = $this->getContainer(componentsConfig: [
+            [
+                'name' => 'SomeComponent',
+            ],
+            [
+                'name' => 'SomeComponent',
+            ],
+        ],directories: [
+            __DIR__.'/../../../TestApp/templates/invalid_for_test',
+        ]);
+
+        $pass = new TwigDocCollectDocsPass(new YamlParser());
+
+        $pass->process($container);
+
+        $definition = $container->getDefinition('twig_doc.service.component');
+
+        static::assertEmpty($definition->getArgument('$componentsConfig')[0]['path']);
+        static::assertEmpty($definition->getArgument('$componentsConfig')[0]['renderPath']);
+        static::assertEmpty($definition->getArgument('$componentsConfig')[1]['path']);
+        static::assertEmpty($definition->getArgument('$componentsConfig')[1]['renderPath']);
+    }
+
     public function testProcessThrowsExceptionForInvalidConfiguration()
     {
         static::expectException(InvalidConfigException::class);
+        static::expectExceptionMessage(sprintf('component "%s" is configured twice, please configure either directly in the template or the general bundle configuration', 'Button'));
         $container = $this->getContainer([
             [
                 'name' => 'Button'

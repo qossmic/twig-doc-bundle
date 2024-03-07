@@ -23,33 +23,25 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
             return;
         }
         $config = $container->getParameter('twig_doc.config');
+        $directories = $this->resolveDirectories($container, $config['directories']);
         $container->getParameterBag()->remove('twig_doc.config');
-        $definition = $container->getDefinition('twig_doc.service.component');
-        $componentConfig = $definition->getArgument('$componentsConfig');
-        $projectDir = $container->getParameter('kernel.project_dir');
-        $templateDir = $container->getParameter('twig.default_path');
-        $defaultComponentsDirectory = $container->getParameter('twig.default_path') . '/components';
-        if (!in_array($defaultComponentsDirectory, $config['directories'])) {
-            $config['directories'][] = $defaultComponentsDirectory;
-        }
-        foreach ($config['directories'] as $idx => $dir) {
-            if (!is_dir($dir)) {
-                unset($config['directories'][$idx]);
-            }
-        }
-        $config['directories'] = array_unique($config['directories']);
 
-        if (empty($config['directories'])) {
+        if (empty($directories)) {
             return;
         }
 
-        foreach ($config['directories'] as $directory) {
+        $definition = $container->getDefinition('twig_doc.service.component');
+        $componentConfig = $this->enrichComponentsConfig($container, $directories, $definition->getArgument('$componentsConfig'));
+        $projectDir = $container->getParameter('kernel.project_dir');
+        $templateDir = $container->getParameter('twig.default_path');
+
+        foreach ($directories as $directory) {
             // add resource to container to rebuild container on changes in templates
             $container->addResource(new DirectoryResource($directory));
         }
 
         $finder = new Finder();
-        foreach ($finder->in($config['directories'])->files()->filter(fn(SplFileInfo $file) => $file->getExtension() === 'twig') as $file) {
+        foreach ($finder->in($directories)->files()->filter(fn(SplFileInfo $file) => $file->getExtension() === 'twig') as $file) {
             $doc = $this->parseDoc($file, $config['doc_identifier']);
 
             if ($doc === null) {
@@ -88,5 +80,53 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
         }
 
         return $this->parser->parse($matches[1]);
+    }
+
+    private function enrichComponentsConfig(ContainerBuilder $container, array $directories, array $components): array
+    {
+        foreach ($components as &$component) {
+            if (!isset($component['path'])) {
+                $component['path'] = str_replace($container->getParameter('kernel.project_dir').'/', '', $this->getTemplatePath($component['name'], $directories));
+            }
+            if (!isset($component['renderPath'])) {
+                $component['renderPath'] = str_replace($container->getParameter('twig.default_path').'/', '', $component['path']);
+            }
+        }
+
+        return $components;
+    }
+
+    private function resolveDirectories(ContainerBuilder $container, array $directories): array
+    {
+        $directories[] = $container->getParameter('twig.default_path') . '/components';
+
+        foreach ($directories as $idx => $dir) {
+            if (!is_dir($dir)) {
+                unset($directories[$idx]);
+            }
+        }
+
+        return array_unique($directories);
+    }
+
+    private function getTemplatePath(string $name, array $directories): ?string
+    {
+        $template = sprintf('%s.html.twig', $name);
+
+        $finder = new Finder();
+
+        $files = $finder->in($directories)->files()->filter(fn(SplFileInfo $file) => $file->getFilename() === $template);
+
+        if ($files->count() > 1) {
+            return null;
+        }
+
+        if (!$files->hasResults()) {
+            return null;
+        }
+
+        $files->getIterator()->rewind();
+
+        return $files->getIterator()->current();
     }
 }
