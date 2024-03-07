@@ -1,10 +1,20 @@
 ## Twic Doc Bundle
 
-Allows you to create an overview for your Twig Components, be it either UX-Components, UX-Live-Components or simple snippet templates.
+[![Image](docs/resources/images/qossmic.png)](https://qossmic.com) Brought to you by qossmic! 
+
+1. [Installation](#installation)
+2. Configuration
+   1. [Bundle Configuration](docs/BundleConfiguration.md)
+   2. [Component Configuration](docs/ComponentConfiguration.md)
+3. [Routing](#routing)
+4. [Customization](#customizing-the-design)
+5. [Usage](docs/Usage.md)
+
+---
+
+Allows you to create an overview for your Twig Components, be it either [UX-Components](https://symfony.com/bundles/ux-twig-component/current/index.html), [UX-Live-Components](https://symfony.com/bundles/ux-live-component/current/index.html) or simple snippet templates.
 
 Components will be grouped in categories and optional sub-categories.
-
-The categories must be configured in the bundle-configuration, see below.
 
 ### Installation
 
@@ -38,110 +48,8 @@ twig_doc:
   # or for localized: prefix: /{_locale}/twig/doc/
 ```
 
-### Template
+### Customizing the design
 
-To use your design in the documentation, you have to override the component template.
+To customize the design of the documentation, you can override any template of the bundle in your project.
 
-Create a template in your project: templates/bundles/TwigDocBundle/component.html.twig
-
-```twig
-{% extends '@!TwigDoc/component.html.twig' %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/your-styles.css') }}">
-{% endblock %}
-```
-
-#### Customizing the documentation
-
-If you want to customize the documentation, you can override the template.
-
-Create a template in your project: templates/bundles/TwigDocBundle/documentation.html.twig
-
-```twig
-{% extends '@!TwigDoc/documentation.html.twig' %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/your-styles.css') }}">
-{% endblock %}
-```
-
-### Configuration
-
-Create a config file: configs/packages/twig_doc.yaml
-
-#### Configure categories
-
-```yaml
-twig_doc:
-  categories:
-    - name: Button
-      sub_categories:
-        - Action
-        - Submit
-    - name: Heading
-    - name: Notification
-      sub_categories:
-        - Alert
-        - Flash
-#... component config
-```
-
-#### Example for a Twig UX-Component
-
-```yaml
-twig_doc:
-  #... categories config
-  components:
-    - name: ActionButton # will render %kernel.project_dir%/templates/components/ActionButton.html.twig
-      title: Action Button
-      description: An Action button
-      category: Buttons
-      sub_category: Action
-      tags:
-        - buttons
-      parameters:
-        color: String
-        text: String
-        link: String
-      variations:
-        secondary:
-          color: secondary
-          text: Secondary Button
-          link: '#'
-        primary:
-          color: primary
-          text: Primary Button
-          link: '#'
-```
-The bundle will look for this component in the folder configured for the ux-twig-component bundle (default: %kernel.project_dir%/templates/components/COMPONENT_NAME.html.twig).
-
-#### Example for a non ux-twig-component
-
-The only difference is that non-ux components use another default-path and the naming is not specified.
-
-```yaml
-twig_doc:
-  #... categories config
-  components:
-    - name: snippets/alert # will render %kernel.project_dir%/templates/snippets/alert.html.twig
-      title: Alert
-      description: non twig-ux-component component
-      category: Notification
-      sub_category:
-        - Alert
-      tags:
-        - highlight
-        - nameIt
-      parameters:
-        type: String
-        msg: String
-      variations:
-        primary:
-          type: primary
-          msg: Primary Alert
-        danger:
-          type: danger
-          msg: Danger Alert
-```
-The bundle will look for this template in the twig template folder (default: %kernel.project_dir%/templates/COMPONENT_NAME.html.twig).
+See: [How to override any Part of a Bundle](https://symfony.com/doc/current/bundles/override.html)
