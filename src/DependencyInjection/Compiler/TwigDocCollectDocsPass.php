@@ -2,8 +2,10 @@
 
 namespace Qossmic\TwigDocBundle\DependencyInjection\Compiler;
 
+use Qossmic\TwigDocBundle\Component\ComponentCategory;
 use Qossmic\TwigDocBundle\Configuration\ParserInterface;
 use Qossmic\TwigDocBundle\Exception\InvalidConfigException;
+use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Finder\Finder;
@@ -41,6 +43,11 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
             return;
         }
 
+        foreach ($config['directories'] as $directory) {
+            // add resource to container to rebuild container on changes in templates
+            $container->addResource(new DirectoryResource($directory));
+        }
+
         $finder = new Finder();
         foreach ($finder->in($config['directories'])->files()->filter(fn(SplFileInfo $file) => $file->getExtension() === 'twig') as $file) {
             $doc = $this->parseDoc($file, $config['doc_identifier']);
@@ -60,6 +67,7 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
                 'name' => $componentName,
                 'path' => str_replace($projectDir . '/', '', $file->getRealPath()),
                 'renderPath' => str_replace($templateDir . '/', '', $file->getRealPath()),
+                'category' => ComponentCategory::DEFAULT_CATEGORY,
             ];
             $componentConfig[] = array_merge($itemConfig, $doc);
         }

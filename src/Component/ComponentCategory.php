@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ComponentCategory
 {
+    public const DEFAULT_CATEGORY = 'Components';
+
     private ?ComponentCategory $parent = null;
 
     #[Assert\Regex('/^\w+$/')]

@@ -5,6 +5,7 @@ namespace Qossmic\TwigDocBundle\Tests\Unit\DependencyInjection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
+use Qossmic\TwigDocBundle\Component\ComponentCategory;
 use Qossmic\TwigDocBundle\DependencyInjection\Configuration;
 use Qossmic\TwigDocBundle\DependencyInjection\TwigDocExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -36,7 +37,8 @@ class TwigDocExtensionTest extends TestCase
         $categoryServiceDefinition = $container->getDefinition('twig_doc.service.category');
 
         static::assertEquals([], $componentServiceDefinition->getArgument('$componentsConfig'));
-        static::assertEquals([
+        static::assertEqualsCanonicalizing([
+            ['name' => ComponentCategory::DEFAULT_CATEGORY],
             ['name' => 'category', 'sub_categories' => []]
         ], $categoryServiceDefinition->getArgument('$categoriesConfig'));
     }
