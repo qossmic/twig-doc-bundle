@@ -68,7 +68,7 @@ class TwigDocCollectDocsPassTest extends TestCase
                 'name' => 'SomeComponent',
             ],
         ],directories: [
-            __DIR__.'/../../../TestApp/templates/invalid_for_test',
+            '%twig.default_path%/invalid_for_test',
         ]);
 
         $pass = new TwigDocCollectDocsPass(new YamlParser());

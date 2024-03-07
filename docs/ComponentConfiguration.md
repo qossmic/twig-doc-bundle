@@ -14,7 +14,7 @@ When you do not provide a category for the component, it will be added to the de
 We "abused" the comment tag from twig to allow the component configuration directly in the template.
 This won't hurt twig at all as comments are totally ignored by the twig-parser.
 
-When providing the config in the template, you do not need to provide the name, path or renderPath of it, this is automatically resolved from the template files.
+When providing the config in the template, you do not need to provide the name, this is automatically resolved from the template file.
 
 ```twig
 {#TWIG_DOC
@@ -42,6 +42,12 @@ When providing the config in the template, you do not need to provide the name, 
 
 This is only recommended for small sets of components.
 
+The bundle tries to resolve the path of the template in a compiler pass based on the name of the component.
+
+E.g.: name: Button -> bundle looks for a Button.html.twig
+
+For this to work, you need to ensure that your components are unique among all configured directories.
+
 ```yaml
 ...
 components:
@@ -49,8 +55,6 @@ components:
     title: Fancy Button
     description: This is a really fancy button
     category: Buttons
-    path: '%twig.default_path%/components/Button.html.twig'
-    renderPath: 'components/Button.html.twig'
     tags:
       - button
     parameters:
@@ -63,4 +67,13 @@ components:
       secondary:
         type: secondary
         text: Welcome to Hell!
+```
+
+Alternatively, you can provide a path for your component in the configuration (parameters are resolved automatically):
+
+```yaml
+...
+components:
+  - name: Button
+    path: '%twig.default_path%/snippets/FancyButton.html.twig''
 ```

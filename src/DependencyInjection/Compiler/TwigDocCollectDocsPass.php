@@ -100,6 +100,8 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
     {
         $directories[] = $container->getParameter('twig.default_path') . '/components';
 
+        $directories = array_map(fn (string $dir) => $container->getParameterBag()->resolveValue($dir), $directories);
+
         foreach ($directories as $idx => $dir) {
             if (!is_dir($dir)) {
                 unset($directories[$idx]);
