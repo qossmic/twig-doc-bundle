@@ -69,6 +69,19 @@ class ComponentServiceTest extends KernelTestCase
         }
     }
 
+    public function testParsePerformance(): void
+    {
+        $factory = static::getContainer()->get(ComponentItemFactory::class);
+
+        $start = microtime(true);
+
+        new ComponentService($factory, $this->getLargeConfig());
+
+        $elapsedTime = microtime(true) - $start;
+
+        static::assertLessThan(1.5, $elapsedTime);
+    }
+
     public static function getFilterTestCases(): iterable
     {
         yield 'name' => [
@@ -110,5 +123,102 @@ class ComponentServiceTest extends KernelTestCase
                 'MainCategory' => 1
             ]
         ];
+    }
+
+    private function getLargeConfig(): array
+    {
+        return array_fill(0, 5000, [
+            'name' => 'component',
+            'title' => 'title',
+            'description' => 'long long text long long text long long text long long text long long text long long text long long text ',
+            'category' => 'MainCategory',
+            'path' => 'path/ultra/long/sub/dir/bla/blub/blub/blub/component.html.twig',
+            'renderPath' => 'component.html.twig',
+            'tags' => [
+                'tag1',
+                'tag2',
+                'tag3',
+                'tag4',
+                'tag5',
+                'tag6',
+                'tag7',
+                'tag8',
+                'tag9',
+            ],
+            'parameters' => [
+                'param1' => 'String',
+                'param2' => 'String',
+                'param3' => 'String',
+                'param4' => 'String',
+                'param5' => [
+                    'param1' => 'String',
+                    'param2' => 'String',
+                    'param3' => 'String',
+                    'param4' => 'String',
+                ],
+                'param6' => [
+                    'param1' => 'String',
+                    'param2' => 'String',
+                    'param3' => 'String',
+                    'param4' => 'String',
+                ]
+            ],
+            'variations' => [
+                'variation1' => [
+                    'param1' => 'String',
+                    'param2' => 'String',
+                    'param3' => 'String',
+                    'param4' => 'String',
+                    'param5' => [
+                        'param1' => 'String',
+                        'param2' => 'String',
+                        'param3' => 'String',
+                        'param4' => 'String',
+                    ],
+                    'param6' => [
+                        'param1' => 'String',
+                        'param2' => 'String',
+                        'param3' => 'String',
+                        'param4' => 'String',
+                    ]
+                ],
+                'variation2' => [
+                    'param1' => 'String',
+                    'param2' => 'String',
+                    'param3' => 'String',
+                    'param4' => 'String',
+                    'param5' => [
+                        'param1' => 'String',
+                        'param2' => 'String',
+                        'param3' => 'String',
+                        'param4' => 'String',
+                    ],
+                    'param6' => [
+                        'param1' => 'String',
+                        'param2' => 'String',
+                        'param3' => 'String',
+                        'param4' => 'String',
+                    ]
+                ],
+                'variation3' => [
+                    'param1' => 'String',
+                    'param2' => 'String',
+                    'param3' => 'String',
+                    'param4' => 'String',
+                    'param5' => [
+                        'param1' => 'String',
+                        'param2' => 'String',
+                        'param3' => 'String',
+                        'param4' => 'String',
+                    ],
+                    'param6' => [
+                        'param1' => 'String',
+                        'param2' => 'String',
+                        'param3' => 'String',
+                        'param4' => 'String',
+                    ]
+                ]
+            ]
+        ]);
     }
 }

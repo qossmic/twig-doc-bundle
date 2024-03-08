@@ -53,8 +53,8 @@ class ComponentItemFactory
             ->setTags($data['tags'] ?? [])
             ->setParameters($data['parameters'] ?? [])
             ->setVariations($data['variations'] ?? [])
-            ->setProjectPath($data['path'] ?? null)
-            ->setRenderPath($data['renderPath'] ?? null);
+            ->setProjectPath($data['path'])
+            ->setRenderPath($data['renderPath']);
 
         return $item;
     }
