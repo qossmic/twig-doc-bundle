@@ -51,6 +51,8 @@ class ComponentItemFactoryTest extends KernelTestCase
             'title' => 'Test title',
             'description' => 'description',
             'category' => 'MainCategory',
+            'path' => 'path/to/component',
+            'renderPath' => 'path/to/component',
         ];
 
         /** @var ComponentItemFactory $factory */
@@ -68,6 +70,8 @@ class ComponentItemFactoryTest extends KernelTestCase
             'title' => 'Test title',
             'description' => 'description',
             'category' => 'MainCategory',
+            'path' => 'path/to/component',
+            'renderPath' => 'path/to/component',
         ];
 
         /** @var ComponentItemFactory $factory */
@@ -85,6 +89,8 @@ class ComponentItemFactoryTest extends KernelTestCase
             'title' => 'Test title',
             'description' => 'description',
             'category' => 'MainCategory',
+            'path' => 'path/to/component',
+            'renderPath' => 'path/to/component',
             'parameters' => [
                 'string' => 'String',
                 'float' => 'Float',
