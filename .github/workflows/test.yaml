@@ -1,0 +1,28 @@
+name: Tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    name: "PHP ${{ matrix.php-version }}"
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    strategy:
+      matrix:
+        php-version: ['8.2', '8.3']
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: composer:v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+      - name: Run tests
+        run: vendor/bin/phpunit
+
+
