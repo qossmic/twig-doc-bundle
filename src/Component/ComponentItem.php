@@ -25,10 +25,10 @@ class ComponentItem
     #[Assert\Valid]
     private ComponentCategory $category;
     #[Assert\Length(max: 4096)]
-    #[Assert\NotNull]
+    #[Assert\NotBlank]
     private string $projectPath;
     #[Assert\Length(max: 4096)]
-    #[Assert\NotNull]
+    #[Assert\NotBlank]
     private string $renderPath;
 
     public function getName(): string

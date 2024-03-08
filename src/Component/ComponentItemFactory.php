@@ -27,7 +27,7 @@ class ComponentItemFactory
                     isset($data['sub_category']) ? 'sub_category' : 'category',
                     $data['sub_category'] ?? $data['category'],
                     implode(', ', array_keys($this->categoryService->getCategories())),
-                    implode(', ', array_keys($this->categoryService->getSubCategories()))
+                    implode(', ', array_map(fn (ComponentCategory $category) => $category->getName(), $this->categoryService->getSubCategories()))
                 )
             );
             throw new InvalidComponentConfigurationException($violations);
@@ -53,8 +53,8 @@ class ComponentItemFactory
             ->setTags($data['tags'] ?? [])
             ->setParameters($data['parameters'] ?? [])
             ->setVariations($data['variations'] ?? [])
-            ->setProjectPath($data['path'])
-            ->setRenderPath($data['renderPath']);
+            ->setProjectPath($data['path'] ?? '')
+            ->setRenderPath($data['renderPath'] ?? '');
 
         return $item;
     }
