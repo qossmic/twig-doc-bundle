@@ -10,29 +10,30 @@ use Qossmic\TwigDocBundle\Service\ComponentService;
 use Qossmic\TwigDocBundle\Twig\TwigDocExtension;
 
 return static function (ContainerConfigurator $container) {
-    $container->services()
-        ->set('twig_doc.controller.documentation', TwigDocController::class)
-            ->public()
-            ->args([
-                service('twig'),
-                service('twig_doc.service.component')
-            ])
+    $container->services()  ->set('twig_doc.controller.documentation', TwigDocController::class)
+        ->public()
+        ->autoconfigure()
+        ->autowire()
+        ->arg('$profiler', service('profiler')->nullOnInvalid())
         ->set('twig_doc.service.category', CategoryService::class)
+        ->alias(CategoryService::class, 'twig_doc.service.category')
 
         ->set('twig_doc.service.component_factory', ComponentItemFactory::class)
-            ->public()
-            ->args([service('validator'), service('twig_doc.service.category')])
+        ->public()
+        ->autoconfigure()
+        ->autowire()
+        ->alias(ComponentItemFactory::class, 'twig_doc.service.component_factory')
 
         ->set('twig_doc.service.component', ComponentService::class)
-            ->public()
-            ->args([service('twig_doc.service.component_factory'), service('twig_doc.service.category')])
+        ->public()
+        ->autoconfigure()
+        ->autowire()
+        ->alias(ComponentService::class, 'twig_doc.service.component')
 
         ->set('twig_doc.twig.extension', TwigDocExtension::class)
-            ->args([
-                service('ux.twig_component.component_renderer')->nullOnInvalid(),
-                service('twig_doc.service.component'),
-                service('twig_doc.service.category'),
-                service('twig')]
-            )
-            ->tag('twig.extension');
+        ->autoconfigure()
+        ->autowire()
+        ->tag('twig.extension')
+        ->alias(TwigDocExtension::class, 'twig_doc.twig.extension')
+        ;
 };

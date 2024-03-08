@@ -1,5 +1,35 @@
-{% extends '@TwigDoc/base.html.twig' %}
+<html lang="en">
+{% block head %}
+{% block stylesheets %}
+    <style>
+        {{ include('@TwigDoc/style/style.css.twig') }}
+    </style>
+{% endblock %}
+    <title>{% block title %}Twig Component Documentation{% endblock %}</title>
+{% block javascripts %}
+    <script type="application/javascript">
+        window.addEventListener('load', () => {
+        document.querySelectorAll('.twig-doc-variation h5').forEach(
+            function (element) {
+                element.addEventListener('click', function () {
+                    console.log(element);
+                    let variation = element.getAttribute('data-variation');
+                    element.parentNode.querySelectorAll('.twig-doc-variation-body, h5').forEach(
+                        function (e) {
+                            e.classList.remove('active');
+                        });
+                    element.classList.add('active');
+                    element.parentNode.querySelector(`.twig-doc-variation-body[data-variation="${variation}"]`).classList.add('active');
+                })
+            }
+        )
+        });
+    </script>
+{% endblock %}
+{% endblock %}
+</html>
 
+<body>
 {% block body %}
     <div id="twig-doc-container">
 
@@ -16,9 +46,9 @@
         </div>
         <!-- find better solution -->
         <script>
-            function widthResizer(){
+            function widthResizer() {
                 var width = window.innerWidth
-                if(document.getElementById("screenwidth")) {
+                if (document.getElementById("screenwidth")) {
                     document.getElementById("screenwidth").innerHTML = "Width: " + width + "px"
                 }
                 console.log(width)
@@ -64,10 +94,11 @@
             {% for items in components %}
                 <div>
                     {% for item in items %}
-                        {% include '@TwigDoc/component/_item.html.twig' with { component: item }%}
+                        {% include '@TwigDoc/component/_item.html.twig' with { component: item } %}
                     {% endfor %}
                 </div>
             {% endfor %}
         </div>
     </div>
 {% endblock %}
+</body>

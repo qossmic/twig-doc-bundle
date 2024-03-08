@@ -45,24 +45,30 @@
             </div>
         </div>
         <div class="twig-doc-component-examples">
-            <h4>Variations</h4>
-            {% for variation in component.variations %}
-                <div class="twig-doc-variation">
-                    <div class="twig-doc-component-variation">
-                        {{ renderComponent(component, variation)|raw }}
+            <h4>Previews</h4>
+            <div class="twig-doc-variation">
+                {% for name, variation in component.variations %}
+                    <h5{% if loop.first %} class="active"{% endif %} data-variation="{{ name }}">{{ name }}</h5>
+                {% endfor %}
+                {% for name, variation in component.variations %}
+                    <div class="twig-doc-variation-body{% if loop.first %} active{% endif %}" data-variation="{{ name }}">
+
+                        <div class="twig-doc-viewport-container">
+                            {% include '@TwigDoc/component/_viewport.html.twig' with {component: component, componentData: variation ?? [], width: '1280px'} %}
+                        </div>
+                        <div class="twig-doc-variation-description">
+                            <ul>
+                                {% for key, value in variation %}
+                                    <li>
+                                        <b>{{ key }}:</b>
+                                        {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
-                    <div class="twig-doc-variation-description">
-                        <ul>
-                            {% for name, parameters in variation %}
-                                <li>
-                                    <b>{{ name }}:</b>
-                                    {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: parameters} %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
