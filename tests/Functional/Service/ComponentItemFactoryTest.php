@@ -10,7 +10,6 @@ use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use TypeError;
 
 #[CoversClass(ComponentItemFactory::class)]
 #[UsesClass(CategoryService::class)]
@@ -82,8 +81,8 @@ class ComponentItemFactoryTest extends KernelTestCase
                 'complex' => [
                     'title' => 'String',
                     'amount' => 'Float',
-                ]
-            ]
+                ],
+            ],
         ];
 
         /** @var ComponentItemFactory $factory */
@@ -111,24 +110,24 @@ class ComponentItemFactoryTest extends KernelTestCase
         yield [
             [
                 'name' => 'InvalidComponent1',
-                'category' => 'MainCategory'
-            ]
+                'category' => 'MainCategory',
+            ],
         ];
 
         yield [
             [
                 'name' => 'InvalidComponentMissingTitleAndDescription',
                 'category' => 'MainCategory',
-                'title' => 'Component title'
-            ]
+                'title' => 'Component title',
+            ],
         ];
 
         yield [
             [
                 'name' => 'InvalidComponentMissingDescription',
                 'category' => 'MainCategory',
-                'title' => 'Component title'
-            ]
+                'title' => 'Component title',
+            ],
         ];
 
         yield [
@@ -141,7 +140,7 @@ class ComponentItemFactoryTest extends KernelTestCase
                 'variations' => 'Should be an array',
                 'tags' => 'Should be an array',
             ],
-            TypeError::class,
+            \TypeError::class,
         ];
     }
 }

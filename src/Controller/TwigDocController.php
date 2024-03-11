@@ -1,15 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Controller;
 
+use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Twig\Environment;
-use Qossmic\TwigDocBundle\Component\ComponentItem;
-use Qossmic\TwigDocBundle\Service\ComponentService;
 
 class TwigDocController
 {
@@ -17,8 +17,7 @@ class TwigDocController
         private readonly Environment $twig,
         private readonly ComponentService $componentService,
         private readonly ?Profiler $profiler = null
-    )
-    {
+    ) {
     }
 
     public function index(Request $request): Response
@@ -55,14 +54,15 @@ class TwigDocController
         }
         $breakpoint = $request->query->get('breakpoint');
         // disable profiler to get rid of toolbar in dev
-        if($this->profiler) {
-        $this->profiler->disable();
+        if ($this->profiler) {
+            $this->profiler->disable();
         }
+
         return new Response(
             $this->twig->render('@TwigDoc/component.html.twig', [
                 'component' => $component,
                 'componentData' => $request->query->all('data'),
-                'quantity' => $request->query->get('quantity')
+                'quantity' => $request->query->get('quantity'),
             ])
         );
     }

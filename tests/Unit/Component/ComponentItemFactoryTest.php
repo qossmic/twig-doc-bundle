@@ -5,10 +5,10 @@ namespace Qossmic\TwigDocBundle\Tests\Unit\Component;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\TestCase;
 use Qossmic\TwigDocBundle\Component\ComponentCategory;
 use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
-use PHPUnit\Framework\TestCase;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -27,7 +27,7 @@ class ComponentItemFactoryTest extends TestCase
             ->method('getCategory')
             ->with($componentData['category'])
             ->willReturn($componentCategoryMock)
-            ;
+        ;
         $validatorMock = static::createMock(ValidatorInterface::class);
         $validatorMock->method('validate')
             ->willReturn(new ConstraintViolationList());
@@ -66,8 +66,8 @@ class ComponentItemFactoryTest extends TestCase
                 'category' => 'TestCategory',
                 'parameters' => [],
                 'variations' => [
-                    'default' => []
-                ]
+                    'default' => [],
+                ],
             ],
         ];
 
@@ -80,8 +80,8 @@ class ComponentItemFactoryTest extends TestCase
                 'sub_category' => 'SubCategory',
                 'parameters' => [],
                 'variations' => [
-                    'default' => []
-                ]
+                    'default' => [],
+                ],
             ],
         ];
     }
