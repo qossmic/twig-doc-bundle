@@ -75,5 +75,5 @@ Alternatively, you can provide a path for your component in the configuration (p
 ...
 components:
   - name: Button
-    path: '%twig.default_path%/snippets/FancyButton.html.twig''
+    path: '%twig.default_path%/snippets/FancyButton.html.twig'
 ```
