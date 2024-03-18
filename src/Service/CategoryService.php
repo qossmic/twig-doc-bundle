@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Service;
@@ -34,16 +35,16 @@ class CategoryService
     /**
      * @return ComponentCategory[]
      */
-    public function getSubCategories(ComponentCategory $mainCategory = null): array
+    public function getSubCategories(?ComponentCategory $mainCategory = null): array
     {
         if ($mainCategory !== null) {
-            return array_filter($this->subCategories, fn(ComponentCategory $category) => $category->getParent() === $mainCategory);
+            return array_filter($this->subCategories, fn (ComponentCategory $category) => $category->getParent() === $mainCategory);
         }
 
         return $this->subCategories;
     }
 
-    public function getCategory(string $category, string $subCategoryName = null): ?ComponentCategory
+    public function getCategory(string $category, ?string $subCategoryName = null): ?ComponentCategory
     {
         if ($subCategoryName === null) {
             return $this->categories[$category] ?? null;
@@ -65,9 +66,7 @@ class CategoryService
             $cat->setName($category['name']);
 
             if (isset($this->categories[$cat->getName()])) {
-                throw new InvalidConfigException(
-                    sprintf('Category %s has been already configured, be sure to have main-categories only once', $cat->getName())
-                );
+                throw new InvalidConfigException(sprintf('Category %s has been already configured, be sure to have main-categories only once', $cat->getName()));
             }
             $this->categories[$cat->getName()] = $cat;
 

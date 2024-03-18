@@ -35,8 +35,8 @@ class ConfigurationTest extends TestCase
                         'sub_categories' => [
                             'SubCategory1',
                             'SubCategory2',
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ],
             [
@@ -51,11 +51,11 @@ class ConfigurationTest extends TestCase
                         'sub_categories' => [
                             'SubCategory1',
                             'SubCategory2',
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
-                'components' => []
-            ]
+                'components' => [],
+            ],
         ];
 
         yield 'Simple Component' => [
@@ -70,8 +70,8 @@ class ConfigurationTest extends TestCase
                         'sub_categories' => [
                             'SubCategory1',
                             'SubCategory2',
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'components' => [
                     [
@@ -92,11 +92,11 @@ class ConfigurationTest extends TestCase
                             'default' => [
                                 'type' => 'primary',
                                 'msg' => 'Click Me',
-                                'link' => '#'
-                            ]
-                        ]
+                                'link' => '#',
+                            ],
+                        ],
                     ],
-                ]
+                ],
             ],
             [
                 'doc_identifier' => 'TWIG_DOC',
@@ -110,8 +110,8 @@ class ConfigurationTest extends TestCase
                         'sub_categories' => [
                             'SubCategory1',
                             'SubCategory2',
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'components' => [
                     [
@@ -132,11 +132,11 @@ class ConfigurationTest extends TestCase
                             'default' => [
                                 'type' => 'primary',
                                 'msg' => 'Click Me',
-                                'link' => '#'
-                            ]
-                        ]
+                                'link' => '#',
+                            ],
+                        ],
                     ],
-                ]
+                ],
             ],
         ];
     }

@@ -32,9 +32,9 @@ $config = [
                 'default' => [
                     'type' => 'primary',
                     'msg' => 'Click Me',
-                    'link' => '#'
-                ]
-            ]
+                    'link' => '#',
+                ],
+            ],
         ],
         [
             'name' => 'ButtonSubmit',
@@ -54,9 +54,9 @@ $config = [
                 'default' => [
                     'type' => 'primary',
                     'msg' => 'Click Me',
-                    'link' => '#'
-                ]
-            ]
+                    'link' => '#',
+                ],
+            ],
         ],
         [
             'name' => 'InvalidComponent',
@@ -67,10 +67,10 @@ $config = [
             'tags' => [],
             'parameters' => [],
             'variations' => [
-                'default' => []
-            ]
+                'default' => [],
+            ],
         ],
-    ]
+    ],
 ];
 
 $container->loadFromExtension('twig_doc', $config);

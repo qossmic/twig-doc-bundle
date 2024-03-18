@@ -10,18 +10,14 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 class TwigDocExtension extends Extension
 {
-
-    /**
-     * @inheritDoc
-     */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('twig_doc.config', $config);
 
-        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('documentation.php');
 
         $definition = $container->getDefinition('twig_doc.service.component');

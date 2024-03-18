@@ -20,7 +20,7 @@ class CategoryServiceTest extends TestCase
         $categoryService = new CategoryService([$categoryConfig]);
 
         static::assertInstanceOf(ComponentCategory::class, $categoryService->getCategory($categoryConfig['name']));
-        static::assertCount(count($categoryConfig['sub_categories'] ?? []), $categoryService->getSubCategories());
+        static::assertCount(\count($categoryConfig['sub_categories'] ?? []), $categoryService->getSubCategories());
 
         foreach ($categoryConfig['sub_categories'] ?? [] as $subCategoryName) {
             $subCategory = $categoryService->getCategory($categoryConfig['name'], $subCategoryName);
@@ -38,7 +38,7 @@ class CategoryServiceTest extends TestCase
             ],
             [
                 'name' => 'Category',
-            ]
+            ],
         ];
 
         static::expectException(InvalidConfigException::class);
@@ -72,14 +72,14 @@ class CategoryServiceTest extends TestCase
                 'sub_categories' => [
                     'subCategory1',
                     'subCategory2',
-                ]
+                ],
             ],
             [
                 'name' => 'Category2',
                 'sub_categories' => [
                     'subCategory1',
                     'subCategory2',
-                ]
+                ],
             ],
         ]);
 
@@ -94,7 +94,7 @@ class CategoryServiceTest extends TestCase
         yield 'Main Category' => [
             [
                 'name' => 'MainCategory',
-            ]
+            ],
         ];
 
         yield 'Single sub category' => [
@@ -103,7 +103,7 @@ class CategoryServiceTest extends TestCase
                 'sub_categories' => [
                     'SubCategory',
                 ],
-            ]
+            ],
         ];
 
         yield 'Multiple sub categories' => [
@@ -113,7 +113,7 @@ class CategoryServiceTest extends TestCase
                     'SubCategory1',
                     'SubCategory2',
                 ],
-            ]
+            ],
         ];
     }
 }

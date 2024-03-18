@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Service;
@@ -27,9 +28,8 @@ class ComponentService
 
     public function __construct(
         private readonly ComponentItemFactory $itemFactory,
-        private readonly array $componentsConfig
-    )
-    {
+        private readonly array $componentsConfig,
+    ) {
         $this->parse();
     }
 
@@ -72,7 +72,7 @@ class ComponentService
 
     public function filter(string $filterQuery, string $filterType): array
     {
-        $components = array_unique($this->filterComponents($filterQuery, $filterType), SORT_REGULAR);
+        $components = array_unique($this->filterComponents($filterQuery, $filterType), \SORT_REGULAR);
 
         $result = [];
 
@@ -86,23 +86,22 @@ class ComponentService
     private function filterComponents(string $filterQuery, string $filterType): array
     {
         $components = [];
-        switch($filterType) {
+        switch ($filterType) {
             case 'category':
-                $components = array_filter($this->categories, fn (string $category) => strtolower($category) === strtolower($filterQuery), ARRAY_FILTER_USE_KEY);
+                $components = array_filter($this->categories, fn (string $category) => strtolower($category) === strtolower($filterQuery), \ARRAY_FILTER_USE_KEY);
 
                 return $components[array_key_first($components)] ?? [];
             case 'sub_category':
                 $components = array_filter(
                     $this->components,
-                    fn (ComponentItem $item) =>
-                        $item->getCategory()->getParent() !== null
+                    fn (ComponentItem $item) => $item->getCategory()->getParent() !== null
                         && strtolower($item->getCategory()->getName()) === strtolower($filterQuery)
                 );
 
                 break;
             case 'tags':
                 $tags = array_map('trim', explode(',', strtolower($filterQuery)));
-                $components = array_filter($this->components, function(ComponentItem $item) use ($tags) {
+                $components = array_filter($this->components, function (ComponentItem $item) use ($tags) {
                     return array_intersect($tags, array_map('strtolower', $item->getTags())) !== [];
                 });
 

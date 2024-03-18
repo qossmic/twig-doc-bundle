@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
@@ -10,7 +11,7 @@ use Qossmic\TwigDocBundle\Service\ComponentService;
 use Qossmic\TwigDocBundle\Twig\TwigDocExtension;
 
 return static function (ContainerConfigurator $container) {
-    $container->services()  ->set('twig_doc.controller.documentation', TwigDocController::class)
+    $container->services()->set('twig_doc.controller.documentation', TwigDocController::class)
         ->public()
         ->autoconfigure()
         ->autowire()
@@ -35,5 +36,5 @@ return static function (ContainerConfigurator $container) {
         ->autowire()
         ->tag('twig.extension')
         ->alias(TwigDocExtension::class, 'twig_doc.twig.extension')
-        ;
+    ;
 };

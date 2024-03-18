@@ -1,13 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Twig;
 
-use InvalidArgumentException;
 use Qossmic\TwigDocBundle\Component\ComponentCategory;
 use Qossmic\TwigDocBundle\Component\ComponentInvalid;
 use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Service\CategoryService;
+use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\UX\TwigComponent\ComponentRendererInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -15,7 +16,6 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Qossmic\TwigDocBundle\Service\ComponentService;
 
 class TwigDocExtension extends AbstractExtension
 {
@@ -24,8 +24,7 @@ class TwigDocExtension extends AbstractExtension
         private readonly ComponentService $componentService,
         private readonly CategoryService $categoryService,
         private readonly Environment $twig
-    )
-    {
+    ) {
     }
 
     public function getFunctions(): array
@@ -34,17 +33,11 @@ class TwigDocExtension extends AbstractExtension
             new TwigFunction('renderComponent', [$this, 'renderComponent']),
             new TwigFunction('filterComponents', [$this, 'filterComponents']),
             new TwigFunction('getInvalidComponents', [$this, 'getInvalidComponents']),
-            new TwigFunction('getSubCategories', [$this, 'getSubCategories'])
+            new TwigFunction('getSubCategories', [$this, 'getSubCategories']),
         ];
     }
 
-    /**
-     * @param string $filterQuery
-     * @param string|null $type
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function filterComponents(string $filterQuery, string $type = null): array
+    public function filterComponents(string $filterQuery, ?string $type = null): array
     {
         return $this->componentService->filter($filterQuery, $type);
     }
@@ -57,8 +50,8 @@ class TwigDocExtension extends AbstractExtension
 
         try {
             return $this->componentRenderer->createAndRender($item->getName(), $params);
-        } catch (InvalidArgumentException $e) {
-            # no ux-component found, so try to render as normal template
+        } catch (\InvalidArgumentException $e) {
+            // no ux-component found, so try to render as normal template
             return $this->renderFallback($item, $params);
         }
     }
@@ -76,7 +69,7 @@ class TwigDocExtension extends AbstractExtension
      * @return ComponentCategory[]
      * @codeCoverageIgnore
      */
-    public function getSubCategories(string $mainCategoryName = null): array
+    public function getSubCategories(?string $mainCategoryName = null): array
     {
         return $this->categoryService->getSubCategories($this->categoryService->getCategory($mainCategoryName));
     }

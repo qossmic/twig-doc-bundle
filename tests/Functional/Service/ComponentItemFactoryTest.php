@@ -103,8 +103,8 @@ class ComponentItemFactoryTest extends KernelTestCase
                 'complex' => [
                     'title' => 'String',
                     'amount' => 'Float',
-                ]
-            ]
+                ],
+            ],
         ];
 
         /** @var ComponentItemFactory $factory */
@@ -132,16 +132,16 @@ class ComponentItemFactoryTest extends KernelTestCase
         yield [
             [
                 'name' => 'InvalidComponent1',
-                'category' => 'MainCategory'
-            ]
+                'category' => 'MainCategory',
+            ],
         ];
 
         yield [
             [
                 'name' => 'InvalidComponentMissingDescription',
                 'category' => 'MainCategory',
-                'title' => 'Component title'
-            ]
+                'title' => 'Component title',
+            ],
         ];
 
         yield [
@@ -154,7 +154,7 @@ class ComponentItemFactoryTest extends KernelTestCase
                 'variations' => 'Should be an array',
                 'tags' => 'Should be an array',
             ],
-            TypeError::class,
+            \TypeError::class,
         ];
     }
 

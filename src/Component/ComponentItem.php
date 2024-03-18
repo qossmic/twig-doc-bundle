@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Component;
@@ -36,9 +37,10 @@ class ComponentItem
         return $this->name;
     }
 
-    public function setName(string $name): ComponentItem
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -47,9 +49,10 @@ class ComponentItem
         return $this->title;
     }
 
-    public function setTitle(string $title): ComponentItem
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -58,9 +61,10 @@ class ComponentItem
         return $this->description;
     }
 
-    public function setDescription(string $description): ComponentItem
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -69,9 +73,10 @@ class ComponentItem
         return $this->tags;
     }
 
-    public function setTags(array $tags): ComponentItem
+    public function setTags(array $tags): self
     {
         $this->tags = $tags;
+
         return $this;
     }
 
@@ -80,27 +85,28 @@ class ComponentItem
         return $this->parameters;
     }
 
-    public function setParameters(array $parameters): ComponentItem
+    public function setParameters(array $parameters): self
     {
         $this->parameters = $parameters;
 
         return $this;
     }
 
-    public function setVariations(array $variations): ComponentItem
+    public function setVariations(array $variations): self
     {
         $this->variations = $variations;
 
         return $this;
     }
 
-    public function addParameter(string $name, mixed $value): ComponentItem
+    public function addParameter(string $name, mixed $value): self
     {
         $this->parameters[$name] = $value;
+
         return $this;
     }
 
-    public function removeParameter(string $name): ComponentItem
+    public function removeParameter(string $name): self
     {
         unset($this->parameters[$name]);
 
@@ -112,13 +118,14 @@ class ComponentItem
         return $this->variations;
     }
 
-    public function addVariation(string $name, array $variation): ComponentItem
+    public function addVariation(string $name, array $variation): self
     {
         $this->variations[$name] = $variation;
+
         return $this;
     }
 
-    public function removeVariation(string $name): ComponentItem
+    public function removeVariation(string $name): self
     {
         unset($this->variations[$name]);
 
@@ -130,9 +137,10 @@ class ComponentItem
         return $this->category;
     }
 
-    public function setCategory(ComponentCategory $category): ComponentItem
+    public function setCategory(ComponentCategory $category): self
     {
         $this->category = $category;
+
         return $this;
     }
 

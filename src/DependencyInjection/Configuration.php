@@ -7,9 +7,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('twig_doc');
@@ -48,13 +45,13 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         ->variableNode('parameters')
                             ->validate()
-                                ->ifTrue(fn ($v) => is_string($v) === false && is_array($v) === false)
+                                ->ifTrue(fn ($v) => \is_string($v) === false && \is_array($v) === false)
                                 ->thenInvalid('parameters must be either a scalar or an array')
                             ->end()
                         ->end()
                         ->variableNode('variations')
                             ->validate()
-                                ->ifTrue(fn ($v) => is_string($v) === false && is_array($v) === false)
+                                ->ifTrue(fn ($v) => \is_string($v) === false && \is_array($v) === false)
                                 ->thenInvalid('variations must be either a scalar or an array')
                             ->end()
                         ->end()
