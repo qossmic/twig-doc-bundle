@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Component;
 
-use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ComponentItemFactory
 {
@@ -23,7 +24,7 @@ class ComponentItemFactory
         if ($category === null) {
             $violations = ConstraintViolationList::createFromMessage(
                 sprintf(
-                    "invalid %s \"%s\". Valid categories are: %s. Valid sub-categories are: %s",
+                    'invalid %s "%s". Valid categories are: %s. Valid sub-categories are: %s',
                     isset($data['sub_category']) ? 'sub_category' : 'category',
                     $data['sub_category'] ?? $data['category'],
                     implode(', ', array_keys($this->categoryService->getCategories())),
@@ -53,7 +54,7 @@ class ComponentItemFactory
             ->setTags($data['tags'] ?? [])
             ->setParameters($data['parameters'] ?? [])
             ->setVariations($data['variations'] ?? [
-                'default' => $this->createVariationParameters($data['parameters'] ?? [])
+                'default' => $this->createVariationParameters($data['parameters'] ?? []),
             ]);
 
         return $item;
@@ -63,7 +64,7 @@ class ComponentItemFactory
     {
         $params = [];
         foreach ($parameters as $name => $type) {
-            if (is_array($type)) {
+            if (\is_array($type)) {
                 $paramValue = $this->createVariationParameters($type);
             } else {
                 $paramValue = $this->createParamValue($type);
@@ -86,7 +87,7 @@ class ComponentItemFactory
                 return random_int(0, 100000);
             case 'bool':
             case 'boolean':
-                return [true, false][rand(0,1)];
+                return [true, false][rand(0, 1)];
             case 'float':
             case 'double':
                 return (float) rand(1, 1000) / 100;

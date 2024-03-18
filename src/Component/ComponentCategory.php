@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Component;
@@ -15,14 +16,15 @@ class ComponentCategory
     #[Assert\Regex('/^\w+$/')]
     private string $name;
 
-    public function getParent(): ?ComponentCategory
+    public function getParent(): ?self
     {
         return $this->parent;
     }
 
-    public function setParent(?ComponentCategory $parent): ComponentCategory
+    public function setParent(?self $parent): self
     {
         $this->parent = $parent;
+
         return $this;
     }
 
@@ -31,9 +33,10 @@ class ComponentCategory
         return $this->name;
     }
 
-    public function setName(string $name): ComponentCategory
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 }

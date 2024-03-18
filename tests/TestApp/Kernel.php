@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Tests\TestApp;
@@ -37,7 +38,7 @@ class Kernel extends SymfonyKernel
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
-        # test configs
+        // test configs
         $loader->load(__DIR__.'/config/services.php');
         $loader->load(__DIR__.'/config/packages/*.php', 'glob');
         $loader->load(__DIR__.'/config/packages/*.yaml', 'glob');
