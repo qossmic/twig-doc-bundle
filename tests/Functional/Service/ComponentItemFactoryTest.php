@@ -12,7 +12,6 @@ use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use TypeError;
 
 #[CoversClass(ComponentItemFactory::class)]
 #[UsesClass(CategoryService::class)]
@@ -170,8 +169,8 @@ class ComponentItemFactoryTest extends KernelTestCase
                 'renderPath' => 'render/path/to/template',
                 'parameters' => [],
                 'variations' => [
-                    'default' => []
-                ]
+                    'default' => [],
+                ],
             ],
         ];
 
@@ -186,8 +185,8 @@ class ComponentItemFactoryTest extends KernelTestCase
                 'renderPath' => 'render/path/to/template',
                 'parameters' => [],
                 'variations' => [
-                    'default' => []
-                ]
+                    'default' => [],
+                ],
             ],
         ];
     }

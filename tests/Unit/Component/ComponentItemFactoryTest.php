@@ -3,6 +3,7 @@
 namespace Qossmic\TwigDocBundle\Tests\Unit\Component;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Qossmic\TwigDocBundle\Component\ComponentCategory;
@@ -60,7 +61,7 @@ class ComponentItemFactoryTest extends TestCase
         $variables = [
             'var.separated.by.dots',
             'second',
-            'third.param'
+            'third.param',
         ];
 
         $componentItemFactory = new ComponentItemFactory(
@@ -71,16 +72,16 @@ class ComponentItemFactoryTest extends TestCase
         $result = $componentItemFactory->getParamsFromVariables($variables);
 
         static::assertEquals([
-            'var'=> [
+            'var' => [
                 'separated' => [
                     'by' => [
-                        'dots' => 'Scalar'
-                    ]
-                ]
+                        'dots' => 'Scalar',
+                    ],
+                ],
             ],
             'second' => 'Scalar',
             'third' => [
-                'param' => 'Scalar'
+                'param' => 'Scalar',
             ],
         ], $result);
     }

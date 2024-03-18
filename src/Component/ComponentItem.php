@@ -154,7 +154,7 @@ class ComponentItem
         return $this->projectPath;
     }
 
-    public function setProjectPath(?string $projectPath): ComponentItem
+    public function setProjectPath(?string $projectPath): self
     {
         $this->projectPath = $projectPath;
 
@@ -166,7 +166,7 @@ class ComponentItem
         return $this->renderPath;
     }
 
-    public function setRenderPath(?string $renderPath): ComponentItem
+    public function setRenderPath(?string $renderPath): self
     {
         $this->renderPath = $renderPath;
 

@@ -45,7 +45,7 @@ class TwigDocCollectDocsPassTest extends TestCase
         $container = $this->getContainer(componentsConfig: [
             [
                 'name' => 'invalidComponent',
-            ]
+            ],
         ]);
 
         $pass = new TwigDocCollectDocsPass(new YamlParser());
@@ -67,7 +67,7 @@ class TwigDocCollectDocsPassTest extends TestCase
             [
                 'name' => 'SomeComponent',
             ],
-        ],directories: [
+        ], directories: [
             '%twig.default_path%/invalid_for_test',
         ]);
 
@@ -89,8 +89,8 @@ class TwigDocCollectDocsPassTest extends TestCase
         static::expectExceptionMessage(sprintf('component "%s" is configured twice, please configure either directly in the template or the general bundle configuration', 'Button'));
         $container = $this->getContainer([
             [
-                'name' => 'Button'
-            ]
+                'name' => 'Button',
+            ],
         ]);
 
         $pass = new TwigDocCollectDocsPass(new YamlParser());

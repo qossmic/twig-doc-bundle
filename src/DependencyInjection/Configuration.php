@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('doc_identifier')->defaultValue('TWIG_DOC')
                     ->validate()
-                        ->ifTrue(fn($v) => !preg_match('#^\w+$#', $v))
+                        ->ifTrue(fn ($v) => !preg_match('#^\w+$#', $v))
                         ->thenInvalid('The twig_doc documentation identifier must match \w (regex)')
                     ->end()
                 ->end()

@@ -41,7 +41,7 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
         }
 
         $finder = new Finder();
-        foreach ($finder->in($directories)->files()->filter(fn(SplFileInfo $file) => $file->getExtension() === 'twig') as $file) {
+        foreach ($finder->in($directories)->files()->filter(fn (SplFileInfo $file) => $file->getExtension() === 'twig') as $file) {
             $doc = $this->parseDoc($file, $config['doc_identifier']);
 
             if ($doc === null) {
@@ -51,14 +51,13 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
             $filename = $file->getFilename();
             $componentName = substr($filename, 0, strpos($filename, '.'));
 
-            if (array_filter($componentConfig, fn(array $data) => $data['name'] === $componentName)) {
-                throw new InvalidConfigException(
-                    sprintf('component "%s" is configured twice, please configure either directly in the template or the general bundle configuration', $componentName));
+            if (array_filter($componentConfig, fn (array $data) => $data['name'] === $componentName)) {
+                throw new InvalidConfigException(sprintf('component "%s" is configured twice, please configure either directly in the template or the general bundle configuration', $componentName));
             }
             $itemConfig = [
                 'name' => $componentName,
-                'path' => str_replace($projectDir . '/', '', $file->getRealPath()),
-                'renderPath' => str_replace($templateDir . '/', '', $file->getRealPath()),
+                'path' => str_replace($projectDir.'/', '', $file->getRealPath()),
+                'renderPath' => str_replace($templateDir.'/', '', $file->getRealPath()),
                 'category' => ComponentCategory::DEFAULT_CATEGORY,
             ];
             $componentConfig[] = array_merge($itemConfig, $doc);
@@ -67,7 +66,7 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
         $definition->replaceArgument('$componentsConfig', $componentConfig);
     }
 
-    private function parseDoc(SplFileInfo $file, string $docIdentifier): null|array
+    private function parseDoc(SplFileInfo $file, string $docIdentifier): ?array
     {
         $content = $file->getContents();
 
@@ -98,7 +97,7 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
 
     private function resolveDirectories(ContainerBuilder $container, array $directories): array
     {
-        $directories[] = $container->getParameter('twig.default_path') . '/components';
+        $directories[] = $container->getParameter('twig.default_path').'/components';
 
         $directories = array_map(fn (string $dir) => $container->getParameterBag()->resolveValue($dir), $directories);
 
@@ -117,7 +116,7 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
 
         $finder = new Finder();
 
-        $files = $finder->in($directories)->files()->filter(fn(SplFileInfo $file) => $file->getFilename() === $template);
+        $files = $finder->in($directories)->files()->filter(fn (SplFileInfo $file) => $file->getFilename() === $template);
 
         if ($files->count() > 1) {
             return null;

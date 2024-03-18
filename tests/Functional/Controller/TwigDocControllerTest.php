@@ -12,7 +12,6 @@ use Qossmic\TwigDocBundle\Twig\TwigDocExtension;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[CoversClass(TwigDocController::class)]
 #[UsesClass(ComponentItemFactory::class)]
@@ -29,6 +28,7 @@ class TwigDocControllerTest extends WebTestCase
 
         $this->client = static::createClient();
     }
+
     public function testIndexReturnsStatus200(): void
     {
         $crawler = $this->client->request(Request::METHOD_GET, '/');
@@ -66,8 +66,8 @@ class TwigDocControllerTest extends WebTestCase
                 'name' => 'Button',
                 'data' => [
                     'type' => 'primary',
-                    'text' => 'btn-text'
-                ]
+                    'text' => 'btn-text',
+                ],
             ]
         );
 
@@ -82,7 +82,7 @@ class TwigDocControllerTest extends WebTestCase
             Request::METHOD_GET,
             '/component-view',
             [
-                'name' => 'notExistingComponent'
+                'name' => 'notExistingComponent',
             ]
         );
 

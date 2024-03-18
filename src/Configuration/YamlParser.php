@@ -32,14 +32,14 @@ class YamlParser implements ParserInterface
             }
             if ($firstLineDetected === false) {
                 $firstLineDetected = true;
-                # check for whitespaces at the beginning
+                // check for whitespaces at the beginning
                 if (!preg_match('#^(\s+)#', $line, $matches)) {
-                    # no leading whitespaces, indentation seems to be fine
+                    // no leading whitespaces, indentation seems to be fine
                     return $content;
                 }
                 $indentationWhitespace = $matches[1];
             }
-            $line = substr($line, strlen($indentationWhitespace));
+            $line = substr($line, \strlen($indentationWhitespace));
             $lines[] = $line;
             $fileObject->next();
         }

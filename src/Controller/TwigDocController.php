@@ -54,6 +54,7 @@ class TwigDocController
         }
         // disable profiler to get rid of toolbar in dev
         $this->profiler?->disable();
+
         return new Response(
             $this->twig->render('@TwigDoc/component.html.twig', [
                 'component' => $component,

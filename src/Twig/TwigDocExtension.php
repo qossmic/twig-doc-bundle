@@ -58,6 +58,7 @@ class TwigDocExtension extends AbstractExtension
 
     /**
      * @return ComponentInvalid[]
+     *
      * @codeCoverageIgnore
      */
     public function getInvalidComponents(): array
@@ -67,6 +68,7 @@ class TwigDocExtension extends AbstractExtension
 
     /**
      * @return ComponentCategory[]
+     *
      * @codeCoverageIgnore
      */
     public function getSubCategories(?string $mainCategoryName = null): array

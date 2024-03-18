@@ -23,12 +23,12 @@ class TwigDocExtensionTest extends TestCase
             [
                 'doc_identifier' => 'TWIG_DOC',
                 'directories' => [
-                    'some-directory'
+                    'some-directory',
                 ],
                 'categories' => [
-                    ['name' => 'category']
+                    ['name' => 'category'],
                 ],
-            ]
+            ],
         ];
 
         $extension->load($configs, $container);
@@ -39,7 +39,7 @@ class TwigDocExtensionTest extends TestCase
         static::assertEquals([], $componentServiceDefinition->getArgument('$componentsConfig'));
         static::assertEqualsCanonicalizing([
             ['name' => ComponentCategory::DEFAULT_CATEGORY],
-            ['name' => 'category', 'sub_categories' => []]
+            ['name' => 'category', 'sub_categories' => []],
         ], $categoryServiceDefinition->getArgument('$categoriesConfig'));
     }
 }

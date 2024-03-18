@@ -35,21 +35,21 @@ class YamlParserTest extends TestCase
     {
         yield 'simple key-value test' => [
             'yaml' => "        key: yaml ain't markup language",
-            'expected' => ["key" => "yaml ain't markup language"]
+            'expected' => ['key' => "yaml ain't markup language"],
         ];
 
         yield 'indentationFix' => [
             'yaml' => <<<TEXT
                     key: value
                     otherKey:
-                        sub: subValue   
+                        sub: subValue
 TEXT,
             [
                 'key' => 'value',
                 'otherKey' => [
-                    'sub' => 'subValue'
-                ]
-            ]
+                    'sub' => 'subValue',
+                ],
+            ],
         ];
 
         yield 'correctly formatted yaml' => [
@@ -63,10 +63,9 @@ TEXT,
             [
                 'key' => 'value',
                 'otherKey' => [
-                    'sub' => 'subValue'
-                ]
-            ]
-
+                    'sub' => 'subValue',
+                ],
+            ],
         ];
     }
 }

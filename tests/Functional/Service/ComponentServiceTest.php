@@ -88,40 +88,40 @@ class ComponentServiceTest extends KernelTestCase
             'query' => 'button',
             'type' => 'name',
             'expectedCounts' => [
-                'MainCategory' => 3
-            ]
+                'MainCategory' => 3,
+            ],
         ];
 
         yield 'category' => [
             'query' => 'MainCategory',
             'type' => 'category',
             'expectedCounts' => [
-                'MainCategory' => 4
-            ]
+                'MainCategory' => 4,
+            ],
         ];
 
         yield 'sub_category' => [
             'query' => 'SubCategory2',
             'type' => 'sub_category',
             'expectedCounts' => [
-                'MainCategory' => 1
-            ]
+                'MainCategory' => 1,
+            ],
         ];
 
         yield 'tags' => [
             'query' => 'snippet',
             'type' => 'tags',
             'expectedCounts' => [
-                'MainCategory' => 1
-            ]
+                'MainCategory' => 1,
+            ],
         ];
 
         yield 'any' => [
             'query' => 'action',
             'type' => '',
             'expectedCounts' => [
-                'MainCategory' => 1
-            ]
+                'MainCategory' => 1,
+            ],
         ];
     }
 
@@ -161,7 +161,7 @@ class ComponentServiceTest extends KernelTestCase
                     'param2' => 'String',
                     'param3' => 'String',
                     'param4' => 'String',
-                ]
+                ],
             ],
             'variations' => [
                 'variation1' => [
@@ -180,7 +180,7 @@ class ComponentServiceTest extends KernelTestCase
                         'param2' => 'String',
                         'param3' => 'String',
                         'param4' => 'String',
-                    ]
+                    ],
                 ],
                 'variation2' => [
                     'param1' => 'String',
@@ -198,7 +198,7 @@ class ComponentServiceTest extends KernelTestCase
                         'param2' => 'String',
                         'param3' => 'String',
                         'param4' => 'String',
-                    ]
+                    ],
                 ],
                 'variation3' => [
                     'param1' => 'String',
@@ -216,9 +216,9 @@ class ComponentServiceTest extends KernelTestCase
                         'param2' => 'String',
                         'param3' => 'String',
                         'param4' => 'String',
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ]);
     }
 }

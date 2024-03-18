@@ -78,6 +78,7 @@ class ComponentItemFactory
                 $c = 'Scalar';
             }
         }
+
         return $r;
     }
 
