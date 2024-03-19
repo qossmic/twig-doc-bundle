@@ -56,6 +56,36 @@ class ComponentItemFactoryTest extends TestCase
         $componentItemFactory->create(['category' => 'Category']);
     }
 
+    public function testGetParamsFromVariables(): void
+    {
+        $variables = [
+            'var.separated.by.dots',
+            'second',
+            'third.param',
+        ];
+
+        $componentItemFactory = new ComponentItemFactory(
+            static::createMock(ValidatorInterface::class),
+            static::createMock(CategoryService::class)
+        );
+
+        $result = $componentItemFactory->getParamsFromVariables($variables);
+
+        static::assertEquals([
+            'var' => [
+                'separated' => [
+                    'by' => [
+                        'dots' => 'Scalar',
+                    ],
+                ],
+            ],
+            'second' => 'Scalar',
+            'third' => [
+                'param' => 'Scalar',
+            ],
+        ], $result);
+    }
+
     public static function getValidComponents(): iterable
     {
         yield 'Component without sub-category' => [

@@ -124,7 +124,7 @@ class ComponentService
     }
 
     /**
-     * @return ComponentItem[]
+     * @return ComponentInvalid[]
      */
     public function getInvalidComponents(): array
     {
@@ -133,6 +133,6 @@ class ComponentService
 
     public function getComponent(string $name): ?ComponentItem
     {
-        return array_values($this->filterComponents($name, 'name'))[0] ?? null;
+        return array_values(array_filter($this->components, fn (ComponentItem $c) => $c->getName() === $name))[0] ?? null;
     }
 }

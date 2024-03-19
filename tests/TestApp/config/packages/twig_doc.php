@@ -1,6 +1,9 @@
 <?php
 
 $config = [
+    'directories' => [
+        '%twig.default_path%/snippets',
+    ],
     'categories' => [
         [
             'name' => 'MainCategory',

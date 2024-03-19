@@ -18,13 +18,17 @@ class ConfigurationTest extends TestCase
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, [$options]);
 
-        $this->assertEquals($expectedResult, $config);
+        $this->assertEqualsCanonicalizing($expectedResult, $config);
     }
 
     public static function getTestConfiguration(): iterable
     {
         yield 'Categories config' => [
             [
+                'directories' => [
+                    __DIR__.'/../../TestApp/templates/components',
+                    __DIR__.'/../../TestApp/templates/snippets',
+                ],
                 'categories' => [
                     [
                         'name' => 'MainCategory',
@@ -36,6 +40,11 @@ class ConfigurationTest extends TestCase
                 ],
             ],
             [
+                'doc_identifier' => 'TWIG_DOC',
+                'directories' => [
+                    __DIR__.'/../../TestApp/templates/components',
+                    __DIR__.'/../../TestApp/templates/snippets',
+                ],
                 'categories' => [
                     [
                         'name' => 'MainCategory',
@@ -51,6 +60,10 @@ class ConfigurationTest extends TestCase
 
         yield 'Simple Component' => [
             [
+                'directories' => [
+                    __DIR__.'/../../TestApp/templates/components',
+                    __DIR__.'/../../TestApp/templates/snippets',
+                ],
                 'categories' => [
                     [
                         'name' => 'MainCategory',
@@ -86,6 +99,11 @@ class ConfigurationTest extends TestCase
                 ],
             ],
             [
+                'doc_identifier' => 'TWIG_DOC',
+                'directories' => [
+                    __DIR__.'/../../TestApp/templates/components',
+                    __DIR__.'/../../TestApp/templates/snippets',
+                ],
                 'categories' => [
                     [
                         'name' => 'MainCategory',
