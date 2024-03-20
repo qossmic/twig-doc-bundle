@@ -7,6 +7,7 @@ namespace Qossmic\TwigDocBundle\Twig;
 use Qossmic\TwigDocBundle\Component\ComponentCategory;
 use Qossmic\TwigDocBundle\Component\ComponentInvalid;
 use Qossmic\TwigDocBundle\Component\ComponentItem;
+use Qossmic\TwigDocBundle\Component\ComponentItemList;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\UX\TwigComponent\ComponentRendererInterface;
@@ -37,7 +38,7 @@ class TwigDocExtension extends AbstractExtension
         ];
     }
 
-    public function filterComponents(string $filterQuery, ?string $type = null): array
+    public function filterComponents(string $filterQuery, ?string $type = null): ComponentItemList
     {
         return $this->componentService->filter($filterQuery, $type);
     }

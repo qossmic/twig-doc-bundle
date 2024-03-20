@@ -22,7 +22,7 @@ class TwigDocController
 
     public function index(Request $request): Response
     {
-        $components = $this->componentService->getCategories();
+        $components = $this->componentService->getComponents();
 
         if ($filterQuery = $request->query->get('filterQuery')) {
             $filterType = $request->query->get('filterType');

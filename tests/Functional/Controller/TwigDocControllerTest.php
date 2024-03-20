@@ -5,6 +5,7 @@ namespace Qossmic\TwigDocBundle\Tests\Functional\Controller;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
+use Qossmic\TwigDocBundle\Component\ComponentItemList;
 use Qossmic\TwigDocBundle\Controller\TwigDocController;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Service\ComponentService;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[UsesClass(CategoryService::class)]
 #[CoversClass(ComponentService::class)]
 #[UsesClass(TwigDocExtension::class)]
+#[UsesClass(ComponentItemList::class)]
 class TwigDocControllerTest extends WebTestCase
 {
     private KernelBrowser $client;

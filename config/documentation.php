@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Qossmic\TwigDocBundle\Cache\ComponentsWarmer;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Controller\TwigDocController;
 use Qossmic\TwigDocBundle\Service\CategoryService;
@@ -36,5 +37,9 @@ return static function (ContainerConfigurator $container) {
         ->autowire()
         ->tag('twig.extension')
         ->alias(TwigDocExtension::class, 'twig_doc.twig.extension')
+
+        ->set('twig_doc.cache_warmer', ComponentsWarmer::class)
+        ->arg('$container', service('service_container'))
+        ->tag('kernel.cache_warmer')
     ;
 };
