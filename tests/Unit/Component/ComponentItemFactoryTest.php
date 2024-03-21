@@ -114,6 +114,35 @@ class ComponentItemFactoryTest extends TestCase
                 ],
             ],
         ];
+
+        yield 'Component without variations' => [
+            [
+                'name' => 'Component1',
+                'title' => 'Component',
+                'description' => 'Test component',
+                'category' => 'TestCategory',
+                'sub_category' => 'SubCategory',
+                'parameters' => [
+                    'one' => 'String',
+                    'two' => 'float',
+                    'three' => 'integer',
+                    'four' => 'int',
+                    'five' => 'double',
+                    'six' => 'bool',
+                    'seven' => 'boolean',
+                    'eight' => 'SomeOtherType',
+                ],
+            ],
+        ];
+
+        yield 'Component without parameters and variations' => [
+            [
+                'name' => 'Component1',
+                'title' => 'Component',
+                'description' => 'Test component',
+                'category' => 'TestCategory',
+            ],
+        ];
     }
 
     private function getComponentCategoryMock(string $category, ?string $subCategory = null): ComponentCategory

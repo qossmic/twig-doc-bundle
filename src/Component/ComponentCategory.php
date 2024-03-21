@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @codeCoverageIgnore
  */
-class ComponentCategory
+class ComponentCategory implements \Stringable
 {
     public const DEFAULT_CATEGORY = 'Components';
 
@@ -40,5 +40,10 @@ class ComponentCategory
         $this->name = $name;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

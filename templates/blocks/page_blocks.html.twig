@@ -63,12 +63,8 @@
                 </ul>
             </div>
 
-            {% for items in components %}
-                <div>
-                    {% for item in items %}
-                        {% include '@TwigDoc/component/_item.html.twig' with { component: item } %}
-                    {% endfor %}
-                </div>
+            {% for component in components %}
+                {% include '@TwigDoc/component/_item.html.twig' with { component: component } %}
             {% endfor %}
         </div>
     </div>

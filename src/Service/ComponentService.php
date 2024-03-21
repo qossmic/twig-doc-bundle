@@ -4,135 +4,95 @@ declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Service;
 
+use Psr\Cache\InvalidArgumentException;
 use Qossmic\TwigDocBundle\Component\ComponentInvalid;
 use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
+use Qossmic\TwigDocBundle\Component\ComponentItemList;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class ComponentService
 {
-    /**
-     * @var ComponentItem[]
-     */
-    private array $components = [];
-
-    /**
-     * @var array<string, array<int, ComponentItem>>
-     */
-    private array $categories = [];
-
-    /**
-     * @var ComponentInvalid[]
-     */
-    private array $invalidComponents = [];
-
     public function __construct(
         private readonly ComponentItemFactory $itemFactory,
         private readonly array $componentsConfig,
+        private readonly CacheInterface $cache,
+        private readonly int $configReadTime = 0
     ) {
-        $this->parse();
     }
 
     /**
-     * @return ComponentItem[]
+     * @return ComponentItemList<ComponentItem>
      */
-    public function getComponentsByCategory(string $category): array
+    public function getComponentsByCategory(string $category): ComponentItemList
     {
-        return $this->categories[$category] ?? [];
+        return $this->filter($category, 'category');
     }
 
     /**
-     * @return array<string, array<int, ComponentItem>>
+     * @throws InvalidArgumentException
      */
-    public function getCategories(): array
+    public function getComponents(): ComponentItemList
     {
-        return $this->categories;
-    }
-
-    private function parse(): void
-    {
-        $components = $categories = $invalidComponents = [];
-
-        foreach ($this->componentsConfig as $componentData) {
-            try {
-                $item = $this->itemFactory->create($componentData);
-            } catch (InvalidComponentConfigurationException $e) {
-                $item = new ComponentInvalid($e->getViolationList(), $componentData);
-                $invalidComponents[] = $item;
-                continue;
-            }
-            $components[] = $item;
-            $categories[$item->getMainCategory()->getName()][] = $item;
-        }
-
-        $this->components = $components;
-        $this->categories = $categories;
-        $this->invalidComponents = $invalidComponents;
-    }
-
-    public function filter(string $filterQuery, string $filterType): array
-    {
-        $components = array_unique($this->filterComponents($filterQuery, $filterType), \SORT_REGULAR);
-
-        $result = [];
-
-        foreach ($components as $component) {
-            $result[$component->getMainCategory()->getName()][] = $component;
-        }
-
-        return $result;
-    }
-
-    private function filterComponents(string $filterQuery, string $filterType): array
-    {
-        $components = [];
-        switch ($filterType) {
-            case 'category':
-                $components = array_filter($this->categories, fn (string $category) => strtolower($category) === strtolower($filterQuery), \ARRAY_FILTER_USE_KEY);
-
-                return $components[array_key_first($components)] ?? [];
-            case 'sub_category':
-                $components = array_filter(
-                    $this->components,
-                    fn (ComponentItem $item) => $item->getCategory()->getParent() !== null
-                        && strtolower($item->getCategory()->getName()) === strtolower($filterQuery)
-                );
-
-                break;
-            case 'tags':
-                $tags = array_map('trim', explode(',', strtolower($filterQuery)));
-                $components = array_filter($this->components, function (ComponentItem $item) use ($tags) {
-                    return array_intersect($tags, array_map('strtolower', $item->getTags())) !== [];
-                });
-
-                break;
-            case 'name':
-                $components = array_filter(
-                    $this->components,
-                    fn (ComponentItem $item) => str_contains(strtolower($item->getName()), strtolower($filterQuery)));
-
-                break;
-            default:
-                foreach (['category', 'sub_category', 'tags', 'name'] as $type) {
-                    $components = array_merge($components, $this->filterComponents($filterQuery, $type));
+        return new ComponentItemList(
+            $this->cache->get('twig_doc.parsed.components'.$this->configReadTime, function () {
+                $components = [];
+                foreach ($this->componentsConfig as $componentData) {
+                    try {
+                        $components[] = $this->itemFactory->create($componentData);
+                    } catch (InvalidComponentConfigurationException) {
+                        continue;
+                    }
                 }
 
-                break;
-        }
+                return $components;
+            })
+        );
+    }
 
-        return $components;
+    public function filter(string $filterQuery, string $filterType): ComponentItemList
+    {
+        $hash = sprintf('twig_doc_bundle.search.%s.%s', md5($filterQuery.$filterType), $this->configReadTime);
+
+        return $this->cache->get($hash, function () use ($filterQuery, $filterType) {
+            return $this->getComponents()->filter($filterQuery, $filterType);
+        });
     }
 
     /**
      * @return ComponentInvalid[]
+     *
+     * @throws InvalidArgumentException
      */
     public function getInvalidComponents(): array
     {
-        return $this->invalidComponents;
+        return $this->cache->get('twig_doc_bundle.invalid_components'.$this->configReadTime, function () {
+            $invalid = array_filter($this->componentsConfig, function ($cmpData) {
+                foreach ($this->getComponents()->getArrayCopy() as $cmp) {
+                    if ($cmp->getName() === $cmpData['name'] ?? null) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+            $invalidComponents = [];
+
+            foreach ($invalid as $cmpData) {
+                try {
+                    $this->itemFactory->create($cmpData);
+                } catch (InvalidComponentConfigurationException $e) {
+                    $invalidComponents[] = new ComponentInvalid($e->getViolationList(), $cmpData);
+                }
+            }
+
+            return $invalidComponents;
+        });
     }
 
     public function getComponent(string $name): ?ComponentItem
     {
-        return array_values(array_filter($this->components, fn (ComponentItem $c) => $c->getName() === $name))[0] ?? null;
+        return array_values(array_filter((array) $this->getComponents(), fn (ComponentItem $c) => $c->getName() === $name))[0] ?? null;
     }
 }
