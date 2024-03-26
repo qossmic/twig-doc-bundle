@@ -8,13 +8,19 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use Qossmic\TwigDocBundle\Component\ComponentCategory;
 use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
+use Qossmic\TwigDocBundle\Component\Data\Faker;
+use Qossmic\TwigDocBundle\Component\Data\FixtureData;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
+use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Car;
+use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Manufacturer;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[CoversClass(ComponentItemFactory::class)]
 #[UsesClass(CategoryService::class)]
+#[UsesClass(Faker::class)]
+#[UsesClass(FixtureData::class)]
 class ComponentItemFactoryTest extends KernelTestCase
 {
     #[DataProvider('getValidComponents')]
@@ -124,6 +130,47 @@ class ComponentItemFactoryTest extends KernelTestCase
         self::assertIsArray($component->getVariations()['default']['complex']);
         self::assertIsString($component->getVariations()['default']['complex']['title']);
         self::assertIsFloat($component->getVariations()['default']['complex']['amount']);
+    }
+
+    public function testCreateForObjectParameter(): void
+    {
+        $data = [
+            'name' => 'component',
+            'title' => 'title',
+            'description' => 'description',
+            'category' => 'MainCategory',
+            'path' => 'path',
+            'renderPath' => 'renderPath',
+            'parameters' => [
+                'car' => Car::class
+            ],
+            'variations' => [
+                'fuchsia' => [
+                    'car' => [
+                        'color' => 'fuchsia',
+                        'manufacturer' => [
+                            'name' => 'Mitsubishi',
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        /** @var ComponentItemFactory $factory */
+        $factory = self::getContainer()->get('twig_doc.service.component_factory');
+
+        $item = $factory->create($data);
+        $variations = $item->getVariations();
+
+        static::assertInstanceOf(ComponentItem::class, $item);
+        static::assertArrayHasKey('fuchsia', $variations);
+        static::assertIsArray($variations['fuchsia']);
+        static::assertArrayHasKey('car', $variations['fuchsia']);
+
+        $car = $variations['fuchsia']['car'];
+
+        static::assertInstanceOf(Car::class, $car);
+        static::assertEquals('fuchsia', $car->getColor());
     }
 
     public static function getInvalidComponentConfigurationTestCases(): iterable

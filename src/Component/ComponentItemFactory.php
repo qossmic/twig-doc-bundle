@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Qossmic\TwigDocBundle\Component;
 
+use Qossmic\TwigDocBundle\Component\Data\Faker;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -11,10 +12,16 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ComponentItemFactory
 {
+    private Faker $faker;
+
     public function __construct(private readonly ValidatorInterface $validator, private readonly CategoryService $categoryService)
     {
+        $this->faker = new Faker();
     }
 
+    /**
+     * @throws InvalidComponentConfigurationException
+     */
     public function create(array $data): ComponentItem
     {
         $item = $this->createItem($data);
@@ -45,6 +52,9 @@ class ComponentItemFactory
         return $item;
     }
 
+    /**
+     * @throws InvalidComponentConfigurationException
+     */
     private function createItem(array $data): ComponentItem
     {
         $item = new ComponentItem();
@@ -53,9 +63,9 @@ class ComponentItemFactory
             ->setDescription($data['description'] ?? '')
             ->setTags($data['tags'] ?? [])
             ->setParameters($data['parameters'] ?? [])
-            ->setVariations($data['variations'] ?? [
-                'default' => $this->createVariationParameters($data['parameters'] ?? []),
-            ])
+            ->setVariations(
+                $this->parseVariations($data['variations'] ?? [], $data['parameters'] ?? [])
+            )
             ->setProjectPath($data['path'] ?? '')
             ->setRenderPath($data['renderPath'] ?? '');
 
@@ -82,37 +92,34 @@ class ComponentItemFactory
         return $r;
     }
 
-    public function createVariationParameters(array $parameters): array
+    /**
+     * @throws InvalidComponentConfigurationException
+     */
+    private function parseVariations(?array $variations, ?array $parameters): array
     {
-        $params = [];
-        foreach ($parameters as $name => $type) {
-            if (\is_array($type)) {
-                $paramValue = $this->createVariationParameters($type);
-            } else {
-                $paramValue = $this->createParamValue($type);
+        if (!$parameters) {
+            return ['default' => []];
+        }
+
+        if (!$variations) {
+            return [
+                'default' => $this->faker->getFakeData($parameters)
+            ];
+        }
+
+        $result = [];
+
+        foreach ($variations as $variationName => $variationParams) {
+            if (!is_array($variationParams)) {
+                throw new InvalidComponentConfigurationException(
+                    ConstraintViolationList::createFromMessage(
+                        sprintf('A component variation must contain an array of parameters. Variation Name: %s', $variationName)
+                    )
+                );
             }
-            $params[$name] = $paramValue;
+            $result[$variationName] = $this->faker->getFakeData($parameters, $variationParams);
         }
 
-        return $params;
-    }
-
-    private function createParamValue(string $type): bool|int|float|string|null
-    {
-        switch (strtolower($type)) {
-            default:
-                return null;
-            case 'string':
-                return 'Hello World';
-            case 'int':
-            case 'integer':
-                return random_int(0, 100000);
-            case 'bool':
-            case 'boolean':
-                return [true, false][rand(0, 1)];
-            case 'float':
-            case 'double':
-                return (float) rand(1, 1000) / 100;
-        }
+        return $result;
     }
 }

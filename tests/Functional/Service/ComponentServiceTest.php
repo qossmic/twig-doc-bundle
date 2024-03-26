@@ -9,6 +9,7 @@ use Qossmic\TwigDocBundle\Component\ComponentInvalid;
 use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Component\ComponentItemList;
+use Qossmic\TwigDocBundle\Component\Data\Faker;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -18,6 +19,7 @@ use Symfony\Contracts\Cache\CacheInterface;
 #[UsesClass(ComponentItemFactory::class)]
 #[UsesClass(CategoryService::class)]
 #[UsesClass(ComponentItemList::class)]
+#[UsesClass(Faker::class)]
 class ComponentServiceTest extends KernelTestCase
 {
     #[DataProvider('getFilterTestCases')]

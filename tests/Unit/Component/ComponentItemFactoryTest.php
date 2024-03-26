@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Qossmic\TwigDocBundle\Component\ComponentCategory;
 use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
+use Qossmic\TwigDocBundle\Component\Data\Faker;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[CoversClass(ComponentItemFactory::class)]
 #[UsesClass(InvalidComponentConfigurationException::class)]
+#[UsesClass(Faker::class)]
 class ComponentItemFactoryTest extends TestCase
 {
     #[DataProvider('getValidComponents')]

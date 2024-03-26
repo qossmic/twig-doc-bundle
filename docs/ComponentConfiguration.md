@@ -1,5 +1,9 @@
 ### Component Configuration
 
+1. [In Template](#in-template)
+2. [In Configuration File](#config-file)
+3. [Template Parameters](#parameter-provision)
+
 You have two possibilities to let the bundle know of your components:
 
 1. Directly in the template of the component itself (you should stick to this)
@@ -77,3 +81,66 @@ components:
   - name: Button
     path: '%twig.default_path%/snippets/FancyButton.html.twig'
 ```
+
+### Parameter Provision
+
+You must provide the types of your template parameters in the configuration. 
+As twig templates are not aware of types, there is no other possibility at the moment.
+As this bundle makes use of [Nelmio/Alice](https://github.com/nelmio/alice) and [FakerPhp](https://fakerphp.github.io), all you need to do is
+define the types of your parameters in the component configuration.
+The bundle will take care of creating a set of parameters for every component.
+
+E.g. when your template optionally requires a User object, you can say the template needs a parameter named user that is of type App\Entity\User:
+```twig
+{#TWIG_DOC
+    title: Fancy Button
+    description: This is a really fancy button
+    category: Buttons
+    tags:
+      - button
+    parameters:
+      type: String
+      text: String
+      user: App\Entity\User
+#TWIG_DOC}
+
+{% if user %}
+    Hello {{ user.name }}
+{% endif %}
+<button class="btn btn-{{ type }}">{{ text }}</button>
+```
+
+As we do not provide an explicit variation, the bundle creates a default variation for this component. 
+This default variation will contain a fixture for the user object, as well as random values for other parameters. 
+If the property "name" of the user object is writable, the bundle will also create a random text-value for the name.
+
+So, what to do if you want an example of both possibilities (user as object and as NULL)? Answer: provide variations for both cases:
+```twig
+{#TWIG_DOC
+    title: Fancy Button
+    description: This is a really fancy button
+    category: Buttons
+    tags:
+      - button
+    parameters:
+      user: App\Entity\User
+      type: String
+      text: String
+    variations:
+      logged-in:
+        user: 
+          name: superadmin
+        type: primary
+      anonymous:
+        user: null
+        text: Button Text
+#TWIG_DOC}
+
+{% if user %}
+    Hello {{ user.name }}
+{% endif %}
+<button class="btn btn-{{ type }}">{{ text }}</button>
+```
+
+For all parameters that are missing from the variations configuration, the bundle will create random-values with FakerPHP.
+It is possible to mix explicitly defined parameter-values and randomly created ones.
