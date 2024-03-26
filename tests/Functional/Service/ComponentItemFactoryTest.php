@@ -13,7 +13,6 @@ use Qossmic\TwigDocBundle\Component\Data\FixtureData;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Car;
-use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Manufacturer;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -142,7 +141,7 @@ class ComponentItemFactoryTest extends KernelTestCase
             'path' => 'path',
             'renderPath' => 'renderPath',
             'parameters' => [
-                'car' => Car::class
+                'car' => Car::class,
             ],
             'variations' => [
                 'fuchsia' => [
@@ -150,10 +149,10 @@ class ComponentItemFactoryTest extends KernelTestCase
                         'color' => 'fuchsia',
                         'manufacturer' => [
                             'name' => 'Mitsubishi',
-                        ]
-                    ]
-                ]
-            ]
+                        ],
+                    ],
+                ],
+            ],
         ];
 
         /** @var ComponentItemFactory $factory */

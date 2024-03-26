@@ -12,8 +12,8 @@ class FixtureData
     public function __construct(
         public readonly string $className,
         /** @param array<string, Type> $properties */
-        public readonly array  $properties,
-        public readonly array  $params = []
+        public readonly array $properties,
+        public readonly array $params = []
     ) {
     }
 }

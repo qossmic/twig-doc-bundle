@@ -33,8 +33,8 @@ class FakerTest extends TestCase
                     'someDouble' => 'Double',
                     'someResource' => 'Resource',
                     'someNull' => 'null',
-                ]
-            ]
+                ],
+            ],
         ];
 
         $faker = new Faker();
@@ -65,21 +65,21 @@ class FakerTest extends TestCase
             'text' => 'String',
             'complex' => [
                 'manufacturer' => Manufacturer::class,
-            ]
+            ],
         ];
         $variation = [
             'car' => [
                 'color' => 'pink',
                 'manufacturer' => [
                     'name' => 'Toyota',
-                ]
+                ],
             ],
             'text' => 'shouldStayAsIs',
             'complex' => [
                 'manufacturer' => [
                     'name' => 'Mitsubishi',
-                ]
-            ]
+                ],
+            ],
         ];
 
         $faker = new Faker();

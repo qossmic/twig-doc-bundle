@@ -12,18 +12,19 @@ class Car
 
     public function __construct(private readonly string $blub)
     {
-
     }
+
     public function getBlub(): string
     {
         return $this->blub;
     }
+
     public function getManufacturer(): ?Manufacturer
     {
         return $this->manufacturer;
     }
 
-    public function setManufacturer(Manufacturer $manufacturer): Car
+    public function setManufacturer(Manufacturer $manufacturer): self
     {
         $this->manufacturer = $manufacturer;
 
@@ -35,7 +36,7 @@ class Car
         return $this->color;
     }
 
-    public function setColor(string $color): Car
+    public function setColor(string $color): self
     {
         $this->color = $color;
 

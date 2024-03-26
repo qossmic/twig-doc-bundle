@@ -10,7 +10,7 @@ use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
- * Creates fake data to be used in variation display for components
+ * Creates fake data to be used in variation display for components.
  *
  * Provide seed in constructor to get reproducible random values
  */
@@ -41,7 +41,7 @@ class Faker
     {
         $classes = [];
         foreach ($params as $name => $type) {
-            if (is_array($type)) {
+            if (\is_array($type)) {
                 $classes[$name] = $this->collectClasses($type, $variation[$name] ?? []);
             } elseif (class_exists($type)) {
                 $propertyInfo = $this->getPropertyInfo($type);
@@ -62,7 +62,7 @@ class Faker
     private function getFixtureParams(string $className, array $props = [], array $params = []): array
     {
         foreach ($props as $prop => $type) {
-            if (!array_key_exists($prop, $params) && $this->extractor->isWritable($className, $prop)) {
+            if (!\array_key_exists($prop, $params) && $this->extractor->isWritable($className, $prop)) {
                 $params[$prop] = $this->createParamValue($type->getBuiltinType());
             }
         }
@@ -128,9 +128,9 @@ class Faker
                     $prop => array_merge(
                         $data->params[$prop]
                             ?? $this->getFixtureParams($type->getClassName(), $this->getPropertyInfo($type->getClassName())),
-                        ['__construct' => false, ]
-                    )
-                ] ;
+                        ['__construct' => false]
+                    ),
+                ];
                 $fixtureParams[$prop] = sprintf('@%s', $prop);
             }
         }
@@ -141,7 +141,7 @@ class Faker
                     // disable constructor until we have time to fake constructor arguments :-)
                     '__construct' => false,
                 ]),
-            ]
+            ],
         ]);
 
         return $this->loader->loadData($fixtureData)->getObjects()[$fixtureSetName];
@@ -153,7 +153,7 @@ class Faker
         foreach ($parameters as $name => $type) {
             if (\is_array($type)) {
                 $paramValue = $this->createVariationParameters($type, $variation[$name] ?? []);
-            } elseif (array_key_exists($name, $variation)) {
+            } elseif (\array_key_exists($name, $variation)) {
                 $paramValue = $variation[$name];
             } else {
                 $paramValue = $this->createParamValue($type);
@@ -189,7 +189,7 @@ class Faker
         $intersect = array_intersect_key($arr1, $arr2);
 
         foreach ($intersect as $k => $v) {
-            if (is_array($arr1[$k]) && is_array($arr2[$k])) {
+            if (\is_array($arr1[$k]) && \is_array($arr2[$k])) {
                 $d = $this->arrayDiffKeyRecursive($arr1[$k], $arr2[$k]);
 
                 if ($d) {

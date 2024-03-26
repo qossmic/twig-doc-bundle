@@ -103,19 +103,15 @@ class ComponentItemFactory
 
         if (!$variations) {
             return [
-                'default' => $this->faker->getFakeData($parameters)
+                'default' => $this->faker->getFakeData($parameters),
             ];
         }
 
         $result = [];
 
         foreach ($variations as $variationName => $variationParams) {
-            if (!is_array($variationParams)) {
-                throw new InvalidComponentConfigurationException(
-                    ConstraintViolationList::createFromMessage(
-                        sprintf('A component variation must contain an array of parameters. Variation Name: %s', $variationName)
-                    )
-                );
+            if (!\is_array($variationParams)) {
+                throw new InvalidComponentConfigurationException(ConstraintViolationList::createFromMessage(sprintf('A component variation must contain an array of parameters. Variation Name: %s', $variationName)));
             }
             $result[$variationName] = $this->faker->getFakeData($parameters, $variationParams);
         }
