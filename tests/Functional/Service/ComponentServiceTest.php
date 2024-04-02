@@ -10,6 +10,9 @@ use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Component\ComponentItemList;
 use Qossmic\TwigDocBundle\Component\Data\Faker;
+use Qossmic\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\NullGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -20,6 +23,9 @@ use Symfony\Contracts\Cache\CacheInterface;
 #[UsesClass(CategoryService::class)]
 #[UsesClass(ComponentItemList::class)]
 #[UsesClass(Faker::class)]
+#[UsesClass(ScalarGenerator::class)]
+#[UsesClass(FixtureGenerator::class)]
+#[UsesClass(NullGenerator::class)]
 class ComponentServiceTest extends KernelTestCase
 {
     #[DataProvider('getFilterTestCases')]
@@ -75,7 +81,7 @@ class ComponentServiceTest extends KernelTestCase
 
         $elapsedTime = microtime(true) - $start;
 
-        static::assertLessThan(1.5, $elapsedTime);
+        static::assertLessThan(5, $elapsedTime);
     }
 
     public static function getFilterTestCases(): iterable

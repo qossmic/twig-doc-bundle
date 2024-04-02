@@ -28,13 +28,16 @@ class ComponentItemFactoryTest extends TestCase
         $categoryServiceMock
             ->method('getCategory')
             ->with($componentData['category'])
-            ->willReturn($componentCategoryMock)
-        ;
+            ->willReturn($componentCategoryMock);
         $validatorMock = static::createMock(ValidatorInterface::class);
         $validatorMock->method('validate')
             ->willReturn(new ConstraintViolationList());
 
-        $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock);
+        $componentItemFactory = new ComponentItemFactory(
+            $validatorMock,
+            $categoryServiceMock,
+            static::createMock(Faker::class)
+        );
 
         $item = $componentItemFactory->create($componentData);
 
@@ -49,11 +52,10 @@ class ComponentItemFactoryTest extends TestCase
         $categoryServiceMock = static::createMock(CategoryService::class);
         $categoryServiceMock
             ->method('getCategory')
-            ->willReturn(null)
-        ;
+            ->willReturn(null);
         $validatorMock = static::createMock(ValidatorInterface::class);
 
-        $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock);
+        $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock, static::createMock(Faker::class));
 
         $componentItemFactory->create(['category' => 'Category']);
     }
@@ -68,7 +70,8 @@ class ComponentItemFactoryTest extends TestCase
 
         $componentItemFactory = new ComponentItemFactory(
             static::createMock(ValidatorInterface::class),
-            static::createMock(CategoryService::class)
+            static::createMock(CategoryService::class),
+            static::createMock(Faker::class)
         );
 
         $result = $componentItemFactory->getParamsFromVariables($variables);
@@ -114,35 +117,6 @@ class ComponentItemFactoryTest extends TestCase
                 'variations' => [
                     'default' => [],
                 ],
-            ],
-        ];
-
-        yield 'Component without variations' => [
-            [
-                'name' => 'Component1',
-                'title' => 'Component',
-                'description' => 'Test component',
-                'category' => 'TestCategory',
-                'sub_category' => 'SubCategory',
-                'parameters' => [
-                    'one' => 'String',
-                    'two' => 'float',
-                    'three' => 'integer',
-                    'four' => 'int',
-                    'five' => 'double',
-                    'six' => 'bool',
-                    'seven' => 'boolean',
-                    'eight' => 'SomeOtherType',
-                ],
-            ],
-        ];
-
-        yield 'Component without parameters and variations' => [
-            [
-                'name' => 'Component1',
-                'title' => 'Component',
-                'description' => 'Test component',
-                'category' => 'TestCategory',
             ],
         ];
     }

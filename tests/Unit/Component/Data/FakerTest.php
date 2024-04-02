@@ -7,11 +7,17 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Qossmic\TwigDocBundle\Component\Data\Faker;
 use Qossmic\TwigDocBundle\Component\Data\FixtureData;
+use Qossmic\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\NullGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
 use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Car;
 use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Manufacturer;
 
 #[CoversClass(Faker::class)]
 #[UsesClass(FixtureData::class)]
+#[UsesClass(ScalarGenerator::class)]
+#[UsesClass(FixtureGenerator::class)]
+#[UsesClass(NullGenerator::class)]
 class FakerTest extends TestCase
 {
     public function testGetFakeDataWithoutVariationData(): void
@@ -37,7 +43,7 @@ class FakerTest extends TestCase
             ],
         ];
 
-        $faker = new Faker();
+        $faker = new Faker([new ScalarGenerator(), new FixtureGenerator(), new NullGenerator()]);
         $result = $faker->getFakeData($params);
 
         static::assertIsArray($result);
@@ -62,10 +68,6 @@ class FakerTest extends TestCase
     {
         $params = [
             'car' => Car::class,
-            'text' => 'String',
-            'complex' => [
-                'manufacturer' => Manufacturer::class,
-            ],
         ];
         $variation = [
             'car' => [
@@ -74,25 +76,16 @@ class FakerTest extends TestCase
                     'name' => 'Toyota',
                 ],
             ],
-            'text' => 'shouldStayAsIs',
-            'complex' => [
-                'manufacturer' => [
-                    'name' => 'Mitsubishi',
-                ],
-            ],
         ];
 
-        $faker = new Faker();
-        $result = $faker->getFakeData($params, $variation);
+        $faker = new Faker([new ScalarGenerator(), new FixtureGenerator(), new NullGenerator()]);
+        $result = $faker->getFakeData($params, $variation['car']);
 
         static::assertIsArray($result);
-        static::assertCount(3, $result);
+        static::assertCount(1, $result);
         static::assertInstanceOf(Car::class, $result['car']);
         static::assertInstanceOf(Manufacturer::class, $result['car']->getManufacturer());
-        static::assertInstanceOf(Manufacturer::class, $result['complex']['manufacturer']);
-        static::assertEquals('shouldStayAsIs', $result['text']);
         static::assertEquals('Toyota', $result['car']->getManufacturer()->getName());
         static::assertEquals('pink', $result['car']->getColor());
-        static::assertEquals('Mitsubishi', $result['complex']['manufacturer']->getName());
     }
 }

@@ -10,24 +10,27 @@ use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Component\Data\Faker;
 use Qossmic\TwigDocBundle\Component\Data\FixtureData;
+use Qossmic\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\NullGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Car;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[CoversClass(ComponentItemFactory::class)]
 #[UsesClass(CategoryService::class)]
 #[UsesClass(Faker::class)]
 #[UsesClass(FixtureData::class)]
+#[UsesClass(ScalarGenerator::class)]
+#[UsesClass(FixtureGenerator::class)]
+#[UsesClass(NullGenerator::class)]
 class ComponentItemFactoryTest extends KernelTestCase
 {
     #[DataProvider('getValidComponents')]
     public function testValidComponent(array $componentData): void
     {
-        $validator = static::getContainer()->get(ValidatorInterface::class);
-        $categoryService = static::getContainer()->get(CategoryService::class);
-        $componentItemFactory = new ComponentItemFactory($validator, $categoryService);
+        $componentItemFactory = static::getContainer()->get(ComponentItemFactory::class);
 
         $item = $componentItemFactory->create($componentData);
 
@@ -38,10 +41,7 @@ class ComponentItemFactoryTest extends KernelTestCase
     #[DataProvider('getInvalidComponentConfigurationTestCases')]
     public function testInvalidComponentConfiguration(array $componentData, string $expectedExceptionClass = InvalidComponentConfigurationException::class)
     {
-        $service = new ComponentItemFactory(
-            static::getContainer()->get('validator'),
-            static::getContainer()->get('twig_doc.service.category')
-        );
+        $service = static::getContainer()->get(ComponentItemFactory::class);
 
         self::expectException($expectedExceptionClass);
 
@@ -131,6 +131,36 @@ class ComponentItemFactoryTest extends KernelTestCase
         self::assertIsFloat($component->getVariations()['default']['complex']['amount']);
     }
 
+    public function testCreateKeepsParamValueFromVariation(): void
+    {
+        $data = [
+            'name' => 'component',
+            'title' => 'title',
+            'description' => 'description',
+            'category' => 'MainCategory',
+            'path' => 'path',
+            'renderPath' => 'renderPath',
+            'parameters' => [
+                'stringParam' => 'String',
+            ],
+            'variations' => [
+                'variation1' => [
+                    'stringParam' => 'Some cool hipster text',
+                ],
+            ],
+        ];
+
+        /** @var ComponentItemFactory $factory */
+        $factory = self::getContainer()->get('twig_doc.service.component_factory');
+
+        $item = $factory->create($data);
+        $variations = $item->getVariations();
+
+        self::assertIsArray($variations);
+        self::assertArrayHasKey('variation1', $variations);
+        self::assertEquals('Some cool hipster text', $variations['variation1']['stringParam']);
+    }
+
     public function testCreateForObjectParameter(): void
     {
         $data = [
@@ -170,6 +200,7 @@ class ComponentItemFactoryTest extends KernelTestCase
 
         static::assertInstanceOf(Car::class, $car);
         static::assertEquals('fuchsia', $car->getColor());
+        static::assertEquals('Mitsubishi', $car->getManufacturer()->getName());
     }
 
     public static function getInvalidComponentConfigurationTestCases(): iterable

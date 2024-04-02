@@ -12,11 +12,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ComponentItemFactory
 {
-    private Faker $faker;
-
-    public function __construct(private readonly ValidatorInterface $validator, private readonly CategoryService $categoryService)
-    {
-        $this->faker = new Faker();
+    public function __construct(
+        private readonly ValidatorInterface $validator,
+        private readonly CategoryService $categoryService,
+        private readonly Faker $faker
+    ) {
     }
 
     /**
@@ -113,9 +113,25 @@ class ComponentItemFactory
             if (!\is_array($variationParams)) {
                 throw new InvalidComponentConfigurationException(ConstraintViolationList::createFromMessage(sprintf('A component variation must contain an array of parameters. Variation Name: %s', $variationName)));
             }
-            $result[$variationName] = $this->faker->getFakeData($parameters, $variationParams);
+            $result[$variationName] = $this->createVariationParameters($parameters, $variationParams);
         }
 
         return $result;
+    }
+
+    private function createVariationParameters(array $parameters, array $variation): array
+    {
+        $params = [];
+
+        foreach ($parameters as $name => $type) {
+            if (\is_array($type)) {
+                $paramValue = $this->createVariationParameters($type, $variation[$name] ?? []);
+            } else {
+                $paramValue = $this->faker->getFakeData([$name => $type], $variation[$name]);
+            }
+            $params += $paramValue;
+        }
+
+        return $params;
     }
 }

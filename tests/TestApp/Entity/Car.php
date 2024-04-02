@@ -8,15 +8,15 @@ class Car
 
     private Car|Manufacturer $manufacturer;
 
-    public $blubber;
+    public $typeLessProperty;
 
-    public function __construct(private readonly string $blub)
+    public function __construct(private readonly string $constructorArg)
     {
     }
 
-    public function getBlub(): string
+    public function getConstructorArg(): string
     {
-        return $this->blub;
+        return $this->constructorArg;
     }
 
     public function getManufacturer(): ?Manufacturer

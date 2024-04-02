@@ -3,6 +3,7 @@
 1. [In Template](#in-template)
 2. [In Configuration File](#config-file)
 3. [Template Parameters](#parameter-provision)
+4. [Custom Data Provider](#custom-data-provider)
 
 You have two possibilities to let the bundle know of your components:
 
@@ -144,3 +145,35 @@ So, what to do if you want an example of both possibilities (user as object and 
 
 For all parameters that are missing from the variations configuration, the bundle will create random-values with FakerPHP.
 It is possible to mix explicitly defined parameter-values and randomly created ones.
+
+### Custom Data Provider
+
+This bundle comes with 3 default data providers to create fake data for your components:
+
+- FixtureGenerator
+  - creates fixtures for classes with nelmio/alice and fakerphp/faker
+- ScalarGenerator
+  - creates scalar values for string/bool/number parameters in your components with fakerphp
+- NullGenerator
+  - creates null values for any unknown type
+
+You can easily add your own data generator by creating an implementation of `Qossmic\TwigDocBundle\Component\Data\GeneratorInterface` 
+and tagging it with `twig_doc.data_generator`. The higher the priority, the earlier the generator will be used.
+This works by using the ["tagged_iterator" functionality](https://symfony.com/doc/current/service_container/tags.html#tagged-services-with-priority) of symfony.
+```php
+#[AutoconfigureTag('twig_doc.data_generator', ['priority' => 10])]
+class CustomGenerator implements GeneratorInterface
+{
+    public function supports(string $type, mixed $context = null): bool
+    {
+        return $type === Special::class;
+    }
+
+    public function generate(string $type, mixed $context = null): Special
+    {
+        return new Special([
+            'key' => 'value',
+        ]);
+    }
+}
+```
