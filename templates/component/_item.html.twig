@@ -20,14 +20,14 @@
             <div>
                 <h4>Category</h4>
                 <p>
-                    <a href="{{ path('_documentation_home', {'filterQuery': component.mainCategory.name, 'filterType': 'category'}) }}">{{ component.mainCategory.name }}</a>
+                    <a href="{{ path('twig_doc_home', {'filterQuery': component.mainCategory.name, 'filterType': 'category'}) }}">{{ component.mainCategory.name }}</a>
                 </p>
             </div>
             <div>
                 <h4>Sub-Category</h4>
                 {% if component.category.parent %}
                     <p>
-                        <a href="{{ path('_documentation_home', {'filterQuery': component.category.name, 'filterType': 'sub_category' }) }}">
+                        <a href="{{ path('twig_doc_home', {'filterQuery': component.category.name, 'filterType': 'sub_category' }) }}">
                             {{ component.category.name }}
                         </a>
                     </p>
@@ -39,7 +39,7 @@
                 <h4>Tags</h4>
                 {% for tag in component.tags %}
                     <p>
-                        <a href="{{ path('_documentation_home', {'filterQuery': tag, 'filterType': 'tag'}) }}">{{ tag }}</a>
+                        <a href="{{ path('twig_doc_home', {'filterQuery': tag, 'filterType': 'tag'}) }}">{{ tag }}</a>
                     </p>
                 {% endfor %}
             </div>

@@ -1,4 +1,4 @@
-<form action="{{ path('_documentation_home') }}" method="get" name="twig_doc_search_form">
+<form action="{{ path('twig_doc_home') }}" method="get" name="twig_doc_search_form">
     <label for="twig_doc_search_form_filterQuery">Search</label>
     <input name="filterQuery" id="twig_doc_search_form_filterQuery" value="{{ filterQuery }}" autocomplete="off"/>
     <label for="twig_doc_search_form_filterType">What</label>
@@ -11,6 +11,6 @@
     </select>
     <button type="submit" class="btn btn-primary">Search</button>
     {% if filterQuery %}
-        <a href="{{ path('_documentation_home') }}">Show all</a>
+        <a href="{{ path('twig_doc_home') }}">Show all</a>
     {% endif %}
 </form>
