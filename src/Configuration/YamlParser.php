@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Configuration;
 
 use Symfony\Component\Yaml\Yaml;
@@ -21,15 +23,16 @@ class YamlParser implements ParserInterface
 
         $firstLineDetected = false;
         $indentationWhitespace = null;
-
         $lines = [];
 
         while ($fileObject->valid()) {
             $line = $fileObject->current();
+
             if (empty(trim($line))) {
                 $fileObject->next();
                 continue;
             }
+
             if ($firstLineDetected === false) {
                 $firstLineDetected = true;
                 // check for whitespaces at the beginning
@@ -39,6 +42,7 @@ class YamlParser implements ParserInterface
                 }
                 $indentationWhitespace = $matches[1];
             }
+
             $line = substr($line, \strlen($indentationWhitespace));
             $lines[] = $line;
             $fileObject->next();

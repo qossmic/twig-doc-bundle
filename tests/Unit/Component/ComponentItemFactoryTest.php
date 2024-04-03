@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Unit\Component;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -22,13 +24,13 @@ class ComponentItemFactoryTest extends TestCase
     public function testValidComponent(array $componentData): void
     {
         $componentCategoryMock = $this->getComponentCategoryMock($componentData['category'], $componentData['sub_category'] ?? null);
-        $categoryServiceMock = static::createMock(CategoryService::class);
+        $categoryServiceMock = $this->createMock(CategoryService::class);
         $categoryServiceMock
             ->method('getCategory')
             ->with($componentData['category'])
             ->willReturn($componentCategoryMock)
         ;
-        $validatorMock = static::createMock(ValidatorInterface::class);
+        $validatorMock = $this->createMock(ValidatorInterface::class);
         $validatorMock->method('validate')
             ->willReturn(new ConstraintViolationList());
 
@@ -42,14 +44,14 @@ class ComponentItemFactoryTest extends TestCase
 
     public function testInvalidCategory()
     {
-        static::expectException(InvalidComponentConfigurationException::class);
+        $this->expectException(InvalidComponentConfigurationException::class);
 
-        $categoryServiceMock = static::createMock(CategoryService::class);
+        $categoryServiceMock = $this->createMock(CategoryService::class);
         $categoryServiceMock
             ->method('getCategory')
             ->willReturn(null)
         ;
-        $validatorMock = static::createMock(ValidatorInterface::class);
+        $validatorMock = $this->createMock(ValidatorInterface::class);
 
         $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock);
 
@@ -65,8 +67,8 @@ class ComponentItemFactoryTest extends TestCase
         ];
 
         $componentItemFactory = new ComponentItemFactory(
-            static::createMock(ValidatorInterface::class),
-            static::createMock(CategoryService::class)
+            $this->createMock(ValidatorInterface::class),
+            $this->createMock(CategoryService::class)
         );
 
         $result = $componentItemFactory->getParamsFromVariables($variables);
@@ -147,14 +149,17 @@ class ComponentItemFactoryTest extends TestCase
 
     private function getComponentCategoryMock(string $category, ?string $subCategory = null): ComponentCategory
     {
-        $componentCategoryMock = static::createMock(ComponentCategory::class);
+        $componentCategoryMock = $this->createMock(ComponentCategory::class);
         $componentCategoryMock->method('getName')
             ->willReturn($subCategory ?? $category);
+
         $parentMock = null;
+
         if ($subCategory) {
-            $parentMock = static::createMock(ComponentCategory::class);
+            $parentMock = $this->createMock(ComponentCategory::class);
             $parentMock->method('getName')->willReturn($category);
         }
+
         $componentCategoryMock->method('getParent')
             ->willReturn($parentMock);
 

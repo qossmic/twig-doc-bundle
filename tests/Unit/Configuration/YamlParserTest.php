@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Unit\Configuration;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -13,11 +15,10 @@ class YamlParserTest extends TestCase
 {
     public function testParseThrowsExceptionForInvalidYaml(): void
     {
-        static::expectException(ParseException::class);
+        $this->expectException(ParseException::class);
         $yaml = "  key: \nyaml ain't markup language";
 
         $parser = new YamlParser();
-
         $parser->parse($yaml);
     }
 

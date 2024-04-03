@@ -9,12 +9,15 @@ use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ComponentItemFactory
+readonly class ComponentItemFactory
 {
-    public function __construct(private readonly ValidatorInterface $validator, private readonly CategoryService $categoryService)
+    public function __construct(private ValidatorInterface $validator, private CategoryService $categoryService)
     {
     }
 
+    /**
+     * @throws InvalidComponentConfigurationException
+     */
     public function create(array $data): ComponentItem
     {
         $item = $this->createItem($data);
@@ -28,7 +31,7 @@ class ComponentItemFactory
                     isset($data['sub_category']) ? 'sub_category' : 'category',
                     $data['sub_category'] ?? $data['category'],
                     implode(', ', array_keys($this->categoryService->getCategories())),
-                    implode(', ', array_map(fn (ComponentCategory $category) => $category->getName(), $this->categoryService->getSubCategories()))
+                    implode(', ', array_map(static fn (ComponentCategory $category) => $category->getName(), $this->categoryService->getSubCategories()))
                 )
             );
             throw new InvalidComponentConfigurationException($violations);
@@ -68,12 +71,14 @@ class ComponentItemFactory
         foreach ($variables as $dotted) {
             $keys = explode('.', $dotted);
             $c = &$r[array_shift($keys)];
+
             foreach ($keys as $key) {
                 if (isset($c[$key]) && $c[$key] === true) {
                     $c[$key] = [];
                 }
                 $c = &$c[$key];
             }
+
             if ($c === null) {
                 $c = 'Scalar';
             }

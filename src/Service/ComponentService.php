@@ -12,14 +12,14 @@ use Qossmic\TwigDocBundle\Component\ComponentItemList;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Symfony\Contracts\Cache\CacheInterface;
 
-class ComponentService
+readonly class ComponentService
 {
     public function __construct(
-        private readonly ComponentItemFactory $itemFactory,
-        private readonly array $componentsConfig,
-        private readonly CacheInterface $cache,
-        private readonly array $breakpointConfig,
-        private readonly int $configReadTime = 0
+        private ComponentItemFactory $itemFactory,
+        private array $componentsConfig,
+        private CacheInterface $cache,
+        private array $breakpointConfig,
+        private int $configReadTime = 0
     ) {
     }
 
@@ -94,7 +94,7 @@ class ComponentService
 
     public function getComponent(string $name): ?ComponentItem
     {
-        return array_values(array_filter((array) $this->getComponents(), fn (ComponentItem $c) => $c->getName() === $name))[0] ?? null;
+        return array_values(array_filter((array) $this->getComponents(), static fn (ComponentItem $c) => $c->getName() === $name))[0] ?? null;
     }
 
     public function getBreakpoints(): array

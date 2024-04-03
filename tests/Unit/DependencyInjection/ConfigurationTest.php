@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Unit\DependencyInjection;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -12,7 +14,7 @@ use Symfony\Component\Config\Definition\Processor;
 class ConfigurationTest extends TestCase
 {
     #[DataProvider('getTestConfiguration')]
-    public function testConfigTree(array $options, array $expectedResult)
+    public function testConfigTree(array $options, array $expectedResult): void
     {
         $processor = new Processor();
         $configuration = new Configuration();

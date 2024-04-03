@@ -11,12 +11,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Twig\Environment;
 
-class TwigDocController
+readonly class TwigDocController
 {
     public function __construct(
-        private readonly Environment $twig,
-        private readonly ComponentService $componentService,
-        private readonly ?Profiler $profiler = null
+        private Environment $twig,
+        private ComponentService $componentService,
+        private ?Profiler $profiler = null
     ) {
     }
 

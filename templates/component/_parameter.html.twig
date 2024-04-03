@@ -1,7 +1,7 @@
 {% if parameter is iterable %}
     <ul>
     {% for key, value in parameter %}
-            <li><b>{{ key }}:</b> {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}</li>
+        <li><b>{{ key }}:</b> {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}</li>
     {% endfor %}
     </ul>
 {% else %}

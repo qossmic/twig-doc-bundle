@@ -9,11 +9,11 @@ use Symfony\Component\Validator\ConstraintViolationList;
 /**
  * @codeCoverageIgnore
  */
-class ComponentInvalid
+readonly class ComponentInvalid
 {
     public function __construct(
-        public readonly ConstraintViolationList $violationList,
-        public readonly array $originalConfig
+        public ConstraintViolationList $violationList,
+        public array $originalConfig
     ) {
     }
 }

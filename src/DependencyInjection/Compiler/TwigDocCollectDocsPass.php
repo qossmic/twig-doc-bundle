@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\DependencyInjection\Compiler;
 
 use Qossmic\TwigDocBundle\Component\ComponentCategory;
@@ -11,9 +13,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
-class TwigDocCollectDocsPass implements CompilerPassInterface
+readonly class TwigDocCollectDocsPass implements CompilerPassInterface
 {
-    public function __construct(private readonly ParserInterface $parser)
+    public function __construct(private ParserInterface $parser)
     {
     }
 
@@ -22,6 +24,7 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
         if (!$container->hasExtension('twig_doc')) {
             return;
         }
+
         $config = $container->getParameter('twig_doc.config');
         $directories = $this->resolveDirectories($container, $config['directories']);
         $container->getParameterBag()->remove('twig_doc.config');
@@ -51,9 +54,10 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
             $filename = $file->getFilename();
             $componentName = substr($filename, 0, strpos($filename, '.'));
 
-            if (array_filter($componentConfig, fn (array $data) => $data['name'] === $componentName)) {
-                throw new InvalidConfigException(sprintf('component "%s" is configured twice, please configure either directly in the template or the general bundle configuration', $componentName));
+            if (array_filter($componentConfig, static fn (array $data) => $data['name'] === $componentName)) {
+                throw new InvalidConfigException(sprintf('Component "%s" is configured twice, please configure either directly in the template or the general bundle configuration', $componentName));
             }
+
             $itemConfig = [
                 'name' => $componentName,
                 'path' => str_replace($projectDir.'/', '', $file->getRealPath()),
@@ -69,7 +73,6 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
     private function parseDoc(SplFileInfo $file, string $docIdentifier): ?array
     {
         $content = $file->getContents();
-
         $pattern = sprintf("/\{#%s\s(.*)%s#}/s", $docIdentifier, $docIdentifier);
 
         preg_match($pattern, $content, $matches);
@@ -84,10 +87,10 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
     private function enrichComponentsConfig(ContainerBuilder $container, array $directories, array $components): array
     {
         foreach ($components as &$component) {
-            if (!isset($component['path'])) {
-                $component['path'] = str_replace($container->getParameter('kernel.project_dir').'/', '', $this->getTemplatePath($component['name'], $directories));
+            if (!isset($component['path']) && $templatePath = $this->getTemplatePath($component['name'], $directories)) {
+                $component['path'] = str_replace($container->getParameter('kernel.project_dir').'/', '', $templatePath);
             }
-            if (!isset($component['renderPath'])) {
+            if (!isset($component['renderPath']) && isset($component['path'])) {
                 $component['renderPath'] = str_replace($container->getParameter('twig.default_path').'/', '', $component['path']);
             }
         }
@@ -98,8 +101,7 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
     private function resolveDirectories(ContainerBuilder $container, array $directories): array
     {
         $directories[] = $container->getParameter('twig.default_path').'/components';
-
-        $directories = array_map(fn (string $dir) => $container->getParameterBag()->resolveValue($dir), $directories);
+        $directories = array_map(static fn (string $dir) => $container->getParameterBag()->resolveValue($dir), $directories);
 
         foreach ($directories as $idx => $dir) {
             if (!is_dir($dir)) {
@@ -113,9 +115,7 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
     private function getTemplatePath(string $name, array $directories): ?string
     {
         $template = sprintf('%s.html.twig', $name);
-
         $finder = new Finder();
-
         $files = $finder->in($directories)->files()->filter(fn (SplFileInfo $file) => $file->getFilename() === $template);
 
         if ($files->count() > 1) {
@@ -128,6 +128,6 @@ class TwigDocCollectDocsPass implements CompilerPassInterface
 
         $files->getIterator()->rewind();
 
-        return $files->getIterator()->current();
+        return $files->getIterator()->current()?->__toString();
     }
 }
