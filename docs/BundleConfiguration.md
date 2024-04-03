@@ -11,6 +11,10 @@ twig_doc:
     - '%twig.default_path%/components'
   categories:
     - name: Components
+  breakpoints:
+    small: 240
+    medium: 640
+    large: 768
 ```
 
 ### Directories
@@ -66,3 +70,16 @@ twig_doc:
 ```
 
 The default category is always merged into the configuration.
+
+
+### Breakpoints
+
+To use custom breakpoints, simply provide a breakpoint-config. You can name the breakpoints as you like:
+
+```yaml
+twig_doc:
+  breakpoints:
+    iphone: 598
+    unusual: 743
+...
+```

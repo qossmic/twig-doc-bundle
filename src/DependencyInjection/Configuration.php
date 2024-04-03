@@ -19,6 +19,15 @@ class Configuration implements ConfigurationInterface
                         ->thenInvalid('The twig_doc documentation identifier must match \w (regex)')
                     ->end()
                 ->end()
+                ->arrayNode('breakpoints')
+                    ->defaultValue([
+                        'small' => 240,
+                        'medium' => 640,
+                        'large' => 768,
+                    ])
+                    ->integerPrototype()
+                    ->end()
+                ->end()
                 ->arrayNode('directories')->defaultValue(['%twig.default_path%/components'])
                     ->scalarPrototype()->end()
                 ->end()
