@@ -67,7 +67,12 @@ class ComponentServiceTest extends KernelTestCase
 
         $start = microtime(true);
 
-        $service = new ComponentService($factory, $this->getLargeConfig(), static::getContainer()->get(CacheInterface::class));
+        $service = new ComponentService(
+            $factory,
+            $this->getLargeConfig(),
+            static::getContainer()->get(CacheInterface::class),
+            []
+        );
 
         $service->getComponents();
 

@@ -22,6 +22,7 @@ class TwigDocExtension extends Extension
 
         $definition = $container->getDefinition('twig_doc.service.component');
         $definition->setArgument('$componentsConfig', $config['components']);
+        $definition->setArgument('$breakpointConfig', $config['components']);
         $definition->setArgument('$configReadTime', time());
 
         $categories = array_merge([['name' => ComponentCategory::DEFAULT_CATEGORY]], $config['categories']);

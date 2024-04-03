@@ -18,7 +18,7 @@ class ConfigurationTest extends TestCase
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, [$options]);
 
-        $this->assertEqualsCanonicalizing($expectedResult, $config);
+        $this->assertEquals($expectedResult, $config);
     }
 
     public static function getTestConfiguration(): iterable
@@ -41,6 +41,11 @@ class ConfigurationTest extends TestCase
             ],
             [
                 'doc_identifier' => 'TWIG_DOC',
+                'breakpoints' => [
+                    'small' => 240,
+                    'medium' => 640,
+                    'large' => 768,
+                ],
                 'directories' => [
                     __DIR__.'/../../TestApp/templates/components',
                     __DIR__.'/../../TestApp/templates/snippets',
@@ -100,6 +105,11 @@ class ConfigurationTest extends TestCase
             ],
             [
                 'doc_identifier' => 'TWIG_DOC',
+                'breakpoints' => [
+                    'small' => 240,
+                    'medium' => 640,
+                    'large' => 768,
+                ],
                 'directories' => [
                     __DIR__.'/../../TestApp/templates/components',
                     __DIR__.'/../../TestApp/templates/snippets',
@@ -137,6 +147,29 @@ class ConfigurationTest extends TestCase
                         ],
                     ],
                 ],
+            ],
+        ];
+
+        yield 'Breakpoint config' => [
+            [
+                'breakpoints' => [
+                    'iphone' => 568,
+                    'galaxy s10' => 658,
+                    'generic' => 896,
+                ],
+            ],
+            [
+                'breakpoints' => [
+                    'iphone' => 568,
+                    'galaxy s10' => 658,
+                    'generic' => 896,
+                ],
+                'doc_identifier' => 'TWIG_DOC',
+                'directories' => [
+                    '%twig.default_path%/components',
+                ],
+                'categories' => [],
+                'components' => [],
             ],
         ];
     }

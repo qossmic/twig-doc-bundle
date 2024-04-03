@@ -18,6 +18,7 @@ class ComponentService
         private readonly ComponentItemFactory $itemFactory,
         private readonly array $componentsConfig,
         private readonly CacheInterface $cache,
+        private readonly array $breakpointConfig,
         private readonly int $configReadTime = 0
     ) {
     }
@@ -94,5 +95,10 @@ class ComponentService
     public function getComponent(string $name): ?ComponentItem
     {
         return array_values(array_filter((array) $this->getComponents(), fn (ComponentItem $c) => $c->getName() === $name))[0] ?? null;
+    }
+
+    public function getBreakpoints(): array
+    {
+        return $this->breakpointConfig;
     }
 }
