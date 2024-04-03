@@ -13,21 +13,29 @@ class ComponentItem
 {
     #[Assert\NotBlank]
     private string $name;
+
     #[Assert\NotBlank]
     private string $title;
+
     #[Assert\NotBlank]
     private string $description;
+
     #[Assert\Type('array')]
     private array $tags;
+
     #[Assert\Type('array')]
     private array $parameters;
+
     #[Assert\Type('array')]
     private array $variations;
+
     #[Assert\Valid]
     private ComponentCategory $category;
+
     #[Assert\Length(max: 4096)]
     #[Assert\NotBlank]
     private string $projectPath;
+
     #[Assert\Length(max: 4096)]
     #[Assert\NotBlank]
     private string $renderPath;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Functional\Service;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -31,14 +33,16 @@ class ComponentItemFactoryTest extends KernelTestCase
     }
 
     #[DataProvider('getInvalidComponentConfigurationTestCases')]
-    public function testInvalidComponentConfiguration(array $componentData, string $expectedExceptionClass = InvalidComponentConfigurationException::class)
-    {
+    public function testInvalidComponentConfiguration(
+        array $componentData,
+        string $expectedExceptionClass = InvalidComponentConfigurationException::class
+    ): void {
         $service = new ComponentItemFactory(
             static::getContainer()->get('validator'),
             static::getContainer()->get('twig_doc.service.category')
         );
 
-        self::expectException($expectedExceptionClass);
+        $this->expectException($expectedExceptionClass);
 
         $service->create($componentData);
     }

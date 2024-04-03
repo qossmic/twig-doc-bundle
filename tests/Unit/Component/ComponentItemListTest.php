@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Unit\Component;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -70,7 +72,7 @@ class ComponentItemListTest extends TestCase
     #[DataProvider('getInvalidFields')]
     public function testSortThrowsInvalidArgumentExceptionForNonSortableFields(string $field): void
     {
-        static::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $list = new ComponentItemList([]);
 

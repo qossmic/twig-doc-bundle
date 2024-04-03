@@ -38,7 +38,7 @@ class CategoryService
     public function getSubCategories(?ComponentCategory $mainCategory = null): array
     {
         if ($mainCategory !== null) {
-            return array_filter($this->subCategories, fn (ComponentCategory $category) => $category->getParent() === $mainCategory);
+            return array_filter($this->subCategories, static fn (ComponentCategory $category) => $category->getParent() === $mainCategory);
         }
 
         return $this->subCategories;
