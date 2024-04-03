@@ -42,10 +42,10 @@ class ComponentItemList extends \ArrayObject
 
         $this->uasort(function (ComponentItem $item, ComponentItem $item2) use ($method, $direction) {
             if ($direction === self::SORT_DESC) {
-                return \call_user_func([$item2, $method]) <=> \call_user_func([$item, $method]);
+                return $item2->$method() <=> $item->$method();
             }
 
-            return \call_user_func([$item, $method]) <=> \call_user_func([$item2, $method]);
+            return $item->$method() <=> $item2->$method();
         });
     }
 
