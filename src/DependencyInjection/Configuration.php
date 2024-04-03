@@ -2,7 +2,6 @@
 
 namespace Qossmic\TwigDocBundle\DependencyInjection;
 
-use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -24,7 +23,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue([
                         'small' => 240,
                         'medium' => 640,
-                        'large' => 768
+                        'large' => 768,
                     ])
                     ->integerPrototype()
                     ->end()
