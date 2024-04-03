@@ -12,6 +12,9 @@
 
 ---
 
+> **Important**: This is an experimental version and might change drastically. 
+> Therefore, you might encounter breaking changes when updating until we release a stable version. 
+
 Allows you to create an overview for your Twig Components, be it either [UX-Components](https://symfony.com/bundles/ux-twig-component/current/index.html), [UX-Live-Components](https://symfony.com/bundles/ux-live-component/current/index.html) or simple snippet templates.
 
 Components will be grouped in categories and optional sub-categories.
