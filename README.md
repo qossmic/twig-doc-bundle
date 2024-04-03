@@ -1,4 +1,4 @@
-## Twic Doc Bundle
+## Twig Doc Bundle
 
 [![Image](docs/resources/images/qossmic.png)](https://qossmic.com) Brought to you by qossmic! 
 
@@ -42,7 +42,7 @@ Install the bundle
 
 As symfony never creates routes for bundles, you need to configure this on your own!
 
-Create a config file: configs/routes/twig_doc.yaml
+Create a config file: config/routes/twig_doc.yaml
 
 ```yaml
 twig_doc:
