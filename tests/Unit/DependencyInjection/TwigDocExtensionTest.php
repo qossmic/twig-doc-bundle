@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Unit\DependencyInjection;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -14,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 #[UsesClass(Configuration::class)]
 class TwigDocExtensionTest extends TestCase
 {
-    public function testLoad()
+    public function testLoad(): void
     {
         $container = new ContainerBuilder();
         $extension = new TwigDocExtension();

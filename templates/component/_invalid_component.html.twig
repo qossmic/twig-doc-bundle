@@ -2,7 +2,7 @@
     <h2>{{ component.originalConfig.name }}</h2>
     <h4>Path</h4>
     <p>{{ component.originalConfig.path ?? 'UNKNOWN PATH' }}</p>
-    <h4> Error-Details:</h4>
+    <h4>Error-Details:</h4>
     <p>
         {{ component.violationList }}
     </p>
@@ -24,20 +24,20 @@
     {% for tag in component.originalConfig.tags %}
         {% if loop.first %}
         <ul>
-            {% endif %}
+        {% endif %}
             <li>{{ tag }}</li>
         {% if loop.last %}
-            </ul>
+        </ul>
         {% endif %}
     {% endfor %}
     <p>Variations:</p>
     {% for key, value in component.originalConfig.variations ?? [] %}
         {% if loop.first %}
         <ul>
-            {% endif %}
+        {% endif %}
             <li>{{ key }}: {{ value }}</li>
         {% if loop.last %}
-            </ul>
+        </ul>
         {% endif %}
     {% endfor %}
 </div>

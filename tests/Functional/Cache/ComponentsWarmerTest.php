@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Functional\Cache;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -35,9 +37,9 @@ class ComponentsWarmerTest extends KernelTestCase
         static::assertLessThan(.1, microtime(true) - $time);
     }
 
-    public function testIsOptional()
+    public function testIsOptional(): void
     {
-        $warmer = new ComponentsWarmer(static::createMock(ContainerInterface::class));
+        $warmer = new ComponentsWarmer($this->createMock(ContainerInterface::class));
 
         static::assertTrue($warmer->isOptional());
     }

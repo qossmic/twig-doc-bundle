@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Unit\Service;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -30,7 +32,7 @@ class CategoryServiceTest extends TestCase
         }
     }
 
-    public function testInvalidCategoryConfig()
+    public function testInvalidCategoryConfig(): void
     {
         $config = [
             [
@@ -41,12 +43,12 @@ class CategoryServiceTest extends TestCase
             ],
         ];
 
-        static::expectException(InvalidConfigException::class);
+        $this->expectException(InvalidConfigException::class);
 
         new CategoryService($config);
     }
 
-    public function testGetCategories()
+    public function testGetCategories(): void
     {
         $service = new CategoryService([['name' => 'Category']]);
 
@@ -56,7 +58,7 @@ class CategoryServiceTest extends TestCase
         static::assertContainsOnlyInstancesOf(ComponentCategory::class, $categories);
     }
 
-    public function testGetCategoryReturnsNullForUnknownCategory()
+    public function testGetCategoryReturnsNullForUnknownCategory(): void
     {
         $service = new CategoryService([['name' => 'Category']]);
 

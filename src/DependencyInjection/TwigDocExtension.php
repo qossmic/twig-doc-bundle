@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\DependencyInjection;
 
 use Qossmic\TwigDocBundle\Component\ComponentCategory;

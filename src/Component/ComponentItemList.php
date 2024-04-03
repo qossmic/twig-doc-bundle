@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Component;
 
 /**
@@ -34,7 +36,7 @@ class ComponentItemList extends \ArrayObject
 
     public function sort(string $field, string $direction = self::SORT_ASC): void
     {
-        if (!\in_array($field, $this->sortableFields)) {
+        if (!\in_array($field, $this->sortableFields, true)) {
             throw new \InvalidArgumentException(sprintf('field "%s" is not sortable', $field));
         }
 
@@ -52,13 +54,15 @@ class ComponentItemList extends \ArrayObject
     public function filter(string $query, ?string $type): self
     {
         $components = [];
+
         switch ($type) {
             case 'category':
                 $components = array_filter(
                     $this->getArrayCopy(),
-                    function (ComponentItem $item) use ($query) {
+                    static function (ComponentItem $item) use ($query) {
                         $category = $item->getCategory()->getName();
                         $parent = $item->getCategory()->getParent();
+
                         while ($parent !== null) {
                             $category = $parent->getName();
                             $parent = $parent->getParent();
@@ -72,14 +76,14 @@ class ComponentItemList extends \ArrayObject
             case 'sub_category':
                 $components = array_filter(
                     $this->getArrayCopy(),
-                    fn (ComponentItem $item) => $item->getCategory()->getParent() !== null
+                    static fn (ComponentItem $item) => $item->getCategory()->getParent() !== null
                         && strtolower($item->getCategory()->getName()) === strtolower($query)
                 );
 
                 break;
             case 'tags':
                 $tags = array_map('trim', explode(',', strtolower($query)));
-                $components = array_filter($this->getArrayCopy(), function (ComponentItem $item) use ($tags) {
+                $components = array_filter($this->getArrayCopy(), static function (ComponentItem $item) use ($tags) {
                     return array_intersect($tags, array_map('strtolower', $item->getTags())) !== [];
                 });
 
@@ -87,13 +91,13 @@ class ComponentItemList extends \ArrayObject
             case 'name':
                 $components = array_filter(
                     $this->getArrayCopy(),
-                    fn (ComponentItem $item) => str_contains(strtolower($item->getName()), strtolower($query))
+                    static fn (ComponentItem $item) => str_contains(strtolower($item->getName()), strtolower($query))
                 );
 
                 break;
             default:
-                foreach (['category', 'sub_category', 'tags', 'name'] as $type) {
-                    $components = array_merge($components, (array) $this->filter($query, $type));
+                foreach (['category', 'sub_category', 'tags', 'name'] as $componentType) {
+                    $components = array_merge($components, (array) $this->filter($query, $componentType));
                 }
 
                 break;

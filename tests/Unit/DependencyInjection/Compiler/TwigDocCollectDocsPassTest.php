@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Unit\DependencyInjection\Compiler;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -17,12 +19,11 @@ use Symfony\Component\DependencyInjection\Definition;
 #[UsesClass(YamlParser::class)]
 class TwigDocCollectDocsPassTest extends TestCase
 {
-    public function testProcessNotExecutedWhenExtensionIsMissing()
+    public function testProcessNotExecutedWhenExtensionIsMissing(): void
     {
         $container = new ContainerBuilder();
 
         $pass = new TwigDocCollectDocsPass(new YamlParser());
-
         $pass->process($container);
 
         static::assertTrue(true);
@@ -40,7 +41,7 @@ class TwigDocCollectDocsPassTest extends TestCase
         static::assertCount(2, $service->getArgument('$componentsConfig'));
     }
 
-    public function testProcessNotEnrichingPathsForMissingTemplate()
+    public function testProcessNotEnrichingPathsForMissingTemplate(): void
     {
         $container = $this->getContainer(componentsConfig: [
             [
@@ -49,7 +50,6 @@ class TwigDocCollectDocsPassTest extends TestCase
         ]);
 
         $pass = new TwigDocCollectDocsPass(new YamlParser());
-
         $pass->process($container);
 
         $definition = $container->getDefinition('twig_doc.service.component');
@@ -58,7 +58,7 @@ class TwigDocCollectDocsPassTest extends TestCase
         static::assertEmpty($definition->getArgument('$componentsConfig')[0]['renderPath']);
     }
 
-    public function testProcessNotEnrichingPathsForAmbiguousTemplate()
+    public function testProcessNotEnrichingPathsForAmbiguousTemplate(): void
     {
         $container = $this->getContainer(componentsConfig: [
             [
@@ -72,7 +72,6 @@ class TwigDocCollectDocsPassTest extends TestCase
         ]);
 
         $pass = new TwigDocCollectDocsPass(new YamlParser());
-
         $pass->process($container);
 
         $definition = $container->getDefinition('twig_doc.service.component');
@@ -83,10 +82,11 @@ class TwigDocCollectDocsPassTest extends TestCase
         static::assertEmpty($definition->getArgument('$componentsConfig')[1]['renderPath']);
     }
 
-    public function testProcessThrowsExceptionForInvalidConfiguration()
+    public function testProcessThrowsExceptionForInvalidConfiguration(): void
     {
-        static::expectException(InvalidConfigException::class);
-        static::expectExceptionMessage(sprintf('component "%s" is configured twice, please configure either directly in the template or the general bundle configuration', 'Button'));
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessage(sprintf('Component "%s" is configured twice, please configure either directly in the template or the general bundle configuration', 'Button'));
+
         $container = $this->getContainer([
             [
                 'name' => 'Button',

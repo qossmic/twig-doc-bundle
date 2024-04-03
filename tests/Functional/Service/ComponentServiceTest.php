@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Functional\Service;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -57,7 +59,7 @@ class ComponentServiceTest extends KernelTestCase
         static::assertCount(4, $result);
     }
 
-    public function testGetInvalidComponents()
+    public function testGetInvalidComponents(): void
     {
         $service = static::getContainer()->get(ComponentService::class);
 
