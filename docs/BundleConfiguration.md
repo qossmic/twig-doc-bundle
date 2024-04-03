@@ -1,6 +1,6 @@
 ## Configuring the bundle
 
-When you do not want to customize, you do not need any config file. 
+When you do not want to customize, you do not need any config file.
 
 The bundle provides following defaults:
 
