@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\TestApp\Component\Data\Generator;
 
 use Qossmic\TwigDocBundle\Component\Data\GeneratorInterface;

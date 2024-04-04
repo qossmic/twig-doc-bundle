@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Component\Data\Generator;
 
 use Faker\Factory;
@@ -48,7 +50,7 @@ class ScalarGenerator implements GeneratorInterface
                 return $this->generator->numberBetween(0, 100000);
             case 'bool':
             case 'boolean':
-                return [true, false][rand(0, 1)];
+                return [true, false][random_int(0, 1)];
             case 'float':
             case 'double':
                 return $this->generator->randomFloat();

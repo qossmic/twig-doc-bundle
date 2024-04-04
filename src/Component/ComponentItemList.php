@@ -83,9 +83,7 @@ class ComponentItemList extends \ArrayObject
                 break;
             case 'tags':
                 $tags = array_map('trim', explode(',', strtolower($query)));
-                $components = array_filter($this->getArrayCopy(), static function (ComponentItem $item) use ($tags) {
-                    return array_intersect($tags, array_map('strtolower', $item->getTags())) !== [];
-                });
+                $components = array_filter($this->getArrayCopy(), static fn (ComponentItem $item) => array_intersect($tags, array_map('strtolower', $item->getTags())) !== []);
 
                 break;
             case 'name':

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Unit\Component\Data\Generator;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -13,7 +15,7 @@ use Symfony\Component\PropertyInfo\Type;
 class ScalarGeneratorTest extends TestCase
 {
     #[DataProvider('getSupportsTestCases')]
-    public function testSupports(string $type, mixed $context, bool $expected)
+    public function testSupports(string $type, mixed $context, bool $expected): void
     {
         $generator = new ScalarGenerator();
 

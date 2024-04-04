@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Component\Data\Generator;
 
 use Nelmio\Alice\Loader\NativeLoader;

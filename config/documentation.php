@@ -15,25 +15,30 @@ use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Service\ComponentService;
 use Qossmic\TwigDocBundle\Twig\TwigDocExtension;
 
-return static function (ContainerConfigurator $container) {
-    $container->services()->set('twig_doc.controller.documentation', TwigDocController::class)
+return static function (ContainerConfigurator $container): void {
+    $container->services()
+        ->set('twig_doc.controller.documentation', TwigDocController::class)
         ->public()
         ->arg('$twig', service('twig'))
         ->arg('$componentService', service('twig_doc.service.component'))
         ->arg('$profiler', service('profiler')->nullOnInvalid())
+
         ->set('twig_doc.service.category', CategoryService::class)
         ->alias(CategoryService::class, 'twig_doc.service.category')
+
         ->set('twig_doc.service.component_factory', ComponentItemFactory::class)
         ->public()
         ->arg('$validator', service('validator'))
         ->arg('$categoryService', service('twig_doc.service.category'))
         ->arg('$faker', service('twig_doc.service.faker'))
         ->alias(ComponentItemFactory::class, 'twig_doc.service.component_factory')
+
         ->set('twig_doc.service.component', ComponentService::class)
         ->public()
         ->arg('$itemFactory', service('twig_doc.service.component_factory'))
         ->arg('$cache', service('cache.app'))
         ->alias(ComponentService::class, 'twig_doc.service.component')
+
         ->set('twig_doc.twig.extension', TwigDocExtension::class)
         ->public()
         ->arg('$componentRenderer', service('ux.twig_component.component_renderer')->nullOnInvalid())
@@ -42,6 +47,7 @@ return static function (ContainerConfigurator $container) {
         ->arg('$twig', service('twig'))
         ->tag('twig.extension')
         ->alias(TwigDocExtension::class, 'twig_doc.twig.extension')
+
         ->set('twig_doc.cache_warmer', ComponentsWarmer::class)
         ->arg('$container', service('service_container'))
         ->tag('kernel.cache_warmer')
@@ -54,6 +60,7 @@ return static function (ContainerConfigurator $container) {
         ->set('twig_doc.data_generator.scalar', ScalarGenerator::class)
         ->public()
         ->tag('twig_doc.data_generator', ['priority' => -5])
+
         ->set('twig_doc.data_generator.fixture', FixtureGenerator::class)
         ->public()
         ->tag('twig_doc.data_generator', ['priority' => -10])

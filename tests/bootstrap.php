@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Qossmic\TwigDocBundle\Tests\TestApp\Kernel;
 use Symfony\Component\Filesystem\Filesystem;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qossmic\TwigDocBundle\Tests\Unit\Component\Data;
 
 use PHPUnit\Framework\Attributes\CoversClass;

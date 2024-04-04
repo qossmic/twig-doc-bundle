@@ -47,7 +47,7 @@ class ComponentItemFactoryTest extends TestCase
         static::assertInstanceOf(ComponentCategory::class, $item->getCategory());
     }
 
-    public function testInvalidCategory()
+    public function testInvalidCategory(): void
     {
         $this->expectException(InvalidComponentConfigurationException::class);
 
