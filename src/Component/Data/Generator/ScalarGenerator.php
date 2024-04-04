@@ -30,7 +30,7 @@ class ScalarGenerator implements GeneratorInterface
             'integer',
             'double',
             'boolean',
-        ]);
+        ], true);
     }
 
     public function generate(string $type, mixed $context = null): float|object|bool|int|string|null
@@ -41,8 +41,6 @@ class ScalarGenerator implements GeneratorInterface
     public function createParamValue(string $type): bool|int|float|string|null
     {
         switch (strtolower($type)) {
-            default:
-                return null;
             case 'string':
                 return $this->generator->text(20);
             case 'int':
@@ -54,6 +52,8 @@ class ScalarGenerator implements GeneratorInterface
             case 'float':
             case 'double':
                 return $this->generator->randomFloat();
+            default:
+                return null;
         }
     }
 }

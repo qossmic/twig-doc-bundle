@@ -38,13 +38,13 @@ class ComponentItemFactoryTest extends TestCase
         $componentItemFactory = new ComponentItemFactory(
             $validatorMock,
             $categoryServiceMock,
-            static::createMock(Faker::class)
+            $this->createMock(Faker::class)
         );
 
         $item = $componentItemFactory->create($componentData);
 
-        static::assertInstanceOf(ComponentItem::class, $item);
-        static::assertInstanceOf(ComponentCategory::class, $item->getCategory());
+        $this->assertInstanceOf(ComponentItem::class, $item);
+        $this->assertInstanceOf(ComponentCategory::class, $item->getCategory());
     }
 
     public function testInvalidCategory(): void
@@ -78,7 +78,7 @@ class ComponentItemFactoryTest extends TestCase
 
         $result = $componentItemFactory->getParamsFromVariables($variables);
 
-        static::assertEquals([
+        $this->assertEquals([
             'var' => [
                 'separated' => [
                     'by' => [
