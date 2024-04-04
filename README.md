@@ -2,19 +2,27 @@
 
 [![Image](docs/resources/images/qossmic.png)](https://qossmic.com) Brought to you by qossmic! 
 
-1. [Installation](#installation)
-2. Configuration
+1. [Ye be warned!](#experimental-package)
+2. [Installation](#installation)
+3. Configuration
    1. [Bundle Configuration](docs/BundleConfiguration.md)
    2. [Component Configuration](docs/ComponentConfiguration.md)
-3. [Routing](#routing)
-4. [Customization](#customizing-the-design)
-5. [Usage](docs/Usage.md)
+4. [Routing](#routing)
+5. [Customization](#customizing-the-design)
+6. [Usage](docs/Usage.md)
 
 ---
 
+## Experimental Package
 > **Important**: This is an experimental version and might change drastically. 
 > Therefore, you might encounter breaking changes when updating until we release a stable version. 
 
+- bad templates: due to the lack of frontend capacities, the templates are very "basic"
+  - but as in every Symfony bundle, you can easily overwrite them and create your own :-)
+- incomplete documentation
+- no translations (yet)
+
+###
 Allows you to create an overview for your Twig Components, be it either [UX-Components](https://symfony.com/bundles/ux-twig-component/current/index.html), [UX-Live-Components](https://symfony.com/bundles/ux-live-component/current/index.html) or simple snippet templates.
 
 Components will be grouped in categories and optional sub-categories.

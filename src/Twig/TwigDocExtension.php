@@ -35,9 +35,13 @@ class TwigDocExtension extends AbstractExtension
             new TwigFunction('filterComponents', [$this, 'filterComponents']),
             new TwigFunction('getInvalidComponents', [$this, 'getInvalidComponents']),
             new TwigFunction('getSubCategories', [$this, 'getSubCategories']),
+            new TwigFunction('getComponentCategories', [$this, 'getCategories']),
         ];
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function filterComponents(string $filterQuery, ?string $type = null): ComponentItemList
     {
         return $this->componentService->filter($filterQuery, $type);
@@ -85,5 +89,15 @@ class TwigDocExtension extends AbstractExtension
     private function renderFallback(ComponentItem $item, array $params): string
     {
         return $this->twig->render($item->getRenderPath(), $params);
+    }
+
+    /**
+     * @return ComponentCategory[]
+     *
+     * @codeCoverageIgnore
+     */
+    public function getCategories(): array
+    {
+        return $this->categoryService->getCategories();
     }
 }
