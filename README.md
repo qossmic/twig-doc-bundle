@@ -18,7 +18,7 @@
 > Therefore, you might encounter breaking changes when updating until we release a stable version. 
 
 - bad templates: due to the lack of frontend capacities, the templates are very "basic"
-  - but as in every symfony bundle, you can easily overwrite them and create your own :-)
+  - but as in every Symfony bundle, you can easily overwrite them and create your own :-)
 - incomplete documentation
 - no translations (yet)
 
