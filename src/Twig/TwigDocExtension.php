@@ -93,6 +93,7 @@ class TwigDocExtension extends AbstractExtension
 
     /**
      * @return ComponentCategory[]
+     *
      * @codeCoverageIgnore
      */
     public function getCategories(): array
