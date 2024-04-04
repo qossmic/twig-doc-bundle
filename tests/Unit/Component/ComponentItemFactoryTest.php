@@ -70,8 +70,8 @@ class ComponentItemFactoryTest extends TestCase
 
         $componentItemFactory = new ComponentItemFactory(
             static::createMock(ValidatorInterface::class),
-            static::createMock(CategoryService::class),
-            static::createMock(Faker::class)
+            $this->createMockCategoryService::class),
+            $this->createMock(Faker::class)
         );
 
         $result = $componentItemFactory->getParamsFromVariables($variables);
