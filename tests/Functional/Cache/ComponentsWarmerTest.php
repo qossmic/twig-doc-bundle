@@ -11,6 +11,9 @@ use Qossmic\TwigDocBundle\Cache\ComponentsWarmer;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Component\ComponentItemList;
 use Qossmic\TwigDocBundle\Component\Data\Faker;
+use Qossmic\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\NullGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -21,6 +24,9 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 #[UsesClass(CategoryService::class)]
 #[UsesClass(ComponentItemList::class)]
 #[UsesClass(Faker::class)]
+#[UsesClass(ScalarGenerator::class)]
+#[UsesClass(FixtureGenerator::class)]
+#[UsesClass(NullGenerator::class)]
 class ComponentsWarmerTest extends KernelTestCase
 {
     public function testWarmUp(): void
