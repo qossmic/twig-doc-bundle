@@ -57,7 +57,7 @@ class ComponentItemFactoryTest extends TestCase
             ->willReturn(null);
         $validatorMock = $this->createMock(ValidatorInterface::class);
 
-        $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock, static::createMock(Faker::class));
+        $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock, $this->createMock(Faker::class));
 
         $componentItemFactory->create(['category' => 'Category']);
     }
