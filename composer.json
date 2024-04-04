@@ -26,6 +26,11 @@
     "symfony/browser-kit": "^6.4|^7.0",
     "symfony/css-selector": "^6.4|^7.0",
     "symfony/dom-crawler": "^6.4|^7.0",
-    "friendsofphp/php-cs-fixer": "^3.51"
+    "friendsofphp/php-cs-fixer": "^3.51",
+    "symfony/ux-twig-component": "^2.16.0"
+  },
+  "suggest": {
+    "symfony/ux-twig-component": "Create native UX components with twig and document them with this bundle",
+    "symfony/ux-live-component": "Create truly reactive frontend components and document them with this bundle"
   }
 }
