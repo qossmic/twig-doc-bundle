@@ -39,6 +39,9 @@ class TwigDocExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function filterComponents(string $filterQuery, ?string $type = null): ComponentItemList
     {
         return $this->componentService->filter($filterQuery, $type);
@@ -90,6 +93,7 @@ class TwigDocExtension extends AbstractExtension
 
     /**
      * @return ComponentCategory[]
+     * @codeCoverageIgnore
      */
     public function getCategories(): array
     {

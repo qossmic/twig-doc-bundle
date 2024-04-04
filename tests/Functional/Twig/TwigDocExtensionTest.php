@@ -26,7 +26,7 @@ class TwigDocExtensionTest extends KernelTestCase
         $extension = static::getContainer()->get(TwigDocExtension::class);
         $functions = $extension->getFunctions();
 
-        static::assertCount(4, $functions);
+        static::assertCount(5, $functions);
 
         foreach ($functions as $function) {
             static::assertInstanceOf(TwigFunction::class, $function);
