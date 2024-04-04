@@ -31,7 +31,7 @@
         {% endif %}
     {% endfor %}
     <p>Variations:</p>
-    {% for key, value in variation %}
+    {% for key, value in component.originalConfig.variations ?? [] %}
         {% if loop.first %}
         <ul>
         {% endif %}

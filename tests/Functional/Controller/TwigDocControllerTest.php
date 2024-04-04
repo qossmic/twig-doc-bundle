@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Component\ComponentItemList;
+use Qossmic\TwigDocBundle\Component\Data\Faker;
 use Qossmic\TwigDocBundle\Controller\TwigDocController;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Service\ComponentService;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[CoversClass(ComponentService::class)]
 #[UsesClass(TwigDocExtension::class)]
 #[UsesClass(ComponentItemList::class)]
+#[UsesClass(Faker::class)]
 class TwigDocControllerTest extends WebTestCase
 {
     private KernelBrowser $client;

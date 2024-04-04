@@ -56,9 +56,7 @@ readonly class ComponentService
     {
         $hash = sprintf('twig_doc_bundle.search.%s.%s', md5($filterQuery.$filterType), $this->configReadTime);
 
-        return $this->cache->get($hash, function () use ($filterQuery, $filterType) {
-            return $this->getComponents()->filter($filterQuery, $filterType);
-        });
+        return $this->cache->get($hash, fn () => $this->getComponents()->filter($filterQuery, $filterType));
     }
 
     /**

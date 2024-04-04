@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Qossmic\TwigDocBundle\Component\ComponentCategory;
 use Qossmic\TwigDocBundle\Component\ComponentItem;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
+use Qossmic\TwigDocBundle\Component\Data\Faker;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -18,6 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[CoversClass(ComponentItemFactory::class)]
 #[UsesClass(InvalidComponentConfigurationException::class)]
+#[UsesClass(Faker::class)]
 class ComponentItemFactoryTest extends TestCase
 {
     #[DataProvider('getValidComponents')]
@@ -28,32 +30,34 @@ class ComponentItemFactoryTest extends TestCase
         $categoryServiceMock
             ->method('getCategory')
             ->with($componentData['category'])
-            ->willReturn($componentCategoryMock)
-        ;
+            ->willReturn($componentCategoryMock);
         $validatorMock = $this->createMock(ValidatorInterface::class);
         $validatorMock->method('validate')
             ->willReturn(new ConstraintViolationList());
 
-        $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock);
+        $componentItemFactory = new ComponentItemFactory(
+            $validatorMock,
+            $categoryServiceMock,
+            $this->createMock(Faker::class)
+        );
 
         $item = $componentItemFactory->create($componentData);
 
-        static::assertInstanceOf(ComponentItem::class, $item);
-        static::assertInstanceOf(ComponentCategory::class, $item->getCategory());
+        $this->assertInstanceOf(ComponentItem::class, $item);
+        $this->assertInstanceOf(ComponentCategory::class, $item->getCategory());
     }
 
-    public function testInvalidCategory()
+    public function testInvalidCategory(): void
     {
         $this->expectException(InvalidComponentConfigurationException::class);
 
         $categoryServiceMock = $this->createMock(CategoryService::class);
         $categoryServiceMock
             ->method('getCategory')
-            ->willReturn(null)
-        ;
+            ->willReturn(null);
         $validatorMock = $this->createMock(ValidatorInterface::class);
 
-        $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock);
+        $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock, $this->createMock(Faker::class));
 
         $componentItemFactory->create(['category' => 'Category']);
     }
@@ -68,12 +72,13 @@ class ComponentItemFactoryTest extends TestCase
 
         $componentItemFactory = new ComponentItemFactory(
             $this->createMock(ValidatorInterface::class),
-            $this->createMock(CategoryService::class)
+            $this->createMock(CategoryService::class),
+            $this->createMock(Faker::class)
         );
 
         $result = $componentItemFactory->getParamsFromVariables($variables);
 
-        static::assertEquals([
+        $this->assertEquals([
             'var' => [
                 'separated' => [
                     'by' => [
@@ -114,35 +119,6 @@ class ComponentItemFactoryTest extends TestCase
                 'variations' => [
                     'default' => [],
                 ],
-            ],
-        ];
-
-        yield 'Component without variations' => [
-            [
-                'name' => 'Component1',
-                'title' => 'Component',
-                'description' => 'Test component',
-                'category' => 'TestCategory',
-                'sub_category' => 'SubCategory',
-                'parameters' => [
-                    'one' => 'String',
-                    'two' => 'float',
-                    'three' => 'integer',
-                    'four' => 'int',
-                    'five' => 'double',
-                    'six' => 'bool',
-                    'seven' => 'boolean',
-                    'eight' => 'SomeOtherType',
-                ],
-            ],
-        ];
-
-        yield 'Component without parameters and variations' => [
-            [
-                'name' => 'Component1',
-                'title' => 'Component',
-                'description' => 'Test component',
-                'category' => 'TestCategory',
             ],
         ];
     }

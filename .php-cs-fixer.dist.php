@@ -10,6 +10,7 @@ return $config
     ->setRules([
     '@Symfony' => true,
     '@Symfony:risky' => true,
+    '@PHP80Migration:risky' => true,
     'array_syntax' => ['syntax' => 'short'],
     'yoda_style' => false,
 ])

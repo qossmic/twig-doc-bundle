@@ -8,6 +8,10 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
 use Qossmic\TwigDocBundle\Component\ComponentItemList;
+use Qossmic\TwigDocBundle\Component\Data\Faker;
+use Qossmic\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\NullGenerator;
+use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Service\ComponentService;
 use Qossmic\TwigDocBundle\Twig\TwigDocExtension;
@@ -19,6 +23,10 @@ use Twig\TwigFunction;
 #[UsesClass(CategoryService::class)]
 #[UsesClass(ComponentService::class)]
 #[UsesClass(ComponentItemList::class)]
+#[UsesClass(Faker::class)]
+#[UsesClass(ScalarGenerator::class)]
+#[UsesClass(FixtureGenerator::class)]
+#[UsesClass(NullGenerator::class)]
 class TwigDocExtensionTest extends KernelTestCase
 {
     public function testGetFunctions(): void

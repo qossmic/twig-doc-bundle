@@ -10,6 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
+use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
+
 class TwigDocExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
@@ -31,5 +33,8 @@ class TwigDocExtension extends Extension
 
         $definition = $container->getDefinition('twig_doc.service.category');
         $definition->setArgument('$categoriesConfig', $categories);
+
+        $definition = $container->getDefinition('twig_doc.service.faker');
+        $definition->setArgument('$generators', tagged_iterator('twig_doc.data_generator'));
     }
 }
