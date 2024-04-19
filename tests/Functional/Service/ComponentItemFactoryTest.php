@@ -207,6 +207,38 @@ class ComponentItemFactoryTest extends KernelTestCase
         static::assertEquals('Mitsubishi', $car->getManufacturer()->getName());
     }
 
+    public function testCreateForParamWithOptionalVariationValue(): void
+    {
+        $data = [
+            'name' => 'component',
+            'title' => 'title',
+            'description' => 'description',
+            'category' => 'MainCategory',
+            'path' => 'path',
+            'renderPath' => 'renderPath',
+            'parameters' => [
+                'stringParam' => 'String',
+                'secondParam' => 'String',
+            ],
+            'variations' => [
+                'variation1' => [
+                    'stringParam' => 'Some cool hipster text',
+                ],
+            ],
+        ];
+
+        /** @var ComponentItemFactory $factory */
+        $factory = self::getContainer()->get('twig_doc.service.component_factory');
+
+        $item = $factory->create($data);
+        $variations = $item->getVariations();
+
+        self::assertIsArray($variations);
+        self::assertArrayHasKey('variation1', $variations);
+        self::assertArrayHasKey('secondParam', $variations['variation1']);
+        self::assertIsString($variations['variation1']['secondParam']);
+    }
+
     public static function getInvalidComponentConfigurationTestCases(): iterable
     {
         yield [
