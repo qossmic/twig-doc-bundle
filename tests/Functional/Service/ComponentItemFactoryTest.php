@@ -219,10 +219,12 @@ class ComponentItemFactoryTest extends KernelTestCase
             'parameters' => [
                 'stringParam' => 'String',
                 'secondParam' => 'String',
+                'optionalEmpty' => 'String',
             ],
             'variations' => [
                 'variation1' => [
                     'stringParam' => 'Some cool hipster text',
+                    'optionalEmpty' => '',
                 ],
             ],
         ];
@@ -237,6 +239,7 @@ class ComponentItemFactoryTest extends KernelTestCase
         self::assertArrayHasKey('variation1', $variations);
         self::assertArrayHasKey('secondParam', $variations['variation1']);
         self::assertIsString($variations['variation1']['secondParam']);
+        self::assertNull($variations['variation1']['optionalEmpty']);
     }
 
     public static function getInvalidComponentConfigurationTestCases(): iterable
