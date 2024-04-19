@@ -207,7 +207,7 @@ class ComponentItemFactoryTest extends KernelTestCase
         static::assertEquals('Mitsubishi', $car->getManufacturer()->getName());
     }
 
-    public function testCreateForParamWithOptionalVariationValue()
+    public function testCreateForParamWithOptionalVariationValue(): void
     {
         $data = [
             'name' => 'component',
