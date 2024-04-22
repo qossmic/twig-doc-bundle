@@ -21,7 +21,7 @@ class ScalarGenerator implements GeneratorInterface
     public function supports(string $type, mixed $context = null): bool
     {
         // context normally contains the param values for a specific variation, so we generate random values only for non-set params
-        return empty($context) && \in_array(strtolower($type), [
+        return null === $context && \in_array(strtolower($type), [
             Type::BUILTIN_TYPE_BOOL,
             Type::BUILTIN_TYPE_FLOAT,
             Type::BUILTIN_TYPE_INT,

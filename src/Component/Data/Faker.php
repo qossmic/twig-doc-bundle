@@ -17,7 +17,7 @@ class Faker
     ) {
     }
 
-    public function getFakeData(array $params, mixed $variation = []): array
+    public function getFakeData(array $params, mixed $variation = null): array
     {
         return $this->createFakeData($params, $variation);
     }
@@ -34,7 +34,7 @@ class Faker
             }
 
             foreach ($this->generators as $generator) {
-                if (\array_key_exists($name, $result) || !$generator->supports($type)) {
+                if (\array_key_exists($name, $result)) {
                     continue;
                 }
                 if ($generator->supports($type, $variation)) {
