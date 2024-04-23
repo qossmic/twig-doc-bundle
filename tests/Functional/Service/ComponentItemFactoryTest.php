@@ -242,6 +242,42 @@ class ComponentItemFactoryTest extends KernelTestCase
         self::assertNull($variations['variation1']['optionalEmpty']);
     }
 
+    public function testCreateForArrayParameter(): void
+    {
+        $data = [
+            'name' => 'TestComponent',
+            'title' => 'Test title',
+            'description' => 'description',
+            'category' => 'MainCategory',
+            'path' => 'path/to/component',
+            'renderPath' => 'path/to/component',
+            'parameters' => [
+                'arrayParam' => [
+                    'param1' => 'String',
+                    'param2' => 'Boolean',
+                ],
+            ],
+            'variations' => [
+                'variation1' => [
+                    'arrayParam' => [
+                        'param1' => 'Some cool hipster text',
+                    ],
+                ],
+            ],
+        ];
+
+        /** @var ComponentItemFactory $factory */
+        $factory = self::getContainer()->get('twig_doc.service.component_factory');
+
+        $component = $factory->create($data);
+        $variations = $component->getVariations();
+
+        self::assertIsArray($variations);
+        self::assertArrayHasKey('variation1', $variations);
+        self::assertEquals('Some cool hipster text', $variations['variation1']['arrayParam']['param1']);
+        self::assertIsBool($variations['variation1']['arrayParam']['param2']);
+    }
+
     public static function getInvalidComponentConfigurationTestCases(): iterable
     {
         yield [
