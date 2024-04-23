@@ -261,6 +261,7 @@ class ComponentItemFactoryTest extends KernelTestCase
                 'variation1' => [
                     'arrayParam' => [
                         'param1' => 'Some cool hipster text',
+                        'param2' => false,
                     ],
                 ],
             ],
@@ -275,7 +276,7 @@ class ComponentItemFactoryTest extends KernelTestCase
         self::assertIsArray($variations);
         self::assertArrayHasKey('variation1', $variations);
         self::assertEquals('Some cool hipster text', $variations['variation1']['arrayParam']['param1']);
-        self::assertIsBool($variations['variation1']['arrayParam']['param2']);
+        self::assertFalse($variations['variation1']['arrayParam']['param2']);
     }
 
     public static function getInvalidComponentConfigurationTestCases(): iterable
