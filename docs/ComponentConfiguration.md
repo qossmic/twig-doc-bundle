@@ -85,8 +85,46 @@ components:
 
 ### Parameter Provision
 
-You must provide the types of your template parameters in the configuration. 
+You must provide the types of your template parameters in the configuration.
 As twig templates are not aware of types, there is no other possibility at the moment.
+
+Unless you enable use_fake_parameter in the bundle configuration, parameter-values for the components 
+must be configured in each variation for this component! 
+
+`use_fake_parameter: false`
+
+When a parameter is not provided in a variation, it will be set to NULL.
+
+Objects will not be provided as objects, only as arrays based on the variation configuration.
+
+e.g:
+```yaml
+...
+parameters:
+  car: App\Entity\Car
+  owner: String
+variation:
+  blue:
+    car: 
+      color: blue
+      manufacturer:
+        name: Mitsubishi
+```
+will result that car is provided as an array when the component is rendered:
+```php
+[
+  'color' => 'blue',
+  'manufacturer' => [
+    'name' => 'Mitsubishi'
+  ],
+  'owner' => null
+]
+```
+
+When you do not call fancy object-methods in your component-templates, this should suffice for most cases.
+
+`use_fake_paramter: true`
+
 As this bundle makes use of [Nelmio/Alice](https://github.com/nelmio/alice) and [FakerPhp](https://fakerphp.github.io), all you need to do is
 define the types of your parameters in the component configuration.
 The bundle will take care of creating a set of parameters for every component.

@@ -38,7 +38,8 @@ class ComponentItemFactoryTest extends TestCase
         $componentItemFactory = new ComponentItemFactory(
             $validatorMock,
             $categoryServiceMock,
-            $this->createMock(Faker::class)
+            $this->createMock(Faker::class),
+            false
         );
 
         $item = $componentItemFactory->create($componentData);
@@ -57,7 +58,12 @@ class ComponentItemFactoryTest extends TestCase
             ->willReturn(null);
         $validatorMock = $this->createMock(ValidatorInterface::class);
 
-        $componentItemFactory = new ComponentItemFactory($validatorMock, $categoryServiceMock, $this->createMock(Faker::class));
+        $componentItemFactory = new ComponentItemFactory(
+            $validatorMock,
+            $categoryServiceMock,
+            $this->createMock(Faker::class),
+            false
+        );
 
         $componentItemFactory->create(['category' => 'Category']);
     }
@@ -73,7 +79,8 @@ class ComponentItemFactoryTest extends TestCase
         $componentItemFactory = new ComponentItemFactory(
             $this->createMock(ValidatorInterface::class),
             $this->createMock(CategoryService::class),
-            $this->createMock(Faker::class)
+            $this->createMock(Faker::class),
+            false
         );
 
         $result = $componentItemFactory->getParamsFromVariables($variables);

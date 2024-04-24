@@ -18,6 +18,7 @@ use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
 use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Qossmic\TwigDocBundle\Service\CategoryService;
 use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Car;
+use Qossmic\TwigDocBundle\Tests\TestApp\Test\ConfigurableContainerTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 #[CoversClass(ComponentItemFactory::class)]
@@ -29,6 +30,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 #[UsesClass(NullGenerator::class)]
 class ComponentItemFactoryTest extends KernelTestCase
 {
+    use ConfigurableContainerTrait;
+
     #[DataProvider('getValidComponents')]
     public function testValidComponent(array $componentData): void
     {
@@ -115,8 +118,10 @@ class ComponentItemFactoryTest extends KernelTestCase
             ],
         ];
 
+        $container = $this->createContainer(['twig_doc' => ['use_fake_parameter' => true]]);
+
         /** @var ComponentItemFactory $factory */
-        $factory = self::getContainer()->get('twig_doc.service.component_factory');
+        $factory = $container->get('twig_doc.service.component_factory');
 
         $component = $factory->create($data);
 
@@ -133,6 +138,40 @@ class ComponentItemFactoryTest extends KernelTestCase
         self::assertIsArray($component->getVariations()['default']['complex']);
         self::assertIsString($component->getVariations()['default']['complex']['title']);
         self::assertIsFloat($component->getVariations()['default']['complex']['amount']);
+    }
+
+    public function testCreateObjectParameter()
+    {
+        $data = [
+            'name' => 'component',
+            'title' => 'title',
+            'description' => 'description',
+            'category' => 'MainCategory',
+            'path' => 'path',
+            'renderPath' => 'renderPath',
+            'parameters' => [
+                'car' => Car::class,
+            ],
+            'variations' => [
+                'variation1' => [
+                    'car' => [
+                        'color' => 'blue',
+                    ]
+                ],
+                'variation2' => [
+                    'car' => null,
+                ]
+            ],
+        ];
+
+        $container = $this->createContainer(['twig_doc' => ['use_fake_parameter' => true]]);
+
+        /** @var ComponentItemFactory $factory */
+        $factory = $container->get('twig_doc.service.component_factory');
+
+        $component = $factory->create($data);
+
+        self::assertInstanceOf(ComponentItem::class, $component);
     }
 
     public function testCreateKeepsParamValueFromVariation(): void
@@ -200,11 +239,14 @@ class ComponentItemFactoryTest extends KernelTestCase
         static::assertIsArray($variations['fuchsia']);
         static::assertArrayHasKey('car', $variations['fuchsia']);
 
-        $car = $variations['fuchsia']['car'];
+        $carData = $variations['fuchsia']['car'];
 
-        static::assertInstanceOf(Car::class, $car);
-        static::assertEquals('fuchsia', $car->getColor());
-        static::assertEquals('Mitsubishi', $car->getManufacturer()->getName());
+        static::assertEquals([
+            'color' => 'fuchsia',
+            'manufacturer' => [
+                'name' => 'Mitsubishi',
+            ],
+        ], $carData);
     }
 
     public function testCreateForParamWithOptionalVariationValue(): void
@@ -224,7 +266,7 @@ class ComponentItemFactoryTest extends KernelTestCase
             'variations' => [
                 'variation1' => [
                     'stringParam' => 'Some cool hipster text',
-                    'optionalEmpty' => '',
+                    'optionalEmpty' => null,
                 ],
             ],
         ];
@@ -238,7 +280,7 @@ class ComponentItemFactoryTest extends KernelTestCase
         self::assertIsArray($variations);
         self::assertArrayHasKey('variation1', $variations);
         self::assertArrayHasKey('secondParam', $variations['variation1']);
-        self::assertIsString($variations['variation1']['secondParam']);
+        self::assertNull($variations['variation1']['secondParam']);
         self::assertNull($variations['variation1']['optionalEmpty']);
     }
 

@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
                         ->thenInvalid('The twig_doc documentation identifier must match \w (regex)')
                     ->end()
                 ->end()
+                ->booleanNode('use_fake_parameter')->defaultFalse()->end()
                 ->arrayNode('breakpoints')
                     ->defaultValue([
                         'small' => 240,

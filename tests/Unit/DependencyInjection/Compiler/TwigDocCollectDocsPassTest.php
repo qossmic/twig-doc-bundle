@@ -54,8 +54,8 @@ class TwigDocCollectDocsPassTest extends TestCase
 
         $definition = $container->getDefinition('twig_doc.service.component');
 
-        static::assertEmpty($definition->getArgument('$componentsConfig')[0]['path']);
-        static::assertEmpty($definition->getArgument('$componentsConfig')[0]['renderPath']);
+        static::assertArrayNotHasKey('path', $definition->getArgument('$componentsConfig')[0]);
+        static::assertArrayNotHasKey('renderPath', $definition->getArgument('$componentsConfig')[0]);
     }
 
     public function testProcessNotEnrichingPathsForAmbiguousTemplate(): void
@@ -76,10 +76,10 @@ class TwigDocCollectDocsPassTest extends TestCase
 
         $definition = $container->getDefinition('twig_doc.service.component');
 
-        static::assertEmpty($definition->getArgument('$componentsConfig')[0]['path']);
-        static::assertEmpty($definition->getArgument('$componentsConfig')[0]['renderPath']);
-        static::assertEmpty($definition->getArgument('$componentsConfig')[1]['path']);
-        static::assertEmpty($definition->getArgument('$componentsConfig')[1]['renderPath']);
+        static::assertArrayNotHasKey('path', $definition->getArgument('$componentsConfig')[0]);
+        static::assertArrayNotHasKey('renderPath', $definition->getArgument('$componentsConfig')[0]);
+        static::assertArrayNotHasKey('path', $definition->getArgument('$componentsConfig')[1]);
+        static::assertArrayNotHasKey('renderPath', $definition->getArgument('$componentsConfig')[1]);
     }
 
     public function testProcessThrowsExceptionForInvalidConfiguration(): void

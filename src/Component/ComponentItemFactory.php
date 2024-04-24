@@ -15,7 +15,8 @@ readonly class ComponentItemFactory
     public function __construct(
         private ValidatorInterface $validator,
         private CategoryService $categoryService,
-        private Faker $faker
+        private Faker $faker,
+        private bool $useFakeParams
     ) {
     }
 
@@ -105,7 +106,7 @@ readonly class ComponentItemFactory
 
         if (!$variations) {
             return [
-                'default' => $this->faker->getFakeData($parameters),
+                'default' => $this->createVariationParameters($parameters, []),
             ];
         }
 
@@ -125,11 +126,34 @@ readonly class ComponentItemFactory
     {
         $params = [];
 
+        if ($this->useFakeParams) {
+            return $this->createFakeParamValues($parameters, $variation);
+        }
+
+        foreach ($parameters as $name => $type) {
+            if (\is_array($type)) {
+                $params[$name] = $this->createVariationParameters($type, $variation[$name] ?? []);
+            } else {
+                $params[$name] = $variation[$name] ?? null;
+            }
+        }
+
+        return $params;
+    }
+
+    private function createFakeParamValues(array $parameters, array $variation): array
+    {
+        $params = [];
+
         foreach ($parameters as $name => $type) {
             if (\is_array($type)) {
                 $paramValue[$name] = $this->createVariationParameters($type, $variation[$name] ?? []);
             } else {
-                $paramValue = $this->faker->getFakeData([$name => $type], $variation[$name] ?? null);
+                if (array_key_exists($name, $variation) && is_null($variation[$name])) {
+                    $paramValue = [$name => null];
+                } else {
+                    $paramValue = $this->faker->getFakeData([$name => $type], $variation[$name] ?? null);
+                }
             }
             $params += $paramValue;
         }
