@@ -46,7 +46,7 @@ class Faker
 
             if (!\array_key_exists($name, $result)) {
                 // set from variation
-                $result[$name] = $variation;
+                $result[$name] = $variation[$name] ?? $variation;
             }
         }
 

@@ -127,7 +127,7 @@ readonly class ComponentItemFactory
 
         foreach ($parameters as $name => $type) {
             if (\is_array($type)) {
-                $paramValue = $this->createVariationParameters($type, $variation[$name] ?? []);
+                $paramValue[$name] = $this->createVariationParameters($type, $variation[$name] ?? []);
             } else {
                 $paramValue = $this->faker->getFakeData([$name => $type], $variation[$name] ?? null);
             }

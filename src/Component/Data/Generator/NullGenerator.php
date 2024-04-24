@@ -10,7 +10,7 @@ class NullGenerator implements GeneratorInterface
 {
     public function supports(string $type, mixed $context = null): bool
     {
-        return empty($context);
+        return null === $context || '' === $context;
     }
 
     public function generate(string $type, mixed $context = null): null
