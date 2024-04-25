@@ -15,8 +15,8 @@ class NullGeneratorTest extends TestCase
     {
         $generator = new NullGenerator();
 
-        static::assertTrue($generator->supports('any', null));
-        static::assertFalse($generator->supports('any', 'notEmpty'));
+        static::assertTrue($generator->supports('any'));
+        static::assertTrue($generator->supports('any', 'notEmpty'));
     }
 
     public function testGenerate(): void
@@ -24,5 +24,6 @@ class NullGeneratorTest extends TestCase
         $generator = new NullGenerator();
 
         static::assertNull($generator->generate('any'));
+        static::assertNull($generator->generate('any', 'anyContext'));
     }
 }

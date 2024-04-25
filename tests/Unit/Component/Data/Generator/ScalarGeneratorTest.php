@@ -15,11 +15,11 @@ use Symfony\Component\PropertyInfo\Type;
 class ScalarGeneratorTest extends TestCase
 {
     #[DataProvider('getSupportsTestCases')]
-    public function testSupports(string $type, mixed $context, bool $expected): void
+    public function testSupports(string $type, mixed $context, bool $expectedReturn): void
     {
         $generator = new ScalarGenerator();
 
-        self::assertEquals($expected, $generator->supports($type, $context));
+        self::assertEquals($expectedReturn, $generator->supports($type, $context));
     }
 
     #[DataProvider('getGenerateTestCases')]
@@ -57,42 +57,42 @@ class ScalarGeneratorTest extends TestCase
     {
         yield 'bool' => [
             'type' => Type::BUILTIN_TYPE_BOOL,
-            'method' => 'assertIsBool',
+            'assertionMethod' => 'assertIsBool',
         ];
 
         yield 'boolean' => [
             'type' => 'boolean',
-            'method' => 'assertIsBool',
+            'assertionMethod' => 'assertIsBool',
         ];
 
         yield 'float' => [
             'type' => Type::BUILTIN_TYPE_FLOAT,
-            'method' => 'assertIsFloat',
+            'assertionMethod' => 'assertIsFloat',
         ];
 
         yield 'double' => [
             'type' => 'double',
-            'method' => 'assertIsFloat',
+            'assertionMethod' => 'assertIsFloat',
         ];
 
         yield 'integer' => [
             'type' => 'integer',
-            'method' => 'assertIsInt',
+            'assertionMethod' => 'assertIsInt',
         ];
 
         yield 'int' => [
             'type' => Type::BUILTIN_TYPE_INT,
-            'method' => 'assertIsInt',
+            'assertionMethod' => 'assertIsInt',
         ];
 
         yield 'null' => [
             'type' => Type::BUILTIN_TYPE_NULL,
-            'method' => 'assertNull',
+            'assertionMethod' => 'assertNull',
         ];
 
         yield 'string' => [
             'type' => Type::BUILTIN_TYPE_STRING,
-            'method' => 'assertIsString',
+            'assertionMethod' => 'assertIsString',
         ];
     }
 }

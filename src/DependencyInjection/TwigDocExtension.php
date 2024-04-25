@@ -36,5 +36,8 @@ class TwigDocExtension extends Extension
 
         $definition = $container->getDefinition('twig_doc.service.faker');
         $definition->setArgument('$generators', tagged_iterator('twig_doc.data_generator'));
+
+        $definition = $container->getDefinition('twig_doc.service.component_factory');
+        $definition->setArgument('$useFakeParams', $config['use_fake_parameter']);
     }
 }

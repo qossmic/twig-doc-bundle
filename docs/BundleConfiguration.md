@@ -7,6 +7,7 @@ The bundle provides following defaults:
 ```yaml
 twig_doc:
   doc_identifier: TWIG_DOC
+  use_fake_parameter: false
   directories:
     - '%twig.default_path%/components'
   categories:
@@ -50,6 +51,12 @@ title: My component
 MY_DOC_IDENTIFIER#}
 <div class="fancy-component"></div>
 ```
+
+### Fake Parameters
+
+By default, the creation of fake parameters is disabled!
+
+When enabled, the bundle fakes parameters based on parameter-config of the component
 
 ### Categories
 

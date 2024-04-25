@@ -17,9 +17,9 @@ class Kernel extends SymfonyKernel
 {
     use MicroKernelTrait;
 
-    public function __construct()
+    public function __construct(string $environment = 'test', bool $debug = false, private readonly array $extraConfigs = [])
     {
-        parent::__construct('test', false);
+        parent::__construct($environment, $debug);
     }
 
     public function registerBundles(): iterable
@@ -42,6 +42,10 @@ class Kernel extends SymfonyKernel
         $loader->load(__DIR__.'/config/services.php');
         $loader->load(__DIR__.'/config/packages/*.php', 'glob');
         $loader->load(__DIR__.'/config/packages/*.yaml', 'glob');
+
+        foreach ($this->extraConfigs as $name => $config) {
+            $container->prependExtensionConfig($name, $config);
+        }
     }
 
     public function getCacheDir(): string

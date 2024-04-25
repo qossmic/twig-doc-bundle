@@ -43,6 +43,7 @@ class ConfigurationTest extends TestCase
             ],
             [
                 'doc_identifier' => 'TWIG_DOC',
+                'use_fake_parameter' => false,
                 'breakpoints' => [
                     'small' => 240,
                     'medium' => 640,
@@ -107,6 +108,7 @@ class ConfigurationTest extends TestCase
             ],
             [
                 'doc_identifier' => 'TWIG_DOC',
+                'use_fake_parameter' => false,
                 'breakpoints' => [
                     'small' => 240,
                     'medium' => 640,
@@ -167,6 +169,7 @@ class ConfigurationTest extends TestCase
                     'generic' => 896,
                 ],
                 'doc_identifier' => 'TWIG_DOC',
+                'use_fake_parameter' => false,
                 'directories' => [
                     '%twig.default_path%/components',
                 ],
