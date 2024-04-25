@@ -149,7 +149,7 @@ readonly class ComponentItemFactory
             if (\is_array($type)) {
                 $paramValue[$name] = $this->createVariationParameters($type, $variation[$name] ?? []);
             } else {
-                if (array_key_exists($name, $variation) && is_null($variation[$name])) {
+                if (\array_key_exists($name, $variation) && null === $variation[$name]) {
                     $paramValue = [$name => null];
                 } else {
                     $paramValue = $this->faker->getFakeData([$name => $type], $variation[$name] ?? null);

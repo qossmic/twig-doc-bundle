@@ -140,7 +140,7 @@ class ComponentItemFactoryTest extends KernelTestCase
         self::assertIsFloat($component->getVariations()['default']['complex']['amount']);
     }
 
-    public function testCreateObjectParameter()
+    public function testCreateObjectParameter(): void
     {
         $data = [
             'name' => 'component',
@@ -156,11 +156,11 @@ class ComponentItemFactoryTest extends KernelTestCase
                 'variation1' => [
                     'car' => [
                         'color' => 'blue',
-                    ]
+                    ],
                 ],
                 'variation2' => [
                     'car' => null,
-                ]
+                ],
             ],
         ];
 
