@@ -1,16 +1,18 @@
-<form action="{{ path('twig_doc_home') }}" method="get" name="twig_doc_search_form">
-    <label for="twig_doc_search_form_filterQuery">Search</label>
-    <input name="filterQuery" id="twig_doc_search_form_filterQuery" value="{{ filterQuery }}" autocomplete="off"/>
-    <label for="twig_doc_search_form_filterType">What</label>
-    <select name="filterType" id="twig_doc_search_form_filterType">
-        <option {{ filterType ? null : 'selected' }} value="">Everything</option>
-        <option {{ filterType == 'category' ? 'selected' : null }} value="category">Category</option>
-        <option {{ filterType == 'name' ? 'selected=selected' : null }} value="name">Component Name</option>
-        <option {{ filterType == 'tags' ? 'selected' : null }} value="tags">Tags</option>
-        <option {{ filterType == 'sub_category' ? 'selected' : null }} value="sub_category">Sub-Category</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Search</button>
-    {% if filterQuery %}
-        <a href="{{ path('twig_doc_home') }}">Show all</a>
-    {% endif %}
-</form>
+<div class="twig-doc-search-container">
+    <form action="{{ path('twig_doc_home') }}" method="get" name="twig_doc_search_form">
+        <label for="twig_doc_search_form_filterQuery">Search</label>
+        <input name="filterQuery" id="twig_doc_search_form_filterQuery" value="{{ filterQuery }}" autocomplete="off"/>
+        <label for="twig_doc_search_form_filterType">What</label>
+        <select name="filterType" id="twig_doc_search_form_filterType">
+            <option {{ filterType ? null : 'selected' }} value="">Everything</option>
+            <option {{ filterType == 'category' ? 'selected' : null }} value="category">Category</option>
+            <option {{ filterType == 'name' ? 'selected=selected' : null }} value="name">Component Name</option>
+            <option {{ filterType == 'tags' ? 'selected' : null }} value="tags">Tags</option>
+            <option {{ filterType == 'sub_category' ? 'selected' : null }} value="sub_category">Sub-Category</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+        {% if filterQuery %}
+            <a href="{{ path('twig_doc_home') }}">Show all</a>
+        {% endif %}
+    </form>
+</div>

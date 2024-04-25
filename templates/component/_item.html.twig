@@ -1,74 +1,79 @@
 <div class="twig-doc-component">
-    <div class="twig-doc-component-description">
-        <h3>{{ component.title }} ({{ component.projectPath ?? (component.name ~ '.html.twig') }})</h3>
-        <div class="twig-doc-component-configuration">
-            <div>
-                <h4>Description</h4>
-                <p>{{ component.description }}</p>
-            </div>
-            <div>
-                <h4>Parameters</h4>
-                <ul>
-                    {% for key, type in component.parameters %}
-                        <li>
-                            <b>{{ key }}:</b>
-                            {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: type} %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div>
-                <h4>Category</h4>
-                <p>
-                    <a href="{{ path('twig_doc_home', {'filterQuery': component.mainCategory.name, 'filterType': 'category'}) }}">{{ component.mainCategory.name }}</a>
-                </p>
-            </div>
-            <div>
-                <h4>Sub-Category</h4>
-                {% if component.category.parent %}
-                    <p>
-                        <a href="{{ path('twig_doc_home', {'filterQuery': component.category.name, 'filterType': 'sub_category' }) }}">
-                            {{ component.category.name }}
-                        </a>
-                    </p>
-                {% else %}
-                    <p>NONE</p>
-                {% endif %}
-            </div>
-            <div>
-                <h4>Tags</h4>
-                {% for tag in component.tags %}
-                    <p>
-                        <a href="{{ path('twig_doc_home', {'filterQuery': tag, 'filterType': 'tag'}) }}">{{ tag }}</a>
-                    </p>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="twig-doc-component-examples">
-            <h4>Previews</h4>
-            <div class="twig-doc-variation">
-                {% for name, variation in component.variations %}
-                    <h5{% if loop.first %} class="active"{% endif %} data-variation="{{ name }}">{{ name }}</h5>
-                {% endfor %}
-                {% for name, variation in component.variations %}
-                    <div class="twig-doc-variation-body{% if loop.first %} active{% endif %}" data-variation="{{ name }}">
-                        <div class="twig-doc-viewport-width-display">Viewport size: <span class="twig-doc-viewport-width-value"></span>px</div>
-                        <div class="twig-doc-viewport-container">
-                            {% include '@TwigDoc/component/_viewport.html.twig' with {component: component, componentData: variation ?? []} %}
-                        </div>
-                        <div class="twig-doc-variation-description">
-                            <ul>
-                                {% for name, value in variation %}
-                                    <li>
-                                        <b>{{ name }}:</b>
-                                        {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+	<div class="twig-doc-component-description">
+		<h3>{{ component.title }}
+			({{ component.projectPath ?? (component.name ~ '.html.twig') }})</h3>
+		<div class="twig-doc-component-configuration">
+			<div>
+				<h4>Description</h4>
+				<p>{{ component.description }}</p>
+			</div>
+			<div>
+				<h4>Parameters</h4>
+				<ul>
+					{% for key, type in component.parameters %}
+						<li>
+							<b>{{ key }}:</b>
+							{% include '@TwigDoc/component/_parameter.html.twig' with {parameter: type} %}
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div>
+				<h4>Category</h4>
+				<p>
+					<a href="{{ path('twig_doc_home', {'filterQuery': component.mainCategory.name, 'filterType': 'category'}) }}">{{ component.mainCategory.name }}</a>
+				</p>
+			</div>
+			<div>
+				<h4>Sub-Category</h4>
+				{% if component.category.parent %}
+					<p>
+						<a href="{{ path('twig_doc_home', {'filterQuery': component.category.name, 'filterType': 'sub_category' }) }}">
+							{{ component.category.name }}
+						</a>
+					</p>
+				{% else %}
+					<p>NONE</p>
+				{% endif %}
+			</div>
+			<div>
+				<h4>Tags</h4>
+				{% for tag in component.tags %}
+					<p>
+						<a href="{{ path('twig_doc_home', {'filterQuery': tag, 'filterType': 'tag'}) }}">{{ tag }}</a>
+					</p>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="twig-doc-component-examples">
+			<h4>Previews</h4>
+			<div class="twig-doc-variations">
+				{% for name, variation in component.variations %}
+					<div class="twig-doc-variation">
+						<h5 class="active" data-variation="{{ name }}">{{ component.title }}-Variation:
+							{{ name }}</h5>
+						{# {% endfor %}
+						                {% for name, variation in component.variations %} #}
+						<div class="twig-doc-variation-body active" data-variation="{{ name }}">
+							<div class="twig-doc-viewport-width-display">Viewport size:
+								<span class="twig-doc-viewport-width-value"></span>px</div>
+							<div class="twig-doc-viewport-container">
+								{% include '@TwigDoc/component/_viewport.html.twig' with {component: component, componentData: variation ?? []} %}
+							</div>
+							<div class="twig-doc-variation-description">
+								<ul>
+									{% for name, value in variation %}
+										<li>
+											<b>{{ name }}:</b>
+											{% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 </div>

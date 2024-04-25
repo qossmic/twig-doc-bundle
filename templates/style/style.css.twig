@@ -1,6 +1,12 @@
-#twig-doc-container {
-    margin-top: 60px;
+body {
+    padding: 0;
+    margin: 0;
 }
+
+#twig-doc-container {
+    margin-top: 27px;
+}
+
 #twig-doc-container .breakpoints {
     position: fixed;
     left: 0;
@@ -26,7 +32,7 @@
     flex-grow: 1;
 }
 
-.twig-doc-navigation {
+#twig-doc-container .navigation {
     position: fixed;
     left: 0;
     top: 0;
@@ -37,31 +43,28 @@
     z-index: 100;
 }
 
-.twig-doc-navigation ul {
+#twig-doc-container .navigation ul {
     display: flex;
     position: relative;
     flex-direction: row;
-{# margin-bottom: 25px; #}
 }
 
-.twig-doc-navigation ul ul {
+#twig-doc-container .navigation ul ul {
     display: none;
     position: absolute;
 }
 
-.twig-doc-navigation li {
+#twig-doc-container .navigation li {
     list-style: none;
 }
 
-.twig-doc-navigation li a {
+#twig-doc-container .navigation li a {
     padding: 5px 15px;
 }
 
-
-.twig-doc-navigation li:hover ul {
+#twig-doc-container .navigation li:hover ul {
     display: flex;
 }
-
 
 #twig-doc-container .twig-doc-component {
     background-color: #efefef;
@@ -69,34 +72,40 @@
     padding: 20px 0;
     border-radius: 20px;
 }
-#twig-doc-container .twig-doc-component-description {
-    padding: 20px;
-}
 
 #twig-doc-container .twig-doc-component-description h3 {
     text-transform: none;
+    padding: 0 20px;
+    margin: 0;
 }
+
 #twig-doc-container .twig-doc-component-description p,
 #twig-doc-container .twig-doc-variation-description p {
     line-height: 1.2em;
     margin: 5px 0 0 0;
 }
+
 #twig-doc-container .twig-doc-component-description h4 {
     margin-top: 15px;
+    margin-bottom: 0px;
 }
 
 #twig-doc-container .twig-doc-component-description h4:first-child {
     margin-top: 0;
 }
 
+#twig-doc-container .twig-doc-component-description ul {
+    padding-top: 0;
+    margin-top: 0;
+    margin-left: 0;
+    padding-left: 15px;
+}
+
 #twig-doc-container .twig-doc-component-configuration {
     display: flex;
     flex-direction: row;
-    padding-top: 20px;
+    padding: 20px 20px 0 20px;
     gap: 50px;
-}
-#twig-doc-container .twig-doc-component-configuration div {
-{# padding: 20px; #}
 }
 
 #twig-doc-container .twig-doc-component-variation {
@@ -113,24 +122,15 @@
     margin-bottom: 20px;
 }
 
-#twig-doc-container .twig-doc-variation .twig-doc-variation-description {
+#twig-doc-container .twig-doc-variation .twig-doc-variation-description,
+#twig-doc-container .twig-doc-variation .twig-doc-viewport-width-display {
     padding-left: 20px;
-}
-
-.twig-doc-body {
-    padding: 15px;
 }
 
 .twig-doc-variation h5 {
     margin: 0;
     padding: 10px 20px;
     display: inline-block;
-}
-
-.twig-doc-variation h5:hover, .twig-doc-variation h5.active {
-    background-color: #000000;
-    color: #ffffff;
-    cursor: pointer;
 }
 
 .twig-doc-variation-body {
@@ -146,27 +146,71 @@
     flex-direction: column;
     flex-grow: 1;
     border: none;
-    padding: 10px;
     position: relative;
     overflow-x: scroll;
 }
+
 .twig-doc-viewport {
     padding: 0;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    min-width: 240px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     white-space: nowrap;
     text-align: center;
     position: relative;
     resize: horizontal;
     overflow-x: auto;
-    outline: 1px solid #000000;
 }
 
 .twig-doc-iframe {
     width: 100%;
     flex-grow: 1;
     border: 0;
+    background: white;
+    margin: 10px 0;
+}
+
+.twig-doc-navigation {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white;
+    text-align: center;
+    border-bottom: 1px darkgray solid;
+    z-index: 100;
+}
+
+.twig-doc-navigation ul {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.twig-doc-navigation ul ul {
+    display: none;
+    position: absolute;
+    border: 1px darkgray solid;
+    border-top: none;
+    background: white;
+
+}
+
+.twig-doc-navigation li {
+    list-style: none;
+}
+
+.twig-doc-navigation li a {
+    display: inline-block;
+    padding: 5px 15px;
+}
+
+.twig-doc-navigation li:hover ul {
+    display: flex;
+}
+
+.twig-doc-search-container {
+    padding: 20px 0 20px 15px;
 }
