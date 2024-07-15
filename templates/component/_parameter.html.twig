@@ -1,5 +1,5 @@
 {% if parameter is iterable %}
-    <ul class="twig-doc-params">
+    <ul>
     {% for key, value in parameter %}
         <li><b>{{ key }}:</b> {% include '@TwigDoc/component/_parameter.html.twig' with {parameter: value} %}</li>
     {% endfor %}
