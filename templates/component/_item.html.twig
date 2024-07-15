@@ -61,7 +61,7 @@
 								{% include '@TwigDoc/component/_viewport.html.twig' with {component: component, componentData: variation ?? []} %}
 							</div>
 							<div class="twig-doc-variation-description">
-								<ul>
+								<ul class="twig-doc-params">
 									{% for name, value in variation %}
 										<li>
 											<b>{{ name }}:</b>
