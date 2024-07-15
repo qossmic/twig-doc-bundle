@@ -8,19 +8,6 @@
     {% block javascripts %}
         <script type="application/javascript">
             window.addEventListener('load', () => {
-                document.querySelectorAll('.twig-doc-variation h5').forEach(
-                    function (element) {
-                        element.addEventListener('click', function () {
-                            let variation = element.getAttribute('data-variation');
-                            element.parentNode.querySelectorAll('.twig-doc-variation-body, h5').forEach(
-                                function (e) {
-                                    e.classList.remove('active');
-                                });
-                            element.classList.add('active');
-                            element.parentNode.querySelector(`.twig-doc-variation-body[data-variation="${variation}"]`).classList.add('active');
-                        })
-                    }
-                )
                 const observer = new ResizeObserver((entries) => {
                     for (const entry of entries) {
                         entry.target.closest('.twig-doc-variation-body').querySelector('.twig-doc-viewport-width-value').innerText = entry.contentRect.width;

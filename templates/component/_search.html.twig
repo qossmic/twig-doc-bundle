@@ -6,9 +6,9 @@
         <select name="filterType" id="twig_doc_search_form_filterType">
             <option {{ filterType ? null : 'selected' }} value="">Everything</option>
             <option {{ filterType == 'category' ? 'selected' : null }} value="category">Category</option>
-            <option {{ filterType == 'name' ? 'selected=selected' : null }} value="name">Component Name</option>
+            <option {{ filterType == 'name' ? 'selected' : null }} value="name">Component Name</option>
             <option {{ filterType == 'tags' ? 'selected' : null }} value="tags">Tags</option>
-            <option {{ filterType == 'sub_category' ? 'selected' : null }} value="sub_category">Sub-Category</option>
+            <option {{ filterType == 'subCategory' ? 'selected' : null }} value="sub_category">Sub-Category</option>
         </select>
         <button type="submit" class="btn btn-primary">Search</button>
         {% if filterQuery %}
