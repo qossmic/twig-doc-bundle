@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\TestApp\Component\Data\Generator;
+namespace OpenSC\TwigDocBundle\Tests\TestApp\Component\Data\Generator;
 
-use Qossmic\TwigDocBundle\Component\Data\GeneratorInterface;
-use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Special;
+use OpenSC\TwigDocBundle\Component\Data\GeneratorInterface;
+use OpenSC\TwigDocBundle\Tests\TestApp\Entity\Special;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag('twig_doc.data_generator', ['priority' => 10])]

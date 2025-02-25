@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\Configuration;
+namespace OpenSC\TwigDocBundle\Tests\Unit\Configuration;
 
+use OpenSC\TwigDocBundle\Configuration\YamlParser;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\Configuration\YamlParser;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 #[CoversClass(YamlParser::class)]

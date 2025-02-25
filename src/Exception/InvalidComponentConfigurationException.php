@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Exception;
+namespace OpenSC\TwigDocBundle\Exception;
 
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 

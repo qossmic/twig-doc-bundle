@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Component;
+namespace OpenSC\TwigDocBundle\Component;
 
 /**
  * @method ComponentItem[] getArrayCopy()

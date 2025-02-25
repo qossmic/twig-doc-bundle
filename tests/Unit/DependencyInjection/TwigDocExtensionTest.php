@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\DependencyInjection;
+namespace OpenSC\TwigDocBundle\Tests\Unit\DependencyInjection;
 
+use OpenSC\TwigDocBundle\Component\ComponentCategory;
+use OpenSC\TwigDocBundle\DependencyInjection\Configuration;
+use OpenSC\TwigDocBundle\DependencyInjection\TwigDocExtension;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\Component\ComponentCategory;
-use Qossmic\TwigDocBundle\DependencyInjection\Configuration;
-use Qossmic\TwigDocBundle\DependencyInjection\TwigDocExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 #[CoversClass(TwigDocExtension::class)]

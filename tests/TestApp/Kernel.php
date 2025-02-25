@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\TestApp;
+namespace OpenSC\TwigDocBundle\Tests\TestApp;
 
-use Qossmic\TwigDocBundle\TwigDocBundle;
+use OpenSC\TwigDocBundle\TwigDocBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Bundle\TwigBundle\TwigBundle;
@@ -50,12 +50,12 @@ class Kernel extends SymfonyKernel
 
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir().'/qossmic-twig-doc-bundle/cache';
+        return sys_get_temp_dir().'/opensc-twig-doc-bundle/cache';
     }
 
     public function getLogDir(): string
     {
-        return sys_get_temp_dir().'/qossmic-twig-doc-bundle/log';
+        return sys_get_temp_dir().'/opensc-twig-doc-bundle/log';
     }
 
     public function getProjectDir(): string

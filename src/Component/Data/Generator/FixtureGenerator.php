@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Component\Data\Generator;
+namespace OpenSC\TwigDocBundle\Component\Data\Generator;
 
 use Nelmio\Alice\Loader\NativeLoader;
-use Qossmic\TwigDocBundle\Component\Data\FixtureData;
-use Qossmic\TwigDocBundle\Component\Data\GeneratorInterface;
+use OpenSC\TwigDocBundle\Component\Data\FixtureData;
+use OpenSC\TwigDocBundle\Component\Data\GeneratorInterface;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\Type;

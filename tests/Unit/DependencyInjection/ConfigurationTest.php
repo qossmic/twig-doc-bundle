@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\DependencyInjection;
+namespace OpenSC\TwigDocBundle\Tests\Unit\DependencyInjection;
 
+use OpenSC\TwigDocBundle\DependencyInjection\Configuration;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Processor;
 
 #[CoversClass(Configuration::class)]

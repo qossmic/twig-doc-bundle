@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\Component;
+namespace OpenSC\TwigDocBundle\Tests\Unit\Component;
 
+use OpenSC\TwigDocBundle\Component\ComponentCategory;
+use OpenSC\TwigDocBundle\Component\ComponentItem;
+use OpenSC\TwigDocBundle\Component\ComponentItemList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\Component\ComponentCategory;
-use Qossmic\TwigDocBundle\Component\ComponentItem;
-use Qossmic\TwigDocBundle\Component\ComponentItemList;
 
 #[CoversClass(ComponentItemList::class)]
 class ComponentItemListTest extends TestCase

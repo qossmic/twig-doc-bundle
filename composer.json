@@ -1,17 +1,17 @@
 {
   "license": "MIT",
   "type": "symfony-bundle",
-  "name": "qossmic/twig-doc-bundle",
+  "name": "opensc/twig-doc-bundle",
   "description": "Storybook with twig components",
   "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
-      "Qossmic\\TwigDocBundle\\": "src/"
+      "OpenSC\\TwigDocBundle\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Qossmic\\TwigDocBundle\\Tests\\": "tests/"
+      "OpenSC\\TwigDocBundle\\Tests\\": "tests/"
     }
   },
   "require": {

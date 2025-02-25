@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\Component\Data;
+namespace OpenSC\TwigDocBundle\Tests\Unit\Component\Data;
 
+use OpenSC\TwigDocBundle\Component\Data\Faker;
+use OpenSC\TwigDocBundle\Component\Data\FixtureData;
+use OpenSC\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
+use OpenSC\TwigDocBundle\Component\Data\Generator\NullGenerator;
+use OpenSC\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
+use OpenSC\TwigDocBundle\Tests\TestApp\Entity\Car;
+use OpenSC\TwigDocBundle\Tests\TestApp\Entity\Manufacturer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\Component\Data\Faker;
-use Qossmic\TwigDocBundle\Component\Data\FixtureData;
-use Qossmic\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
-use Qossmic\TwigDocBundle\Component\Data\Generator\NullGenerator;
-use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
-use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Car;
-use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Manufacturer;
 
 #[CoversClass(Faker::class)]
 #[UsesClass(FixtureData::class)]

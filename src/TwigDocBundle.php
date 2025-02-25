@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle;
+namespace OpenSC\TwigDocBundle;
 
-use Qossmic\TwigDocBundle\Configuration\YamlParser;
-use Qossmic\TwigDocBundle\DependencyInjection\Compiler\TwigDocCollectDocsPass;
+use OpenSC\TwigDocBundle\Configuration\YamlParser;
+use OpenSC\TwigDocBundle\DependencyInjection\Compiler\TwigDocCollectDocsPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

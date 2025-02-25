@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Twig;
+namespace OpenSC\TwigDocBundle\Twig;
 
-use Qossmic\TwigDocBundle\Component\ComponentCategory;
-use Qossmic\TwigDocBundle\Component\ComponentInvalid;
-use Qossmic\TwigDocBundle\Component\ComponentItem;
-use Qossmic\TwigDocBundle\Component\ComponentItemList;
-use Qossmic\TwigDocBundle\Service\CategoryService;
-use Qossmic\TwigDocBundle\Service\ComponentService;
+use OpenSC\TwigDocBundle\Component\ComponentCategory;
+use OpenSC\TwigDocBundle\Component\ComponentInvalid;
+use OpenSC\TwigDocBundle\Component\ComponentItem;
+use OpenSC\TwigDocBundle\Component\ComponentItemList;
+use OpenSC\TwigDocBundle\Service\CategoryService;
+use OpenSC\TwigDocBundle\Service\ComponentService;
 use Symfony\UX\TwigComponent\ComponentRendererInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;

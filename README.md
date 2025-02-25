@@ -1,7 +1,5 @@
 ## Twig Doc Bundle
 
-[![Image](docs/resources/images/qossmic.png)](https://qossmic.com) Brought to you by qossmic! 
-
 1. [Ye be warned!](#experimental-package)
 2. [Installation](#installation)
 3. Configuration
@@ -36,7 +34,7 @@ As long as the bundle is not publicly released, you need to add a repository to 
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/qossmic/twig-doc-bundle.git"
+      "url": "https://github.com/opensoftwareconsulting/twig-doc-bundle.git"
     }
   ]
 }
@@ -44,7 +42,7 @@ As long as the bundle is not publicly released, you need to add a repository to 
 
 Install the bundle
 
-`composer req qossmic/twig-doc-bundle`
+`composer req opensc/twig-doc-bundle`
 
 ### Routing
 

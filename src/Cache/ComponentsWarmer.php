@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Cache;
+namespace OpenSC\TwigDocBundle\Cache;
 
+use OpenSC\TwigDocBundle\Service\ComponentService;
 use Psr\Cache\InvalidArgumentException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 
 readonly class ComponentsWarmer implements CacheWarmerInterface

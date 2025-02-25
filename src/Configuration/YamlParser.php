@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Configuration;
+namespace OpenSC\TwigDocBundle\Configuration;
 
 use Symfony\Component\Yaml\Yaml;
 

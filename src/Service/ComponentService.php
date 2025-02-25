@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Service;
+namespace OpenSC\TwigDocBundle\Service;
 
+use OpenSC\TwigDocBundle\Component\ComponentInvalid;
+use OpenSC\TwigDocBundle\Component\ComponentItem;
+use OpenSC\TwigDocBundle\Component\ComponentItemFactory;
+use OpenSC\TwigDocBundle\Component\ComponentItemList;
+use OpenSC\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Psr\Cache\InvalidArgumentException;
-use Qossmic\TwigDocBundle\Component\ComponentInvalid;
-use Qossmic\TwigDocBundle\Component\ComponentItem;
-use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
-use Qossmic\TwigDocBundle\Component\ComponentItemList;
-use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
 use Symfony\Contracts\Cache\CacheInterface;
 
 readonly class ComponentService

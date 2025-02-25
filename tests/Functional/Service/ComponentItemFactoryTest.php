@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Functional\Service;
+namespace OpenSC\TwigDocBundle\Tests\Functional\Service;
 
+use OpenSC\TwigDocBundle\Component\ComponentCategory;
+use OpenSC\TwigDocBundle\Component\ComponentItem;
+use OpenSC\TwigDocBundle\Component\ComponentItemFactory;
+use OpenSC\TwigDocBundle\Component\Data\Faker;
+use OpenSC\TwigDocBundle\Component\Data\FixtureData;
+use OpenSC\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
+use OpenSC\TwigDocBundle\Component\Data\Generator\NullGenerator;
+use OpenSC\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
+use OpenSC\TwigDocBundle\Exception\InvalidComponentConfigurationException;
+use OpenSC\TwigDocBundle\Service\CategoryService;
+use OpenSC\TwigDocBundle\Tests\TestApp\Entity\Car;
+use OpenSC\TwigDocBundle\Tests\TestApp\Test\ConfigurableContainerTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
-use Qossmic\TwigDocBundle\Component\ComponentCategory;
-use Qossmic\TwigDocBundle\Component\ComponentItem;
-use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
-use Qossmic\TwigDocBundle\Component\Data\Faker;
-use Qossmic\TwigDocBundle\Component\Data\FixtureData;
-use Qossmic\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
-use Qossmic\TwigDocBundle\Component\Data\Generator\NullGenerator;
-use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
-use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
-use Qossmic\TwigDocBundle\Service\CategoryService;
-use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Car;
-use Qossmic\TwigDocBundle\Tests\TestApp\Test\ConfigurableContainerTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 #[CoversClass(ComponentItemFactory::class)]

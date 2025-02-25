@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\TestApp\Test;
+namespace OpenSC\TwigDocBundle\Tests\TestApp\Test;
 
-use Qossmic\TwigDocBundle\Tests\TestApp\Kernel;
+use OpenSC\TwigDocBundle\Tests\TestApp\Kernel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
