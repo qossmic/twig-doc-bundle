@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\DependencyInjection\Compiler;
+namespace OpenSC\TwigDocBundle\DependencyInjection\Compiler;
 
-use Qossmic\TwigDocBundle\Component\ComponentCategory;
-use Qossmic\TwigDocBundle\Configuration\ParserInterface;
-use Qossmic\TwigDocBundle\Exception\InvalidConfigException;
+use OpenSC\TwigDocBundle\Component\ComponentCategory;
+use OpenSC\TwigDocBundle\Configuration\ParserInterface;
+use OpenSC\TwigDocBundle\Exception\InvalidConfigException;
 use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

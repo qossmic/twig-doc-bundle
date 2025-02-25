@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Component\Data;
+namespace OpenSC\TwigDocBundle\Component\Data;
 
 /**
  * Creates fake data to be used in variation display for components.

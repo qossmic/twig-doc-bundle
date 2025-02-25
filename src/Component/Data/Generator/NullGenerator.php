@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Component\Data\Generator;
+namespace OpenSC\TwigDocBundle\Component\Data\Generator;
 
-use Qossmic\TwigDocBundle\Component\Data\GeneratorInterface;
+use OpenSC\TwigDocBundle\Component\Data\GeneratorInterface;
 
 class NullGenerator implements GeneratorInterface
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Configuration;
+namespace OpenSC\TwigDocBundle\Configuration;
 
 interface ParserInterface
 {

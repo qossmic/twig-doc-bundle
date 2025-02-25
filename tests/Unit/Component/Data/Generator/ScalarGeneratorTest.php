@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\Component\Data\Generator;
+namespace OpenSC\TwigDocBundle\Tests\Unit\Component\Data\Generator;
 
+use OpenSC\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
+use OpenSC\TwigDocBundle\Tests\TestApp\Entity\Car;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
-use Qossmic\TwigDocBundle\Tests\TestApp\Entity\Car;
 use Symfony\Component\PropertyInfo\Type;
 
 #[CoversClass(ScalarGenerator::class)]

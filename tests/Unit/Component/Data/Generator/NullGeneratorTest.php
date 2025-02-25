@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\Component\Data\Generator;
+namespace OpenSC\TwigDocBundle\Tests\Unit\Component\Data\Generator;
 
+use OpenSC\TwigDocBundle\Component\Data\Generator\NullGenerator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\Component\Data\Generator\NullGenerator;
 
 #[CoversClass(NullGenerator::class)]
 class NullGeneratorTest extends TestCase

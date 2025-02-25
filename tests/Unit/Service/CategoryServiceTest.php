@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\Service;
+namespace OpenSC\TwigDocBundle\Tests\Unit\Service;
 
+use OpenSC\TwigDocBundle\Component\ComponentCategory;
+use OpenSC\TwigDocBundle\Exception\InvalidConfigException;
+use OpenSC\TwigDocBundle\Service\CategoryService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\Component\ComponentCategory;
-use Qossmic\TwigDocBundle\Exception\InvalidConfigException;
-use Qossmic\TwigDocBundle\Service\CategoryService;
 
 #[CoversClass(CategoryService::class)]
 #[UsesClass(ComponentCategory::class)]

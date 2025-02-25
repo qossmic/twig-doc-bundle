@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\Component;
+namespace OpenSC\TwigDocBundle\Tests\Unit\Component;
 
+use OpenSC\TwigDocBundle\Component\ComponentCategory;
+use OpenSC\TwigDocBundle\Component\ComponentItem;
+use OpenSC\TwigDocBundle\Component\ComponentItemFactory;
+use OpenSC\TwigDocBundle\Component\Data\Faker;
+use OpenSC\TwigDocBundle\Exception\InvalidComponentConfigurationException;
+use OpenSC\TwigDocBundle\Service\CategoryService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\Component\ComponentCategory;
-use Qossmic\TwigDocBundle\Component\ComponentItem;
-use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
-use Qossmic\TwigDocBundle\Component\Data\Faker;
-use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
-use Qossmic\TwigDocBundle\Service\CategoryService;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

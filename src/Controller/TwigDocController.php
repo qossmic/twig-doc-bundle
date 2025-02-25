@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Controller;
+namespace OpenSC\TwigDocBundle\Controller;
 
-use Qossmic\TwigDocBundle\Service\ComponentService;
+use OpenSC\TwigDocBundle\Service\ComponentService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

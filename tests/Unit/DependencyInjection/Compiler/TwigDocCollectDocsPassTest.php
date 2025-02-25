@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Unit\DependencyInjection\Compiler;
+namespace OpenSC\TwigDocBundle\Tests\Unit\DependencyInjection\Compiler;
 
+use OpenSC\TwigDocBundle\Configuration\YamlParser;
+use OpenSC\TwigDocBundle\DependencyInjection\Compiler\TwigDocCollectDocsPass;
+use OpenSC\TwigDocBundle\DependencyInjection\TwigDocExtension;
+use OpenSC\TwigDocBundle\Exception\InvalidConfigException;
+use OpenSC\TwigDocBundle\Service\ComponentService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Qossmic\TwigDocBundle\Configuration\YamlParser;
-use Qossmic\TwigDocBundle\DependencyInjection\Compiler\TwigDocCollectDocsPass;
-use Qossmic\TwigDocBundle\DependencyInjection\TwigDocExtension;
-use Qossmic\TwigDocBundle\Exception\InvalidConfigException;
-use Qossmic\TwigDocBundle\Service\ComponentService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 

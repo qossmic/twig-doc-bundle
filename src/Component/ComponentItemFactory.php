@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Component;
+namespace OpenSC\TwigDocBundle\Component;
 
-use Qossmic\TwigDocBundle\Component\Data\Faker;
-use Qossmic\TwigDocBundle\Exception\InvalidComponentConfigurationException;
-use Qossmic\TwigDocBundle\Service\CategoryService;
+use OpenSC\TwigDocBundle\Component\Data\Faker;
+use OpenSC\TwigDocBundle\Exception\InvalidComponentConfigurationException;
+use OpenSC\TwigDocBundle\Service\CategoryService;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

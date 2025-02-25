@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\DependencyInjection;
+namespace OpenSC\TwigDocBundle\DependencyInjection;
 
-use Qossmic\TwigDocBundle\Component\ComponentCategory;
+use OpenSC\TwigDocBundle\Component\ComponentCategory;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Qossmic\TwigDocBundle\Cache\ComponentsWarmer;
-use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
-use Qossmic\TwigDocBundle\Component\Data\Faker;
-use Qossmic\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
-use Qossmic\TwigDocBundle\Component\Data\Generator\NullGenerator;
-use Qossmic\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
-use Qossmic\TwigDocBundle\Controller\TwigDocController;
-use Qossmic\TwigDocBundle\Service\CategoryService;
-use Qossmic\TwigDocBundle\Service\ComponentService;
-use Qossmic\TwigDocBundle\Twig\TwigDocExtension;
+use OpenSC\TwigDocBundle\Cache\ComponentsWarmer;
+use OpenSC\TwigDocBundle\Component\ComponentItemFactory;
+use OpenSC\TwigDocBundle\Component\Data\Faker;
+use OpenSC\TwigDocBundle\Component\Data\Generator\FixtureGenerator;
+use OpenSC\TwigDocBundle\Component\Data\Generator\NullGenerator;
+use OpenSC\TwigDocBundle\Component\Data\Generator\ScalarGenerator;
+use OpenSC\TwigDocBundle\Controller\TwigDocController;
+use OpenSC\TwigDocBundle\Service\CategoryService;
+use OpenSC\TwigDocBundle\Service\ComponentService;
+use OpenSC\TwigDocBundle\Twig\TwigDocExtension;
 
 return static function (ContainerConfigurator $container): void {
     $container->services()

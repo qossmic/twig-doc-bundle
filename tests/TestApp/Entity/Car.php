@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\TestApp\Entity;
+namespace OpenSC\TwigDocBundle\Tests\TestApp\Entity;
 
 class Car
 {

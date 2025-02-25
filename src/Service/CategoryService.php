@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Service;
+namespace OpenSC\TwigDocBundle\Service;
 
-use Qossmic\TwigDocBundle\Component\ComponentCategory;
-use Qossmic\TwigDocBundle\Exception\InvalidConfigException;
+use OpenSC\TwigDocBundle\Component\ComponentCategory;
+use OpenSC\TwigDocBundle\Exception\InvalidConfigException;
 
 class CategoryService
 {

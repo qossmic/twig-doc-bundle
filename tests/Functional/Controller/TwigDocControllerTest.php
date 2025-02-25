@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\TwigDocBundle\Tests\Functional\Controller;
+namespace OpenSC\TwigDocBundle\Tests\Functional\Controller;
 
+use OpenSC\TwigDocBundle\Component\ComponentItemFactory;
+use OpenSC\TwigDocBundle\Component\ComponentItemList;
+use OpenSC\TwigDocBundle\Component\Data\Faker;
+use OpenSC\TwigDocBundle\Controller\TwigDocController;
+use OpenSC\TwigDocBundle\Service\CategoryService;
+use OpenSC\TwigDocBundle\Service\ComponentService;
+use OpenSC\TwigDocBundle\Twig\TwigDocExtension;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
-use Qossmic\TwigDocBundle\Component\ComponentItemFactory;
-use Qossmic\TwigDocBundle\Component\ComponentItemList;
-use Qossmic\TwigDocBundle\Component\Data\Faker;
-use Qossmic\TwigDocBundle\Controller\TwigDocController;
-use Qossmic\TwigDocBundle\Service\CategoryService;
-use Qossmic\TwigDocBundle\Service\ComponentService;
-use Qossmic\TwigDocBundle\Twig\TwigDocExtension;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;

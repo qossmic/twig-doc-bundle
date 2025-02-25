@@ -195,7 +195,7 @@ This bundle comes with 3 default data providers to create fake data for your com
 - NullGenerator
   - creates null values for any unknown type
 
-You can easily add your own data generator by creating an implementation of `Qossmic\TwigDocBundle\Component\Data\GeneratorInterface` 
+You can easily add your own data generator by creating an implementation of `OpenSC\TwigDocBundle\Component\Data\GeneratorInterface` 
 and tagging it with `twig_doc.data_generator`. The higher the priority, the earlier the generator will be used.
 This works by using the ["tagged_iterator" functionality](https://symfony.com/doc/current/service_container/tags.html#tagged-services-with-priority) of Symfony.
 ```php
